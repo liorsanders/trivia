@@ -8,13 +8,11 @@
 
 Server::Server()
 {
-	com = new Communicator;
-	m_communicator = *com;
+	m_communicator = Communicator();
 }
 
 Server::~Server()
 {
-	delete com;
 }
 
 void Server::run()
