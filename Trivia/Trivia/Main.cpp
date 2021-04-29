@@ -15,7 +15,7 @@ int main()
 
 		WSAInitializer wsa_init;
 		Server triv_server;
-		triv_server.serve();
+		triv_server.run();
 	}
 	catch (const std::exception& e) {
 		cout << "Exception was thrown in function: " << e.what() << endl;

@@ -1,7 +1,11 @@
 #pragma once
 
+#include "Helper.h"
 #include "IRequestHandler.h"
 #include <map>
+#include <iostream>
+#include <thread>
+#include <WinSock2.h>
 #include <Windows.h>
 
 class Communicator {
