@@ -23,17 +23,14 @@ private:
 	void bindAndListen();
 	void acceptClient();
 	void clientHandler(SOCKET client_socket);
-		
+
 	SOCKET _socket;
 	int serverPort;
+
 	std::string serverIp;
 
 	// Queue for all clients. This way we will know who's the current writer.
-	// SOCKET: client socket
-	// string: userName
 	std::deque<std::pair<SOCKET, std::string>> _clients;
 
-	std::mutex _mtxReceivedMessages;
-	std::condition_variable _msgQueueCondition;
 };
 

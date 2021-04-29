@@ -1,4 +1,4 @@
-#include "Server.h"
+#include "serve.h"
 #include <exception>
 #include <iostream>
 #include <string>
@@ -10,8 +10,8 @@ static const unsigned int IFACE = 0;
 
 Server::Server()
 {
-	// notice that we step out to the global namespace
-	// for the resolution of the function socket
+	 notice that we step out to the global namespace
+	 for the resolution of the function socket
 	_socket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (_socket == INVALID_SOCKET)
 		throw std::exception(__FUNCTION__ " - socket");
@@ -93,11 +93,10 @@ void Server::acceptClient()
 	if (client_socket == INVALID_SOCKET)
 		throw std::exception(__FUNCTION__);
 
-	std::cout << "Client accepted !" << std::endl; 
+	std::cout << "Client accepted !" << std::endl;
 
 	// create new thread for client	and detach from it
 	std::thread tr(&Server::clientHandler, this, client_socket);
 	tr.detach();
 
 }
-	
