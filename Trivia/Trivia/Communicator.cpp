@@ -18,14 +18,14 @@ void Communicator::acceptClients()
 {
 	while (true) {
 
-		std::cout << "accepting client..." << std::endl;
+		std::cout << "why there is no clients here:(\n" << std::endl;
 
 		SOCKET clientSocket = accept(m_serverSocket, NULL, NULL);
 		if (clientSocket == INVALID_SOCKET) {
 			throw std::exception(__FUNCTION__);
 		}
 
-		std::cout << "client accepted!" << std::endl;
+		std::cout << "omg! someone has arrived:)\n" << std::endl;
 
 		//will implement IRequestHandler in later versions
 		IRequestHandler requestManager;
@@ -52,11 +52,11 @@ void Communicator::bindAndListen()
 	{
 		throw std::exception(__FUNCTION__ " - bind");
 	}
-	std::cout << "binded" << std::endl;
+	std::cout << "binded successfully!" << std::endl;
 
 	if (::listen(m_serverSocket, SOMAXCONN) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - listen");
-	std::cout << "listening..." << std::endl;
+	std::cout << "I'm really good at listening, let's try it together:)\n" << std::endl;
 }
 
 void Communicator::handleNewClient(SOCKET socket)
@@ -72,7 +72,7 @@ void Communicator::handleNewClient(SOCKET socket)
 
 void Communicator::receiveMessage(std::string& msg, const SOCKET& socket)
 {
-	std::cout << "waiting for hello back from client..." << std::endl;
+	std::cout << "This client taking too long to answer my message:)\n" << std::endl;
 
 	char* data = new char[msg.size() + 1];
 	int res = recv(socket, data, msg.size(), 0);
@@ -83,14 +83,14 @@ void Communicator::receiveMessage(std::string& msg, const SOCKET& socket)
 	}
 
 	data[msg.size()] = 0;
-	std::cout << "msg back from client: " << data << std::endl;
+	std::cout << "The message has finally arrived! : " << data << std::endl;
 
 	delete[] data;
 }
 
 void Communicator::sendMessage(const SOCKET& socket, std::string& msg)
 {
-	std::cout << "sending Hello to client..." << std::endl;
+	std::cout << "sending Hello to client...\n" << std::endl;
 
 	if (send(socket, msg.c_str(), msg.size(), 0) == INVALID_SOCKET) {
 		throw std::exception("Error while sending message to client");

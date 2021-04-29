@@ -9,11 +9,11 @@
 int main()
 {
 	try {
-		std::cout << "starting server..." << std::endl;
+		std::cout << "Server is up, bitch!\n" << std::endl;
 
-		WSAInitializer wsa_init;
-		Server triv_server;
-		triv_server.run();
+		WSAInitializer wsaInit;
+		Server triviaServer;
+		triviaServer.run();
 	}
 	catch (const std::exception& e) {
 		std::cout << "Exception was thrown in function: " << e.what() << std::endl;
