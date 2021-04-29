@@ -6,13 +6,18 @@
 #include <fstream>
 
 
+Server::Server()
+{
+	com = new Communicator;
+	m_communicator = *com;
+}
+
+Server::~Server()
+{
+	delete com;
+}
 
 void Server::run()
 {
-	Communicator* com = new Communicator;
-	m_communicator = *com;
-
 	m_communicator.startHandleRequests();
-
-	delete com;
 }

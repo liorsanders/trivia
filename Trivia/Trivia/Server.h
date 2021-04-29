@@ -10,12 +10,13 @@
 class Server
 {
 public:
-
+	Server();
+	~Server();
 	void run();
 
 
 private:
-
+	Communicator* com;
 	Communicator m_communicator;
 };
 
