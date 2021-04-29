@@ -9,7 +9,7 @@
 int main()
 {
 	try {
-		std::cout << "Server is up, bitch!\n" << std::endl;
+		std::cout << "Server is up!\n" << std::endl;
 
 		WSAInitializer wsaInit;
 		Server triviaServer;

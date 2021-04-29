@@ -18,14 +18,14 @@ void Communicator::acceptClients()
 {
 	while (true) {
 
-		std::cout << "why there is no clients here:(\n" << std::endl;
+		std::cout << "is someone coming? I will wait here...\n" << std::endl;
 
 		SOCKET clientSocket = accept(m_serverSocket, NULL, NULL);
 		if (clientSocket == INVALID_SOCKET) {
 			throw std::exception(__FUNCTION__);
 		}
 
-		std::cout << "omg! someone has arrived:)\n" << std::endl;
+		std::cout << "someone has arrived:)\n" << std::endl;
 
 		//will implement IRequestHandler in later versions
 		IRequestHandler requestManager;
@@ -56,7 +56,7 @@ void Communicator::bindAndListen()
 
 	if (::listen(m_serverSocket, SOMAXCONN) == SOCKET_ERROR)
 		throw std::exception(__FUNCTION__ " - listen");
-	std::cout << "I'm really good at listening, let's try it together:)\n" << std::endl;
+	std::cout << "I'm really good at listening, so let's do it:)\n" << std::endl;
 }
 
 void Communicator::handleNewClient(SOCKET socket)
@@ -72,7 +72,7 @@ void Communicator::handleNewClient(SOCKET socket)
 
 void Communicator::receiveMessage(std::string& msg, const SOCKET& socket)
 {
-	std::cout << "This client taking too long to answer my message:)\n" << std::endl;
+	std::cout << "We should wait for the client :(" << std::endl;
 
 	char* data = new char[msg.size() + 1];
 	int res = recv(socket, data, msg.size(), 0);
@@ -83,7 +83,7 @@ void Communicator::receiveMessage(std::string& msg, const SOCKET& socket)
 	}
 
 	data[msg.size()] = 0;
-	std::cout << "The message has finally arrived! : " << data << std::endl;
+	std::cout << "The message has arrived! : " << data << "\n" << std::endl;
 
 	delete[] data;
 }
