@@ -27,6 +27,7 @@ void Communicator::startHandleRequests()
 		std::thread tr(&Communicator::handleNewClient, this, client_socket);
 		tr.detach();
 	}
+	closesocket(m_serverSocket);
 }
 
 void Communicator::bindAndListen()
@@ -75,4 +76,5 @@ void Communicator::handleNewClient(SOCKET sc)
 	std::cout << "msg back from client: " << data << std::endl;
 
 	delete[] data;
+	closesocket(sc);
 }
