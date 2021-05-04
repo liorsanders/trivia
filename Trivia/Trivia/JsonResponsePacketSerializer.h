@@ -8,34 +8,36 @@
 #include <algorithm>
 #include <string>
 
+using std::string;
+
 class JsonResponsePacketSerializer
 {
 public:
-	static std::vector<unsigned char> serializeResponse(ErrorResponse response);
+	static std::vector<unsigned char> serializeResponse(ErrorResponse& response);
 
-	static std::vector<unsigned char> serializeResponse(LoginResponse response);
+	static std::vector<unsigned char> serializeResponse(LoginResponse& response);
 
-	static std::vector<unsigned char> serializeResponse(SignupResponse response);
+	static std::vector<unsigned char> serializeResponse(SignupResponse& response);
 
 private:
-	template <typename Response>
+	template <typename Value>
 
-	static std::vector<unsigned char> serialize(Response response)
+	static std::vector<unsigned char> serialize(Value& jsonValue, const string& jsonKey) 
 	{
 		nlohmann::json data;
 
-		data["status"] = response.status;
+		data[jsonKey] = jsonValue;
 
-		std::string jsonString = data.dump();
+		string jsonString = data.dump();
 
-		std::string binaryString = stringToBinary(jsonString);
+		string binaryString = stringToBinary(jsonString);
 
 		return std::vector<unsigned char>(binaryString.begin(), binaryString.end());
 	}
 
-	static std::string stringToBinary(std::string& data);
+	static string stringToBinary(const string& data);
 
-	static std::string asciiToBytes(int letter);
+	static string asciiToBytes(int letter);
 
 };
 
