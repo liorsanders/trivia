@@ -18,28 +18,10 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Communicator.h" />
-    <ClInclude Include="Helper.h" />
-    <ClInclude Include="IRequestHandler.h" />
-    <ClInclude Include="LoginRequestHandler.h" />
-    <ClInclude Include="Server.h" />
-    <ClInclude Include="WSAInitializer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Communicator.cpp" />
-    <ClCompile Include="Helper.cpp" />
-    <ClCompile Include="Server.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="WSAInitializer.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="config.txt" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{c4c892b1-7187-4198-aa20-95dcd815a3b7}</ProjectGuid>
+    <ProjectGuid>{9666d77b-5854-4267-87b3-0d5f1351105e}</ProjectGuid>
     <RootNamespace>Trivia</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -156,6 +138,21 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="Communicator.h" />
+    <ClInclude Include="Helper.h" />
+    <ClInclude Include="IRequestHandler.h" />
+    <ClInclude Include="LoginRequestHandler.h" />
+    <ClInclude Include="Server.h" />
+    <ClInclude Include="WSAInitializer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Communicator.cpp" />
+    <ClCompile Include="Helper.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="WSAInitializer.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
