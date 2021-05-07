@@ -5,7 +5,6 @@
 #include "LoginResponse.h"
 #include "json.hpp"
 #include <iostream>
-#include <algorithm>
 #include <string>
 
 using std::string;
@@ -22,22 +21,20 @@ public:
 private:
 	template <typename Value>
 
-	static std::vector<unsigned char> serialize(Value& jsonValue, const string& jsonKey) 
+	static string dataToJson(Value& jsonValue, const string& jsonKey) 
 	{
 		nlohmann::json data;
 
 		data[jsonKey] = jsonValue;
 
-		string jsonString = data.dump();
-
-		string binaryString = stringToBinary(jsonString);
-
-		return std::vector<unsigned char>(binaryString.begin(), binaryString.end());
+		return data.dump();
 	}
 
 	static string stringToBinary(const string& data);
 
 	static string asciiToBytes(int letter);
 
+	static std::vector<unsigned char>
+		buildMessage(const std::string& data, const int& messageCode);
 };
 

@@ -4,5 +4,7 @@
 
 struct SignupResponse
 {
+	int code = SIGNUP_CODE;
+
 	unsigned int status;
 };

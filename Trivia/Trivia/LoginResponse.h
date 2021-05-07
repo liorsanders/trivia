@@ -4,5 +4,7 @@
 
 struct LoginResponse
 {
+	int code = LOGIN_CODE;
+
 	unsigned int status;
 };

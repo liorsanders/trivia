@@ -1,22 +1,26 @@
 #include "JsonResponsePacketSerializer.h"
+#include <bitset>
 
 
 std::vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
 {
-	return serialize<std::string>(response.message, "message");
+	return buildMessage(
+		dataToJson<string>(response.message, "message"), response.code);
 }
 
 std::vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(LoginResponse& response)
 {
-	return serialize<unsigned int>(response.status, "status");
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"), response.code);
 }
 
 std::vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(SignupResponse& response)
 {
-	return serialize<unsigned int>(response.status, "status");
+	return buildMessage( 
+		dataToJson<unsigned int>(response.status, "status"), response.code);
 }
 
 string JsonResponsePacketSerializer::stringToBinary(const string& data)
@@ -26,7 +30,7 @@ string JsonResponsePacketSerializer::stringToBinary(const string& data)
 
 	for (auto& i : data)
 	{
-		binaryData += asciiToBytes(int(i)) + " ";
+		binaryData += asciiToBytes(int(i));
 	}
 
 	return binaryData;
@@ -45,4 +49,21 @@ string JsonResponsePacketSerializer::asciiToBytes(int letter)
 	reverse(binaryString.begin(), binaryString.end());
 
 	return binaryString;
+}
+
+std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
+(const std::string& data, const int& messageCode)
+{
+	string binaryLength = 
+		std::bitset<32>(data.length()).to_string(); 
+
+	string binaryCode = 
+		std::bitset<8>(messageCode).to_string(); 
+	
+	string binaryData =
+		stringToBinary(data);
+
+	string fullMessage = binaryCode + binaryLength + binaryData;
+
+	return std::vector<unsigned char>(fullMessage.begin(), fullMessage.end());
 }
