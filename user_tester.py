@@ -39,6 +39,8 @@ def main():
             data[0:0] = LOGIN_CODE # insert message code
             sock.sendall(data)
             recieve_msg(sock)
+            print('finished tester!')
+            
             
     except Exception as e:
         print(f'error: {e}')
