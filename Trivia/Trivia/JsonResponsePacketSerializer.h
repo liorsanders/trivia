@@ -32,8 +32,6 @@ private:
 
 	static string stringToBinary(const string& data);
 
-	static string asciiToBytes(int letter);
-
 	static std::vector<unsigned char>
 		buildMessage(const std::string& data, const int& messageCode);
 };

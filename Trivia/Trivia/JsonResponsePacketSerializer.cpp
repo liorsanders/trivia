@@ -26,30 +26,16 @@ std::vector<unsigned char>
 string JsonResponsePacketSerializer::stringToBinary(const string& data)
 {
 	int length = data.length();
-	string binaryData = "", bin = "";
+	string binaryData = "";
 
-	for (auto& i : data)
+	for (int i = 0; i < data.length(); i++)
 	{
-		binaryData += asciiToBytes(int(i));
+		binaryData += std::bitset<8>(data[i]).to_string();
 	}
 
 	return binaryData;
 }
 
-string JsonResponsePacketSerializer::asciiToBytes(int letter)
-{
-	string binaryString = "";
-
-	while (letter > 0)
-	{
-		letter % 2 ? binaryString.push_back('1') : binaryString.push_back('0');
-		letter /= 2;
-	}
-
-	reverse(binaryString.begin(), binaryString.end());
-
-	return binaryString;
-}
 
 std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 (const std::string& data, const int& messageCode)
