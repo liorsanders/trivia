@@ -25,7 +25,6 @@ std::vector<unsigned char>
 
 string JsonResponsePacketSerializer::stringToBinary(const string& data)
 {
-	int length = data.length();
 	string binaryData = "";
 
 	for (int i = 0; i < data.length(); i++)
