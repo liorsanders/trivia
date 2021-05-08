@@ -7,8 +7,8 @@ MAX_RECV = 1024
 USERNAME = 'user1'
 PASSWORD = '1234'
 
-LOGIN_CODE = '\x01'.encode()
-SIGN_UP_CODE = '\x02'.encode()
+LOGIN_CODE = '\x21'.encode()
+SIGN_UP_CODE = '\x12'.encode()
 
 # return (server_ip, server_port)
 def get_config_info(f_name):
