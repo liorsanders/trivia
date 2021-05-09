@@ -30,9 +30,13 @@ private:
 		return data.dump();
 	}
 
-	static string stringToBinary(const string& data);
-
 	static std::vector<unsigned char>
 		buildMessage(const std::string& data, const int& messageCode);
+
+	static void insertLengthToVector
+		(const uint32_t& length, std::vector<unsigned char>& fullMessage);
+
+	static void insertDataToVector
+		(string data, std::vector<unsigned char>& fullMessage);
 };
 

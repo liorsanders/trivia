@@ -4,7 +4,6 @@
 #include "WSAInitializer.h"
 #include <iostream>
 #include <fstream>
-#include "JsonResponsePacketSerializer.h"
 
 int main()
 {

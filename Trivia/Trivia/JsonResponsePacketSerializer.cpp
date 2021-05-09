@@ -23,32 +23,38 @@ std::vector<unsigned char>
 		dataToJson<unsigned int>(response.status, "status"), response.code);
 }
 
-string JsonResponsePacketSerializer::stringToBinary(const string& data)
+std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
+	(const std::string& data, const int& messageCode)
 {
-	string binaryData = "";
+	uint32_t length = 
+		std::bitset<32>(data.length()).to_ulong(); 
 
-	for (int i = 0; i < data.length(); i++)
-	{
-		binaryData += std::bitset<8>(data[i]).to_string();
-	}
+	uint8_t binaryCode = 
+		std::bitset<8>(messageCode).to_ulong();
 
-	return binaryData;
+	std::vector<unsigned char> fullMessage;
+
+	fullMessage.push_back(binaryCode);
+	insertLengthToVector(length, fullMessage);
+	insertDataToVector(data, fullMessage);
+
+	return fullMessage;
 }
 
-
-std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
-(const std::string& data, const int& messageCode)
+void JsonResponsePacketSerializer::insertLengthToVector
+	(const uint32_t& length, std::vector<unsigned char>& fullMessage)
 {
-	string binaryLength = 
-		std::bitset<32>(data.length()).to_string(); 
+	for (int i = 24; i >=0; i -= 8)
+	{
+		fullMessage.push_back((length >> i) & 0xFF);
+	}
+}
 
-	string binaryCode = 
-		std::bitset<8>(messageCode).to_string(); 
-	
-	string binaryData =
-		stringToBinary(data);
-
-	string fullMessage = binaryCode + binaryLength + binaryData;
-
-	return std::vector<unsigned char>(fullMessage.begin(), fullMessage.end());
+void JsonResponsePacketSerializer::
+	insertDataToVector(string data, std::vector<unsigned char>& fullMessage)
+{
+	for (auto& letter : data)
+	{
+		fullMessage.push_back(letter);
+	}
 }
