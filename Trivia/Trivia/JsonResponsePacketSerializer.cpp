@@ -32,6 +32,8 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	uint8_t binaryCode = 
 		std::bitset<8>(messageCode).to_ulong();
 
+
+	// create message vector and build the full message
 	std::vector<unsigned char> fullMessage;
 
 	fullMessage.push_back(binaryCode);
@@ -41,6 +43,10 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	return fullMessage;
 }
 
+/*
+* The function convert the length (int - 4 bytes) to separted bytes.
+* After, the function insert the bytes into the vector.
+*/
 void JsonResponsePacketSerializer::insertLengthToVector
 	(const uint32_t& length, std::vector<unsigned char>& fullMessage)
 {
@@ -50,6 +56,9 @@ void JsonResponsePacketSerializer::insertLengthToVector
 	}
 }
 
+/*
+* The function push the chars from the data to the vector.
+*/
 void JsonResponsePacketSerializer::
 	insertDataToVector(string data, std::vector<unsigned char>& fullMessage)
 {

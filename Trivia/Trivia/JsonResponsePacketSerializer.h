@@ -21,6 +21,9 @@ public:
 private:
 	template <typename Value>
 
+	/*
+	* The function receive a template json value to follow the dry convetion.
+	*/
 	static string dataToJson(Value& jsonValue, const string& jsonKey) 
 	{
 		nlohmann::json data;
