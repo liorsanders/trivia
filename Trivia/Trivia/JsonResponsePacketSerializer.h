@@ -9,6 +9,8 @@
 
 using std::string;
 
+enum class Bytes { one = 8, Three = 24 };
+
 class JsonResponsePacketSerializer
 {
 public:
@@ -39,6 +41,8 @@ private:
 	static void insertLengthToVector
 		(const uint32_t& length, std::vector<unsigned char>& fullMessage);
 
+	static int enumToInt(const Bytes& number);
+	
 	static void insertDataToVector
 		(string data, std::vector<unsigned char>& fullMessage);
 };

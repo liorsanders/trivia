@@ -28,7 +28,6 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 {
 	uint32_t length = 
 		std::bitset<32>(data.length()).to_ulong(); 
-
 	uint8_t binaryCode = 
 		std::bitset<8>(messageCode).to_ulong();
 
@@ -50,10 +49,15 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 void JsonResponsePacketSerializer::insertLengthToVector
 	(const uint32_t& length, std::vector<unsigned char>& fullMessage)
 {
-	for (int i = 24; i >=0; i -= 8)
+	for (int i = enumToInt(Bytes::Three); i >= 0; i -= enumToInt(Bytes::one))
 	{
 		fullMessage.push_back((length >> i) & 0xFF);
 	}
+}
+
+int JsonResponsePacketSerializer::enumToInt(const Bytes& number)
+{
+	return static_cast<int>(number);
 }
 
 /*
