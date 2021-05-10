@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
 
-#define ERROR_CODE 3
+#include "Codes.h"
 
 
 struct ErrorResponse
 {
-	int code = ERROR_CODE;
+	int code = (int)Codes::Error;
 
 	std::string message;
 };

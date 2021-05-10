@@ -1,10 +1,10 @@
 #pragma once
 
-#define SIGNUP_CODE 12
+#include "Codes.h"
 
 struct SignupResponse
 {
-	int code = SIGNUP_CODE;
+	int code = (int)Codes::Signup;
 
 	unsigned int status;
 };

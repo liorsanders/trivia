@@ -1,10 +1,10 @@
 #pragma once
 
-#define LOGIN_CODE 21
+#include "Codes.h"
 
 struct LoginResponse
 {
-	int code = LOGIN_CODE;
+	int code = (int)Codes::Login;
 
 	unsigned int status;
 };
