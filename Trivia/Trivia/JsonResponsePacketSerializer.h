@@ -7,9 +7,7 @@
 #include <iostream>
 #include <string>
 
-using std::string;
-
-enum class Bytes { one = 8, Three = 24 };
+using std::string; 
 
 class JsonResponsePacketSerializer
 {
@@ -21,11 +19,10 @@ public:
 	static std::vector<unsigned char> serializeResponse(SignupResponse& response);
 
 private:
-	template <typename Value>
-
 	/*
 	* The function receive a template json value to follow the dry convetion.
 	*/
+	template <typename Value>
 	static string dataToJson(Value& jsonValue, const string& jsonKey) 
 	{
 		nlohmann::json data;
@@ -38,9 +35,8 @@ private:
 	static std::vector<unsigned char>
 		buildMessage(const std::string& data, const int& messageCode);
 
-	static void insertLengthToVector
-		(const uint32_t& length, std::vector<unsigned char>& fullMessage);
+	static std::array<unsigned char, sizeof(int)>
+		convertUint32ToUint8(const uint32_t& length);
 
-	static int enumToInt(const Bytes& number);
 };
 
