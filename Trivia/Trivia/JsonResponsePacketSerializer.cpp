@@ -1,6 +1,7 @@
 #include "JsonResponsePacketSerializer.h"
 #include <bitset>
 
+#define START_MESSAGE_BYTES 5 //because start of message is 5 bytes
 
 std::vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
@@ -36,8 +37,11 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	std::vector<unsigned char> fullMessage;
 
 	fullMessage.push_back(binaryCode);
+
 	insertLengthToVector(length, fullMessage);
-	insertDataToVector(data, fullMessage);
+
+	fullMessage.insert(
+		fullMessage.begin() + START_MESSAGE_BYTES, data.begin(), data.end());
 
 	return fullMessage;
 }
@@ -58,16 +62,4 @@ void JsonResponsePacketSerializer::insertLengthToVector
 int JsonResponsePacketSerializer::enumToInt(const Bytes& number)
 {
 	return static_cast<int>(number);
-}
-
-/*
-* The function push the chars from the data to the vector.
-*/
-void JsonResponsePacketSerializer::
-	insertDataToVector(string data, std::vector<unsigned char>& fullMessage)
-{
-	for (auto& letter : data)
-	{
-		fullMessage.push_back(letter);
-	}
 }

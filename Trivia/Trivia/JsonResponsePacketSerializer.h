@@ -42,8 +42,5 @@ private:
 		(const uint32_t& length, std::vector<unsigned char>& fullMessage);
 
 	static int enumToInt(const Bytes& number);
-	
-	static void insertDataToVector
-		(string data, std::vector<unsigned char>& fullMessage);
 };
 
