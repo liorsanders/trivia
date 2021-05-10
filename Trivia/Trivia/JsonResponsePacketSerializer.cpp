@@ -1,7 +1,8 @@
 #include "JsonResponsePacketSerializer.h"
 #include <bitset>
 
-#define START_MESSAGE_BYTES 5 //because start of message is 5 bytes
+enum class BytesLength {Code = 1, Length = 4};
+enum class Bytes { One = 8, Two = 16, Three = 24 };
 
 std::vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
@@ -38,10 +39,16 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 
 	fullMessage.push_back(binaryCode);
 
-	insertLengthToVector(length, fullMessage);
-
+	// insert length to vector
+	std::array<unsigned char, sizeof(int)>bytes = convertUint32ToUint8(length);
+	auto start = fullMessage.begin() + (int)BytesLength::Code;
 	fullMessage.insert(
-		fullMessage.begin() + START_MESSAGE_BYTES, data.begin(), data.end());
+		start, bytes.begin(), bytes.end());
+	
+	// insert data to vector
+	start = fullMessage.begin() + (int)BytesLength::Code + (int)BytesLength::Length;
+	fullMessage.insert(
+		start, data.begin(), data.end());
 
 	return fullMessage;
 }
@@ -50,16 +57,20 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 * The function convert the length (int - 4 bytes) to separted bytes.
 * After, the function insert the bytes into the vector.
 */
-void JsonResponsePacketSerializer::insertLengthToVector
-	(const uint32_t& length, std::vector<unsigned char>& fullMessage)
+std::array<unsigned char, sizeof(int)>
+	JsonResponsePacketSerializer::convertUint32ToUint8
+	(const uint32_t& length)
 {
-	for (int i = enumToInt(Bytes::Three); i >= 0; i -= enumToInt(Bytes::one))
-	{
-		fullMessage.push_back((length >> i) & 0xFF);
-	}
-}
+	int currentByte = 0;
+	std::array<unsigned char, sizeof(int)> bytes = { 0 };
 
-int JsonResponsePacketSerializer::enumToInt(const Bytes& number)
-{
-	return static_cast<int>(number);
+	for (int i = 0; i < sizeof(int); i++)
+	{
+		currentByte = (int)Bytes::One * (sizeof(int) - i); // calc the current byte and how many bits to shift
+		bytes[i] = (length >> currentByte) & 0xFF;
+	}
+
+	std::reverse(bytes.begin(), bytes.end()); // because the bytes are in the opposite order
+
+	return bytes;
 }

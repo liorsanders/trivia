@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Codes.h" />
     <ClInclude Include="Communicator.h" />
     <ClInclude Include="ErrorResponse.h" />
     <ClInclude Include="Helper.h" />
