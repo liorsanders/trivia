@@ -2,7 +2,7 @@
 #include <bitset>
 
 enum class BytesLength {Code = 1, Length = 4};
-enum class Bytes { One = 8, Two = 16, Three = 24 };
+enum class Bytes { One = 8};
 
 std::vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
