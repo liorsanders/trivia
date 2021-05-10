@@ -1,14 +1,6 @@
 import socket 
 import pickle
-
-CONFIG_FILE_NAME = 'config.txt'
-MSG_WITH_SERVER = 'Hello'
-MAX_RECV = 1024
-USERNAME = 'user1'
-PASSWORD = '1234'
-
-LOGIN_CODE = '\x21'.encode()
-SIGN_UP_CODE = '\x12'.encode()
+import constants
 
 # return (server_ip, server_port)
 def get_config_info(f_name):
@@ -18,29 +10,34 @@ def get_config_info(f_name):
         
 
 def recieve_msg(sock):
-    ans = sock.recv(MAX_RECV)
+    ans = sock.recv(constants.MAX_RECV)
     print(f'recieved from server: {pickle.loads(ans)}') # desirializing and printing data from server
+
+def sign_up(sock):
+    data = {'username': constants.USERNAME, 'password': constants.PASSWORD, 'mail': constants.USER_MAIL}
+    print(f'sending: {data} to server')
+    data = bytearray(pickle.dumps(data)) # serialize dict before sending
+    data[0:0] = constants.SIGN_UP_CODE # insert message code
+    sock.sendall(data)
+    
+def log_in(sock):
+    data = {'username': constants.USERNAME, 'password': constants.PASSWORD}
+    print(f'sending: {data} to server')
+    data = bytearray(pickle.dumps(data))
+    data[0:0] = constants.LOGIN_CODE # insert message code
+    sock.sendall(data)
+    
 
 def main():
     try:
         # Create a TCP/IP socket
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-            sock.connect(get_config_info(CONFIG_FILE_NAME))
+            sock.connect(get_config_info(constants.CONFIG_FILE_NAME))
             print('connected to server..')
-            login = {'username': USERNAME, 'password': PASSWORD}
-            sign_up = {'username': USERNAME, 'password': PASSWORD, 'mail': 'user1@gmail.com'}
-            print(f'sending: {sign_up} to server')
-            data = bytearray(pickle.dumps(sign_up)) # serialize dict before sending
-            data[0:0] = SIGN_UP_CODE # insert message code
-            sock.sendall(data)
+            sign_up(sock)
             recieve_msg(sock)
-            print(f'sending: {login} to server')
-            data = bytearray(pickle.dumps(login))
-            data[0:0] = LOGIN_CODE # insert message code
-            sock.sendall(data)
-            recieve_msg(sock)
-            print('finished tester!')
-            
+            log_in(sock)
+            recieve_msg(sock)            
             
     except Exception as e:
         print(f'error: {e}')
