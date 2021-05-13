@@ -8,23 +8,37 @@ def get_server_details(file_name):
     config_file = open(file_name, "r")
 
     server_ip = config_file.readline()
-    server_ip = server_ip[server_ip.find('=') + 1:].replace("\n", "")
+    server_ip = server_ip[server_ip.find('=') + 1:].replace("\n", "")  # extract ip
 
     server_port = config_file.readline()
-    server_port = int(server_port[server_port.find('=') + 1:])
+    server_port = int(server_port[server_port.find('=') + 1:]) # extract port
 
     return server_ip, server_port
 
 
+def deserialize_message(message):
+    code = message[constants.CODE_INDEX]
+
+    length = int.from_bytes(
+        message[constants.LENGTH_INDEX:constants.MESSAGE_INDEX],
+        byteorder="big")
+
+    data = message[constants.MESSAGE_INDEX:].decode()
+
+    return code, length, data
+
+
 def receive_message(sock):
     answer = sock.recv(constants.MAX_RECV)
-    # To Do: deserialize message
+    code, length, data = deserialize_message(answer)
+    print("message has received!\ncode:", code, ", length:", length, ", data:", data)
 
 
 def length_to_four_bytes(data):
     data_length = len(data)
 
-    return data_length.to_bytes(4, 'big')
+    return data_length.to_bytes(constants.INT_BYTES,
+                                byteorder='big')  # convert the length from int to four bytes
 
 
 def sign_up(sock):
@@ -33,8 +47,9 @@ def sign_up(sock):
         "Password": constants.PASSWORD,
         "Mail": constants.USER_MAIL
     }
+
     json_data = json.dumps(data)
-    print("sending:", json_data, ", to server.")
+    print("sending:", json_data, ",to server.")
 
     full_message = constants.SIGN_UP_CODE + \
                    length_to_four_bytes(json_data) + \
@@ -50,7 +65,7 @@ def log_in(sock):
     }
 
     json_data = json.dumps(data)
-    print("sending:", json_data, ", to server.")
+    print("sending:", json_data, ",to server.")
 
     full_message = constants.LOGIN_CODE + \
                    length_to_four_bytes(json_data) + \
@@ -70,6 +85,7 @@ def main():
 
             sign_up(sock)
             receive_message(sock)
+
             log_in(sock)
             receive_message(sock)
 
