@@ -65,8 +65,11 @@ void Communicator::handleNewClient(SOCKET socket)
 
 	sendMessage(socket, msg);
 	
-	receiveMessage(msg, socket);
-
+	try
+	{
+		receiveMessage(msg, socket);
+	}
+	catch (...) { }
 	closesocket(socket);
 }
 
