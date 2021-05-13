@@ -78,10 +78,17 @@ void Communicator::handleNewClient(SOCKET socket)
 		sendMessage(socket, msg);
 
 		receiveMessage(socket);
-	}
-	catch (...) {}
 	
-	closesocket(socket);
+		closesocket(socket);
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+	}
+	catch (...) 
+	{
+		std::cerr << "Unknown Error!!!" << std::endl;
+	}
 }
 
 void Communicator::receiveMessage(const SOCKET& socket)
