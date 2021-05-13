@@ -54,12 +54,9 @@
     <ClInclude Include="IDatabase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="SqliteDatabase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-=======
->>>>>>> 3d388c35e5b61ce74e56e35ac2139cad1a5cde39
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Communicator.cpp">
