@@ -23,7 +23,11 @@ void SqliteDatabase::createTable()
 		"PRIMARY KEY(ID AUTOINCREMENT)"
 		");";
 
-	int isBad = sqlite3_exec(db, sql.c_str(), NULL, NULL, &errorMessage);
+	int isBad = sqlite3_exec(db,
+		sql.c_str(),
+		NULL,
+		NULL,
+		&errorMessage);
 
 	if (isBad != SQLITE_OK)
 	{
@@ -74,8 +78,8 @@ int SqliteDatabase::doesUserExistCallback
 	return 0;
 }
 
-bool SqliteDatabase::doesPasswordMatch const
-	(std::string username, std::string password)
+bool SqliteDatabase::doesPasswordMatch 
+	(std::string username, std::string password) const
 {
 	return false;
 }
@@ -83,4 +87,19 @@ bool SqliteDatabase::doesPasswordMatch const
 void SqliteDatabase::addNewUser
 	(std::string username, std::string password, std::string mail)
 {
+	char* errorMessage;
+	std::string sql = "INSERT INTO users"
+		"(name, password, mail)"
+		"VALUES(" + username + ", " + password + ", " + mail + ");";
+
+	int isBad = sqlite3_exec(db,
+		sql.c_str(),
+		NULL,
+		NULL,
+		&errorMessage);
+
+	if (isBad != SQLITE_OK)
+	{
+		std::cerr << "Error: " << errorMessage << std::endl;
+	}
 }
