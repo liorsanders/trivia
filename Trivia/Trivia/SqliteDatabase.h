@@ -21,7 +21,7 @@ private:
 
 	void createTable();
 	void createDB();
-	static int doesUserExistCallback
+	static int doeasExistsCallback
 	(void* isExists, int argc, char ** argv, char ** cols);
 
 };

@@ -58,7 +58,7 @@ bool SqliteDatabase::doesUserExist(std::string username) const
 	
 	int isBad = sqlite3_exec(db,
 		sql.c_str(),
-		SqliteDatabase::doesUserExistCallback,
+		SqliteDatabase::doeasExistsCallback,
 		&isExist,
 		&errorMessage);
 
@@ -70,18 +70,35 @@ bool SqliteDatabase::doesUserExist(std::string username) const
 	return isExist;
 }
 
-int SqliteDatabase::doesUserExistCallback
+bool SqliteDatabase::doesPasswordMatch 
+	(std::string username, std::string password) const
+{
+	bool isExist = false;
+	char* errorMessage;
+	std::string sql = "SELECT ID WHERE"
+		"Name LIKE " + username +
+		"AND Password LIKE" + password + ";";
+
+	int isBad = sqlite3_exec(db,
+		sql.c_str(),
+		SqliteDatabase::doeasExistsCallback,
+		&isExist,
+		&errorMessage);
+
+	if (isBad != SQLITE_OK)
+	{
+		std::cerr << "Error: " << errorMessage << std::endl;
+	}
+
+	return isExist;
+}
+
+int SqliteDatabase::doeasExistsCallback
 	(void* isExists, int argc, char ** argv, char ** cols)
 {
 	*(bool*)isExists = argc > 0;
 
 	return 0;
-}
-
-bool SqliteDatabase::doesPasswordMatch 
-	(std::string username, std::string password) const
-{
-	return false;
 }
 
 void SqliteDatabase::addNewUser
