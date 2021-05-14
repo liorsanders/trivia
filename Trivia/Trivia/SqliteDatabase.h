@@ -2,7 +2,7 @@
 #include "IDatabase.h"
 #include "sqlite3.h"
 
-class SqliteDatabase : IDatabase
+class SqliteDatabase /*: IDatabase*/
 {
 public:
 	SqliteDatabase();

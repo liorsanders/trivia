@@ -16,11 +16,11 @@ void SqliteDatabase::createTable()
 {
 	char* errorMessage;
 	std::string sql = "CREATE TABLE IF NOT EXISTS users("
-		"ID	INTEGER,"
-		"Name TEXT NOT NULL,"
-		"Password TEXT NOT NULL,"
-		"Mail TEXT NOT NULL,"
-		"PRIMARY KEY(ID AUTOINCREMENT)"
+		"id	INTEGER,"
+		"name TEXT NOT NULL,"
+		"password TEXT NOT NULL,"
+		"mail TEXT NOT NULL,"
+		"PRIMARY KEY(id AUTOINCREMENT)"
 		");";
 
 	int isBad = sqlite3_exec(db,
@@ -54,7 +54,7 @@ bool SqliteDatabase::doesUserExist(std::string username) const
 {
 	bool isExist = false;
 	char* errorMessage;
-	std::string sql = "SELECT ID WHERE Name like " + username + ";";
+	std::string sql = "SELECT id FROM users WHERE name like '" + username + "';";
 	
 	int isBad = sqlite3_exec(db,
 		sql.c_str(),
@@ -75,9 +75,9 @@ bool SqliteDatabase::doesPasswordMatch
 {
 	bool isExist = false;
 	char* errorMessage;
-	std::string sql = "SELECT ID WHERE"
-		"Name LIKE " + username +
-		"AND Password LIKE" + password + ";";
+	std::string sql = "SELECT id FROM users WHERE "
+		"name LIKE '" + username +
+		"' AND password LIKE '" + password + "';";
 
 	int isBad = sqlite3_exec(db,
 		sql.c_str(),
@@ -107,7 +107,7 @@ void SqliteDatabase::addNewUser
 	char* errorMessage;
 	std::string sql = "INSERT INTO users"
 		"(name, password, mail)"
-		"VALUES(" + username + ", " + password + ", " + mail + ");";
+		"VALUES('" + username + "', '" + password + "', '" + mail + "');";
 
 	int isBad = sqlite3_exec(db,
 		sql.c_str(),
