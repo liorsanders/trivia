@@ -22,7 +22,7 @@ void SqliteDatabase::createTable()
 
 void SqliteDatabase::createDB()
 {
-	int isBad = sqlite3_open("users.db", &db);
+	int isBad = sqlite3_open("Trivia.db", &db);
 
 	if (isBad)
 	{
