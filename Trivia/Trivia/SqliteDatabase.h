@@ -1,17 +1,27 @@
 #pragma once
 #include "IDatabase.h"
-#include <winsqlite/winsqlite3.h>
+#include "sqlite3.h"
 
-class SqliteDatabase : IDatabase
+class SqliteDatabase : public IDatabase
 {
 public:
 	SqliteDatabase();
-	~SqliteDatabase();
-	virtual bool doesUserExist(std::string username);
-	virtual bool doesPasswordMatch(std::string username, std::string password);
-	virtual void addNewUser(std::string username, std::string password, std::string mail);
+	~SqliteDatabase() override;
 
+	bool doesUserExist(std::string username) const override;
+
+	bool doesPasswordMatch
+		(std::string username, std::string password) const override;
+
+	void addNewUser
+			(std::string username, std::string password, std::string mail) override;
 private:
 	sqlite3* db;
+
+	void createTable();
+	void createDB();
+	static int doeasExistsCallback
+		(void* isExists, int argc, char** argv, char** cols);
+
 };
 
