@@ -38,7 +38,14 @@ void LoginManager::login(const std::string& username,
 void LoginManager::signup(const std::string username,
 	const std::string password, const std::string mail)
 {
-	m_database->addNewUser(username, password, mail);
+	if (m_database->doesUserExist(username))
+	{
+		std::cerr << "Error: " << username << "is already exist." << std::endl;
+	}
+	else
+	{
+		m_database->addNewUser(username, password, mail);
+	}
 }
 
 
