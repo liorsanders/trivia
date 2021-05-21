@@ -15,6 +15,8 @@ public:
 	// getters
 	std::string getUsername();	
 	
+	bool operator==(LoggedUser const& other);
+
 private:
 	std::string m_username;
 };
