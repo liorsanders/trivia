@@ -11,7 +11,7 @@ public:
 	LoginManager();
 	~LoginManager() = default;
 
-	void logout(std::string password);
+	void logout(std::string username);
 	void login(std::string username, std::string password);
 	void signup(std::string username, std::string password, std::string mail);
 

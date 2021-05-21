@@ -6,7 +6,10 @@ LoginManager::LoginManager()
 	m_database = std::make_shared<SqliteDatabase>();
 }
 
-LoginManager::~LoginManager()
+void LoginManager::logout(std::string username)
 {
+	std::remove(m_loggedUsers.begin(),
+		m_loggedUsers.end(),
+		username);
 }
 
