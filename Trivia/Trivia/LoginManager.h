@@ -9,7 +9,7 @@ class LoginManager
 {
 public:
 	LoginManager();
-	~LoginManager();
+	~LoginManager() = default;
 
 	void logout(std::string password);
 	void login(std::string username, std::string password);
