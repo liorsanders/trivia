@@ -9,9 +9,11 @@ LoginManager::LoginManager()
 
 void LoginManager::logout(const std::string& username)
 {
-	std::remove(m_loggedUsers.begin(),
+	auto loggedUser = std::find(m_loggedUsers.begin(),
 		m_loggedUsers.end(),
-		username);
+		LoggedUser(username));
+
+	m_loggedUsers.erase(loggedUser);
 }
 
 void LoginManager::login(const std::string& username,
