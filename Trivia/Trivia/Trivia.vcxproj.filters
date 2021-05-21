@@ -60,7 +60,7 @@
     <ClInclude Include="LoggedUser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LoginManger.h">
+    <ClInclude Include="LoginManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,7 +89,7 @@
     <ClCompile Include="LoggedUser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LoginManger.cpp">
+    <ClCompile Include="LoginManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

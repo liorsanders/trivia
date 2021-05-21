@@ -148,7 +148,7 @@
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonResponsePacketSerializer.h" />
     <ClInclude Include="LoggedUser.h" />
-    <ClInclude Include="LoginManger.h" />
+    <ClInclude Include="LoginManager.h" />
     <ClInclude Include="LoginRequestHandler.h" />
     <ClInclude Include="LoginResponse.h" />
     <ClInclude Include="Server.h" />
@@ -161,7 +161,7 @@
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="JsonResponsePacketSerializer.cpp" />
     <ClCompile Include="LoggedUser.cpp" />
-    <ClCompile Include="LoginManger.cpp" />
+    <ClCompile Include="LoginManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="SqliteDatabase.cpp" />
