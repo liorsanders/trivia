@@ -13,7 +13,15 @@ void LoginManager::logout(const std::string& username)
 		m_loggedUsers.end(),
 		LoggedUser(username));
 
-	m_loggedUsers.erase(loggedUser);
+	if (loggedUser == m_loggedUsers.end())
+	{
+		std::cerr << "Error: can not logout " << username
+			<< " because user is not online." << std::endl;
+	}
+	else
+	{
+		m_loggedUsers.erase(loggedUser);
+	}
 }
 
 void LoginManager::login(const std::string& username,
