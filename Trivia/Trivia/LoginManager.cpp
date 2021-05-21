@@ -35,6 +35,10 @@ void LoginManager::login(const std::string& username,
 	}
 }
 
-
+void LoginManager::signup(const std::string username,
+	const std::string password, const std::string mail)
+{
+	m_database->addNewUser(username, password, mail);
+}
 
 
