@@ -16,18 +16,26 @@ void LoginManager::logout(std::string username)
 
 void LoginManager::login(std::string username, std::string password)
 {
-	doesUserExist(username);
+	m_database->doesUserExist(username) ?
+
+		m_database->doesPasswordMatch(username, password) ?
+			m_loggedUsers.emplace_back(username)
+			:
+			printPasswordDoesntMatchError(username, password)
+		:
+		printDoesntExistError(username);
 }
 
-bool LoginManager::doesUserExist(std::string& username)
+void LoginManager::printDoesntExistError(const std::string& username) const
 {
-	if (!m_database->doesUserExist(username))
-	{
-		std::cout << "Error: " << username << " does not exists." << std::endl;
+	std::cout << "Error: " << username << " does not exist." << std::endl;
 
-		return false;
-	}
+}
 
-	return true;
+void LoginManager::printPasswordDoesntMatchError
+	(const std::string & username, const std::string& password) const
+{
+	std::cout << "Error: " << username << " and " << password <<
+		" does not match." << std::endl;
 }
 

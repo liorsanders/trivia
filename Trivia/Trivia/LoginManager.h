@@ -19,6 +19,7 @@ private:
 	std::shared_ptr<IDatabase> m_database;
 	std::vector<LoggedUser> m_loggedUsers;
 
-	bool doesUserExist(std::string& username);
+	void printDoesntExistError(const std::string& username) const;
+	void printPasswordDoesntMatchError(const std::string & username, const std::string& password) const;
 };	
 
