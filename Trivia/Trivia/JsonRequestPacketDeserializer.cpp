@@ -58,8 +58,14 @@ RequestInfo JsonRequestPacketDeserializer::
     info.id = (int)message[0];
 
     info.receivalTime = time(nullptr);
+    
+    int length = extractMessageLength(message);
 
-    return RequestInfo();
+    std::copy_n(message.begin() + (int)BytesLength::Data,
+        length,
+        info.buffer.begin());
+
+    return info;
 }
 
 int JsonRequestPacketDeserializer::extractMessageLength
