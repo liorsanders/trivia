@@ -5,7 +5,7 @@ LoggedUser::LoggedUser( const std::string& username) :
 { 
 }
 
-std::string LoggedUser::getUsername()
+std::string LoggedUser::getUsername() const
 {
     return m_username;
 }
