@@ -2,13 +2,10 @@
 
 #include "IRequestHandler.h"
 
-class IRequestHandler;
 
-class RequestResult {
-public:
-	std::vector<unsigned char> response; //buffer
-	
-
+struct RequestResult
+{
+	std::vector<unsigned char> response; 
+		
 	IRequestHandler* newHandler;
-
 };

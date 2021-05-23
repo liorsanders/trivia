@@ -3,9 +3,9 @@
 #include <vector>
 #include <ctime>
 
-class RequestInfo {
-public:
-	int id; //request id
+struct RequestInfo 
+{
+	int id; 
 	time_t receivalTime;
 	std::vector<unsigned char> buffer;
 };
