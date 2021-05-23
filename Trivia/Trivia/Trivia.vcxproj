@@ -148,6 +148,7 @@
     <ClInclude Include="JsonResponsePacketSerializer.h" />
     <ClInclude Include="LoginRequestHandler.h" />
     <ClInclude Include="LoginResponse.h" />
+    <ClInclude Include="RequestHandlerFactory.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="SignupResponse.h" />
     <ClInclude Include="WSAInitializer.h" />
@@ -156,7 +157,9 @@
     <ClCompile Include="Communicator.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="JsonResponsePacketSerializer.cpp" />
+    <ClCompile Include="LoginRequestHandler.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="RequestHandlerFactory.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="WSAInitializer.cpp" />
   </ItemGroup>
