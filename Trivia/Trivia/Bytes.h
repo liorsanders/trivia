@@ -4,5 +4,5 @@ enum class BytesLength
 { 
 	Code = 1,
 	Length = 4,
-	StartOfMessage = 5 
+	Data = 5
 };

@@ -1,9 +1,10 @@
 #include "JsonRequestPacketDeserializer.h"
 #include "json.hpp"
 #include <iostream>
+#include "Bytes.h"
 
 LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest
-    (std::vector<unsigned char> buffer)
+    (const std::vector<unsigned char>& buffer)
 {
     LoginRequest request = LoginRequest();
 
@@ -26,7 +27,7 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest
 }
 
 SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest
-    (std::vector<unsigned char> buffer)
+    (const std::vector<unsigned char>& buffer)
 {
     SignupRequest request = SignupRequest();
 
@@ -48,3 +49,41 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest
 
     return request;
 }
+
+RequestInfo JsonRequestPacketDeserializer::
+    createRequestInfo(const std::vector<unsigned char>& message)
+{
+    RequestInfo info = RequestInfo();
+
+    info.id = (int)message[0];
+
+    info.receivalTime = time(nullptr);
+
+    return RequestInfo();
+}
+
+int JsonRequestPacketDeserializer::extractMessageLength
+    (const std::vector<unsigned char>& message)
+{
+    std::array<unsigned char, sizeof(int)> bytesLength = { 0 };
+
+    std::copy_n(message.begin() + (int)BytesLength::Code,
+        (int)BytesLength::Length,
+        bytesLength.begin());
+
+    return JsonRequestPacketDeserializer::fourBytesToInt(bytesLength);
+}
+
+int JsonRequestPacketDeserializer::fourBytesToInt
+    (const std::array<unsigned char, sizeof(int)>& bytes)
+{
+    int length = int((unsigned char)(bytes[0]) << 24 |
+        (unsigned char)(bytes[1]) << 16 |
+        (unsigned char)(bytes[2]) << 8 |
+        (unsigned char)(bytes[3]));
+    
+    return length;
+}
+
+
+
