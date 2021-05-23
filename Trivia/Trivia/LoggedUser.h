@@ -6,7 +6,6 @@ class LoggedUser
 {
 public: 
 	// ctors
-	LoggedUser() = default;
 	LoggedUser(const std::string& username);
 
 	// dtor
