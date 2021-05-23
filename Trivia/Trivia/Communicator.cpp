@@ -36,9 +36,9 @@ void Communicator::acceptClients()
 		std::cout << "someone has arrived:)\n" << std::endl;
 
 		//will implement IRequestHandler in later versions
-		IRequestHandler requestManager;
-		m_clients.insert(std::pair<SOCKET,
-			IRequestHandler>(clientSocket, requestManager));
+		IRequestHandler* requestManager;
+		m_clients.insert(std::pair<SOCKET, IRequestHandler*>
+			(clientSocket, requestManager));
 
 		std::thread therad(&Communicator::handleNewClient, this, clientSocket);
 		therad.detach();
@@ -108,7 +108,6 @@ void Communicator::receiveMessage(const SOCKET& socket)
 	}
 
 	std::cout << "The message has arrived!";
-	
 }
 
 void Communicator::sendMessage(const SOCKET& socket, std::string& msg)
