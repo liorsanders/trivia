@@ -1,11 +1,11 @@
 #pragma once
 
 #include "IRequestHandler.h"
-
+#include <memory>
 
 struct RequestResult
 {
 	std::vector<unsigned char> response; 
 		
-	IRequestHandler* newHandler;
+	std::shared_ptr<IRequestHandler> newHandler;
 };
