@@ -1,6 +1,7 @@
 #include "Communicator.h"
 #include <vector>
 #include <iostream>
+#include "JsonRequestPacketDeserializer.h"
 
 #define MAX_BYTES 1024
 
@@ -95,8 +96,8 @@ void Communicator::receiveMessage(const SOCKET& socket)
 {
 	std::cout << "We should wait for the client :(" << std::endl;
 
-	std::vector<char> data(MAX_BYTES);
-	int result = recv(socket, &data[0], MAX_BYTES, 0);
+	std::vector<unsigned char> message(MAX_BYTES);
+	int result = recv(socket, (char*)&message[0], MAX_BYTES, 0);
 
 	if (result == INVALID_SOCKET)
 	{
@@ -106,8 +107,13 @@ void Communicator::receiveMessage(const SOCKET& socket)
 
 		throw std::exception(s.c_str());
 	}
+	
+	auto info = JsonRequestPacketDeserializer::createRequestInfo(message);
 
-	std::cout << "The message has arrived!";
+	if (m_clients[socket]->isRequestRelevant(info))
+	{
+		m_clients[socket]->handleRequest(info);
+	}
 }
 
 void Communicator::sendMessage(const SOCKET& socket, std::string& msg)
