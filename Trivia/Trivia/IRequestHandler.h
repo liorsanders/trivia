@@ -3,6 +3,7 @@
 #include "RequestInfo.h"
 #include "RequestResult.h"
 
+struct RequestResult;
 
 class IRequestHandler 
 {
