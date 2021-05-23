@@ -1,8 +1,6 @@
 #include "JsonResponsePacketSerializer.h"
 #include <bitset>
-
-enum class BytesLength {Code = 1, Length = 4};
-enum class Bytes { One = 8};
+#include "Bytes.h"
 
 std::vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
@@ -30,8 +28,7 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 {
 	uint32_t length = 
 		std::bitset<32>(data.length()).to_ulong(); 
-	uint8_t binaryCode = 
-		std::bitset<8>(messageCode).to_ulong();
+	uint8_t binaryCode = (char)messageCode;
 
 
 	// create message vector and build the full message
