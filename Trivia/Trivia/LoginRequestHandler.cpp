@@ -3,6 +3,6 @@
 
 bool LoginRequestHandler::isRequestRelevant(const RequestInfo& request)
 {
-    return request.id == (int)Codes::Signup ||
-        request.id == (int)Codes::Login;
+    return request.id == (int)Codes::Login;
 }
+
