@@ -12,7 +12,7 @@ public:
 	~LoggedUser() = default;
 
 	// getters
-	std::string getUsername();	
+	std::string getUsername() const;	
 	
 	bool operator==(LoggedUser const& other);
 

@@ -50,7 +50,7 @@ void SqliteDatabase::createDB()
 	}
 }
 
-bool SqliteDatabase::doesUserExist(std::string username) const
+bool SqliteDatabase::doesUserExist(const std::string& username) const
 {
 	bool isExist = false;
 	char* errorMessage;
@@ -71,7 +71,7 @@ bool SqliteDatabase::doesUserExist(std::string username) const
 }
 
 bool SqliteDatabase::doesPasswordMatch 
-	(std::string username, std::string password) const
+	(const std::string& username, const std::string& password) const
 {
 	bool isExist = false;
 	char* errorMessage;
@@ -102,7 +102,7 @@ int SqliteDatabase::doeasExistsCallback
 }
 
 void SqliteDatabase::addNewUser
-	(std::string username, std::string password, std::string mail)
+	(const std::string& username, const std::string& password, const std::string& mail)
 {
 	char* errorMessage;
 	std::string sql = "INSERT INTO users"
