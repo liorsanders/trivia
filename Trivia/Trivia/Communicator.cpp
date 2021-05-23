@@ -97,7 +97,7 @@ void Communicator::receiveMessage(const SOCKET& socket)
 	std::cout << "We should wait for the client :(" << std::endl;
 
 	std::vector<unsigned char> message(MAX_BYTES);
-	int result = recv(socket, (char*)&message[0], MAX_BYTES, 0);
+	int result = recv(socket, (char*)message.data(), MAX_BYTES, 0);
 
 	if (result == INVALID_SOCKET)
 	{
