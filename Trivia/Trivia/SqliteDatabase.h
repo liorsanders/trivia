@@ -10,11 +10,12 @@ public:
 
 	bool doesUserExist(const std::string& username) const override;
 
-	bool doesPasswordMatch
-		(const std::string& username, const std::string& password) const override;
+	bool doesPasswordMatch(const std::string& username,
+		const std::string& password) const override;
 
-	void addNewUser
-			(const std::string& username, const std::string& password, const std::string& mail) override;
+	void addNewUser(const std::string& username, 
+		const std::string& password, const std::string& mail) override;
+
 private:
 	sqlite3* db;
 
