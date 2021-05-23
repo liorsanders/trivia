@@ -36,7 +36,7 @@ private:
 		buildMessage(const std::string& data, const int& messageCode);
 
 	static std::array<unsigned char, sizeof(int)>
-		convertUint32ToUint8(const uint32_t& length);
+		intToBytes(const uint32_t& length);
 
 };
 

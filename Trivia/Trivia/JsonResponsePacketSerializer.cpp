@@ -37,7 +37,7 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	fullMessage.push_back(binaryCode);
 
 	// insert length to vector
-	std::array<unsigned char, sizeof(int)>bytes = convertUint32ToUint8(length);
+	std::array<unsigned char, sizeof(int)>bytes = intToBytes(length);
 	auto start = fullMessage.begin() + (int)BytesLength::Code;
 	fullMessage.insert(
 		start, bytes.begin(), bytes.end());
@@ -55,7 +55,7 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 * After, the function insert the bytes into the vector.
 */
 std::array<unsigned char, sizeof(int)>
-	JsonResponsePacketSerializer::convertUint32ToUint8(const uint32_t& length)
+	JsonResponsePacketSerializer::intToBytes(const uint32_t& length)
 {
 	std::array<unsigned char, sizeof(int)> bytes = { 0 };
 
