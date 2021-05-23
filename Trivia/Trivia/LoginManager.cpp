@@ -17,32 +17,29 @@ void LoginManager::logout(const std::string& username)
 	{
 		std::cerr << "Error: can not logout " << username
 			<< " because user is not online." << std::endl;
+		return;
 	}
-	else
-	{
-		m_loggedUsers.erase(loggedUser);
-	}
+	
+	m_loggedUsers.erase(loggedUser);
 }
 
 void LoginManager::login(const std::string& username,
 	const std::string& password)
 {
-	if (m_database->doesUserExist(username))
-	{
-		if (m_database->doesPasswordMatch(username, password))
-		{
-			m_loggedUsers.emplace_back(username);
-		}
-		else
-		{
-			std::cerr << "Error: " << username << " and " << password <<
-				" does not match." << std::endl;
-		}
-	}
-	else
+	if (!m_database->doesUserExist(username))
 	{
 		std::cerr << "Error: " << username << " does not exist." << std::endl;
+		return;
 	}
+
+	if (!m_database->doesPasswordMatch(username, password))
+	{
+		std::cerr << "Error: " << username << " and " << password <<
+			" does not match." << std::endl;
+		return;
+	}
+	
+	m_loggedUsers.emplace_back(username);
 }
 
 void LoginManager::signup(const std::string username,
@@ -51,11 +48,11 @@ void LoginManager::signup(const std::string username,
 	if (m_database->doesUserExist(username))
 	{
 		std::cerr << "Error: " << username << "is already exist." << std::endl;
+		return;
 	}
-	else
-	{
-		m_database->addNewUser(username, password, mail);
-	}
+	
+	m_database->addNewUser(username, password, mail);
+
 }
 
 
