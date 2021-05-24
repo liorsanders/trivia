@@ -1,5 +1,8 @@
 #pragma once
 
-class LoginRequestHandler {
 
+
+class LoginRequestHandler {
+public:
+	bool isRequestRelevant()
 };
