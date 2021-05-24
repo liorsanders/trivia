@@ -5,7 +5,7 @@
 #include "SqliteDatabase.h"
 #include "LoggedUser.h"
 
-class LoginManger
+class LoginManager
 {
 public:
 	void signup(std::string username, std::string password, std::string mail);

@@ -7,7 +7,7 @@ LoginManager::LoginManager()
 	m_database = std::make_shared<SqliteDatabase>();
 }
 
-void LoginManager::logout(const std::string& username)
+void LoginManager::logout(std::string username)
 {
 	auto loggedUser = std::find(m_loggedUsers.begin(),
 		m_loggedUsers.end(),
@@ -23,8 +23,8 @@ void LoginManager::logout(const std::string& username)
 	m_loggedUsers.erase(loggedUser);
 }
 
-void LoginManager::login(const std::string& username,
-	const std::string& password)
+void LoginManager::login(std::string username,
+	std::string password)
 {
 	if (!m_database->doesUserExist(username))
 	{
