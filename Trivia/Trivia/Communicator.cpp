@@ -110,10 +110,7 @@ void Communicator::receiveMessage(const SOCKET& socket)
 	
 	auto info = JsonRequestPacketDeserializer::createRequestInfo(message);
 
-	if (m_clients[socket]->isRequestRelevant(info))
-	{
-		m_clients[socket]->handleRequest(info);
-	}
+	m_clients[socket]->handleRequest(info);
 }
 
 void Communicator::sendMessage(const SOCKET& socket, std::string& msg)
