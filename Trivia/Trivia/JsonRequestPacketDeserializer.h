@@ -15,7 +15,7 @@ public:
 	static SignupRequest deserializeSignupRequest
 		(const std::vector<unsigned char>& message);	
 	
-	static RequestInfo createRequestInfo(std::vector<unsigned char>& message);
+	static RequestInfo createRequestInfo(const std::vector<unsigned char>& message);
 
 private:
 	static int extractMessageLength(const std::vector<unsigned char>& message);
