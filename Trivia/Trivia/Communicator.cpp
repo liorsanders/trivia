@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include "JsonRequestPacketDeserializer.h"
+#include "LoginRequestHandler.h"
 
 #define MAX_BYTES 1024
 
@@ -36,10 +37,11 @@ void Communicator::acceptClients()
 
 		std::cout << "someone has arrived:)\n" << std::endl;
 
-		//will implement IRequestHandler in later versions
-		IRequestHandler* requestManager;
-		m_clients.insert(std::pair<SOCKET, IRequestHandler*>
-			(clientSocket, requestManager));
+		// create handler to the incoming request default is login
+		std::shared_ptr<IRequestHandler> requestManager =
+			std::make_shared<LoginRequestHandler>();
+
+		m_clients.emplace(socket, requestManager);
 
 		std::thread therad(&Communicator::handleNewClient, this, clientSocket);
 		therad.detach();
@@ -72,14 +74,9 @@ void Communicator::bindAndListen()
 
 void Communicator::handleNewClient(SOCKET socket)
 {
-	std::string msg = "Hello";
 
 	try
 	{
-		sendMessage(socket, msg);
-
-		receiveMessage(socket);
-	
 		closesocket(socket);
 	}
 	catch (std::exception& e)
