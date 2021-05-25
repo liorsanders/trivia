@@ -28,7 +28,7 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 {
 	uint32_t length = 
 		std::bitset<32>(data.length()).to_ulong(); 
-	uint8_t binaryCode = (char)messageCode;
+	uint8_t binaryCode = (uint8_t)messageCode;
 
 
 	// create message vector and build the full message
