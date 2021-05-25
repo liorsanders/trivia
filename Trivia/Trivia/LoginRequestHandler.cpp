@@ -11,15 +11,15 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& request)
 
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request)
 {
-    RequestResult result = RequestResult();
-    LoginResponse response = LoginResponse();
-
-    response.status = 1;
-
-    result.response = 
-        JsonResponsePacketSerializer::serializeResponse(response);
-    result.newHandler = nullptr;
-
-    return result;
+    switch (request.id)
+    {
+    case (int)Codes::Login:
+        return handleRequest(LoginResponse(), nullptr);
+    case (int)Codes::Signup:
+        return handleRequest(SignupResponse(), LoginRequestHandler());
+    default:
+        std::cout << "Error: Unknown message code. " << std::endl;
+        return handleRequest(ErrorResponse(), nullptr);
+    }
 }
 
