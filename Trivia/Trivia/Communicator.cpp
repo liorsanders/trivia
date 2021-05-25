@@ -110,11 +110,12 @@ RequestResult Communicator::receiveMessage(const SOCKET& socket)
 	return m_clients[socket]->handleRequest(info);
 }
 
-void Communicator::sendMessage(const SOCKET& socket, std::string& msg)
+void Communicator::sendMessage(const SOCKET& socket,
+	const std::vector<unsigned char>& message)
 {
 	std::cout << "sending Hello to client...\n" << std::endl;
 
-	if (send(socket, msg.c_str(), msg.size(), 0) == INVALID_SOCKET)
+	if (send(socket, (char*)&message[0], message.size(), 0) == INVALID_SOCKET)
 	{
 		throw std::exception("Error while sending message to client");
 	}

@@ -21,7 +21,7 @@ private:
 
 	RequestResult receiveMessage(const SOCKET& socket);
 
-	void sendMessage(const SOCKET& sc, std::string& msg);
+	void sendMessage(const SOCKET& sc, const std::vector<unsigned char>& message);
 
 	SOCKET m_serverSocket;
 	std::map<SOCKET, std::shared_ptr<IRequestHandler>> m_clients;
