@@ -5,7 +5,8 @@
 
 bool LoginRequestHandler::isRequestRelevant(const RequestInfo& request)
 {
-    return request.id == (int)Codes::Login;
+    return request.id == (int)Codes::Login ||
+        request.id == (int)Codes::Signup;
 }
 
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request)
