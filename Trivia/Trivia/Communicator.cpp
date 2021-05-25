@@ -78,6 +78,8 @@ void Communicator::handleNewClient(SOCKET socket)
 			RequestResult result = receiveMessage(socket);
 
 			sendMessage(socket, result.response);
+
+			delete m_clients[socket]; // delete the preveios handler
 			m_clients[socket] = result.newHandler;
 		}
 

@@ -60,10 +60,10 @@ RequestInfo JsonRequestPacketDeserializer::
     info.receivalTime = time(nullptr);
     
     int length = extractMessageLength(message);
-
-    std::copy_n(message.begin() + (int)BytesLength::Data,
-        length,
-        info.buffer.begin());
+    
+    // cant use std::copy because message and info doesnt has the same size
+    auto beginIt = message.begin() + (int)BytesLength::Data;
+    info.buffer = std::vector<unsigned char>(beginIt, beginIt + length);
 
     return info;
 }
