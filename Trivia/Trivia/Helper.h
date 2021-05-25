@@ -3,8 +3,10 @@
 #include <tuple>
 #include <string>
 #include <fstream>
+#include "RequestInfo.h"
 
-class Helper {
+class Helper 
+{
 public:
 	//return ip, port
 	static std::pair<std::string, int> importDetailsFromConfig(std::string configName);

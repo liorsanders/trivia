@@ -1,6 +1,8 @@
 #include "Communicator.h"
 #include <vector>
 #include <iostream>
+#include "JsonRequestPacketDeserializer.h"
+#include "LoginRequestHandler.h"
 
 #define MAX_BYTES 1024
 
@@ -35,11 +37,6 @@ void Communicator::acceptClients()
 
 		std::cout << "someone has arrived:)\n" << std::endl;
 
-		//will implement IRequestHandler in later versions
-		IRequestHandler requestManager;
-		m_clients.insert(std::pair<SOCKET,
-			IRequestHandler>(clientSocket, requestManager));
-
 		std::thread therad(&Communicator::handleNewClient, this, clientSocket);
 		therad.detach();
 	}
@@ -71,14 +68,19 @@ void Communicator::bindAndListen()
 
 void Communicator::handleNewClient(SOCKET socket)
 {
-	std::string msg = "Hello";
-
+	IRequestHandler* requestManager = new LoginRequestHandler;
+	m_clients.insert(std::pair<SOCKET, IRequestHandler*>
+		(socket, requestManager));
 	try
 	{
-		sendMessage(socket, msg);
+		while (m_clients[socket] != nullptr)
+		{
+			RequestResult result = receiveMessage(socket);
 
-		receiveMessage(socket);
-	
+			sendMessage(socket, result.response);
+			m_clients[socket] = result.newHandler;
+		}
+
 		closesocket(socket);
 	}
 	catch (std::exception& e)
@@ -91,12 +93,12 @@ void Communicator::handleNewClient(SOCKET socket)
 	}
 }
 
-void Communicator::receiveMessage(const SOCKET& socket)
+RequestResult Communicator::receiveMessage(const SOCKET& socket)
 {
 	std::cout << "We should wait for the client :(" << std::endl;
 
-	std::vector<char> data(MAX_BYTES);
-	int result = recv(socket, &data[0], MAX_BYTES, 0);
+	std::vector<unsigned char> message(MAX_BYTES);
+	int result = recv(socket, (char*)message.data(), MAX_BYTES, 0);
 
 	if (result == INVALID_SOCKET)
 	{
@@ -106,16 +108,18 @@ void Communicator::receiveMessage(const SOCKET& socket)
 
 		throw std::exception(s.c_str());
 	}
-
-	std::cout << "The message has arrived!";
 	
+	auto info = JsonRequestPacketDeserializer::createRequestInfo(message);
+
+	return m_clients[socket]->handleRequest(info);
 }
 
-void Communicator::sendMessage(const SOCKET& socket, std::string& msg)
+void Communicator::sendMessage(const SOCKET& socket,
+	const std::vector<unsigned char>& message)
 {
 	std::cout << "sending Hello to client...\n" << std::endl;
 
-	if (send(socket, msg.c_str(), msg.size(), 0) == INVALID_SOCKET)
+	if (send(socket, (char*)&message[0], message.size(), 0) == INVALID_SOCKET)
 	{
 		throw std::exception("Error while sending message to client");
 	}

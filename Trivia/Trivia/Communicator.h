@@ -7,6 +7,7 @@
 #include <thread>
 #include <WinSock2.h>
 #include <Windows.h>
+#include "RequestResult.h"
 
 class Communicator {
 public:
@@ -18,10 +19,10 @@ private:
 	void bindAndListen();
 	void handleNewClient(SOCKET);
 
-	void receiveMessage(const SOCKET& socket);
+	RequestResult receiveMessage(const SOCKET& socket);
 
-	void sendMessage(const SOCKET& sc, std::string& msg);
+	void sendMessage(const SOCKET& sc, const std::vector<unsigned char>& message);
 
 	SOCKET m_serverSocket;
-	std::map<SOCKET, IRequestHandler> m_clients;
+	std::map<SOCKET, IRequestHandler*> m_clients;
 };

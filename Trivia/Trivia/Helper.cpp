@@ -1,4 +1,5 @@
 #include "Helper.h"
+#include "Bytes.h"
 
 std::pair<std::string, int> Helper::importDetailsFromConfig(std::string configName)
 {

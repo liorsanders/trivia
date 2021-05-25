@@ -1,8 +1,6 @@
 #include "JsonResponsePacketSerializer.h"
 #include <bitset>
-
-enum class BytesLength {Code = 1, Length = 4};
-enum class Bytes { One = 8};
+#include "Bytes.h"
 
 std::vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
@@ -30,8 +28,7 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 {
 	uint32_t length = 
 		std::bitset<32>(data.length()).to_ulong(); 
-	uint8_t binaryCode = 
-		std::bitset<8>(messageCode).to_ulong();
+	uint8_t binaryCode = (uint8_t)messageCode;
 
 
 	// create message vector and build the full message
@@ -40,7 +37,7 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	fullMessage.push_back(binaryCode);
 
 	// insert length to vector
-	std::array<unsigned char, sizeof(int)>bytes = convertUint32ToUint8(length);
+	std::array<unsigned char, sizeof(int)>bytes = intToBytes(length);
 	auto start = fullMessage.begin() + (int)BytesLength::Code;
 	fullMessage.insert(
 		start, bytes.begin(), bytes.end());
@@ -58,19 +55,14 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 * After, the function insert the bytes into the vector.
 */
 std::array<unsigned char, sizeof(int)>
-	JsonResponsePacketSerializer::convertUint32ToUint8
-	(const uint32_t& length)
+	JsonResponsePacketSerializer::intToBytes(const uint32_t& length)
 {
-	int currentByte = 0;
 	std::array<unsigned char, sizeof(int)> bytes = { 0 };
 
-	for (int i = 0; i < sizeof(int); i++)
-	{
-		currentByte = (int)Bytes::One * (sizeof(int) - i); // calc the current byte and how many bits to shift
-		bytes[i] = (length >> currentByte) & 0xFF;
-	}
-
-	std::reverse(bytes.begin(), bytes.end()); // because the bytes are in the opposite order
+	bytes[0] = length >> 24;
+	bytes[1] = length >> 16;
+	bytes[2] = length >> 8;
+	bytes[3] = length;
 
 	return bytes;
 }
