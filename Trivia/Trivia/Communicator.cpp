@@ -92,7 +92,7 @@ void Communicator::handleNewClient(SOCKET socket)
 	}
 }
 
-void Communicator::receiveMessage(const SOCKET& socket)
+RequestResult Communicator::receiveMessage(const SOCKET& socket)
 {
 	std::cout << "We should wait for the client :(" << std::endl;
 
@@ -110,7 +110,7 @@ void Communicator::receiveMessage(const SOCKET& socket)
 	
 	auto info = JsonRequestPacketDeserializer::createRequestInfo(message);
 
-	m_clients[socket]->handleRequest(info);
+	return m_clients[socket]->handleRequest(info);
 }
 
 void Communicator::sendMessage(const SOCKET& socket, std::string& msg)

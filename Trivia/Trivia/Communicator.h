@@ -18,7 +18,7 @@ private:
 	void bindAndListen();
 	void handleNewClient(SOCKET);
 
-	void receiveMessage(const SOCKET& socket);
+	RequestResult receiveMessage(const SOCKET& socket);
 
 	void sendMessage(const SOCKET& sc, std::string& msg);
 
