@@ -24,5 +24,5 @@ private:
 	void sendMessage(const SOCKET& sc, const std::vector<unsigned char>& message);
 
 	SOCKET m_serverSocket;
-	std::map<SOCKET, std::shared_ptr<IRequestHandler>> m_clients;
+	std::map<SOCKET, IRequestHandler*> m_clients;
 };

@@ -46,7 +46,7 @@ RequestResult LoginRequestHandler::createRequestResult(SignupResponse response)
     result.response =
         JsonResponsePacketSerializer::serializeResponse(response);
 
-    result.newHandler = new LoginRequestHandler();
+    result.newHandler = new LoginRequestHandler;
     
     return result;
 }
