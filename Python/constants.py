@@ -9,5 +9,7 @@ CODE_INDEX = 0
 LENGTH_INDEX = 1
 MESSAGE_INDEX = 5
 
+INT_BYTES = 4
+
 LOGIN_CODE = '\x19'.encode()
 SIGN_UP_CODE = 'I'.encode()
