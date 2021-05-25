@@ -2,6 +2,7 @@
 #include "json.hpp"
 #include <iostream>
 #include "Bytes.h"
+#include <algorithm>
 
 LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest
     (const std::vector<unsigned char>& buffer)
@@ -51,7 +52,7 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest
 }
 
 RequestInfo JsonRequestPacketDeserializer::
-    createRequestInfo(const std::vector<unsigned char>& message)
+    createRequestInfo(std::vector<unsigned char>& message)
 {
     RequestInfo info = RequestInfo();
 
@@ -60,10 +61,10 @@ RequestInfo JsonRequestPacketDeserializer::
     info.receivalTime = time(nullptr);
     
     int length = extractMessageLength(message);
-
-    std::copy_n(message.begin() + (int)BytesLength::Data,
-        length,
-        info.buffer.begin());
+    
+    // cant use std::copy because message and info doesnt has the same size
+    auto beginIt = message.begin() + (int)BytesLength::Data;
+    info.buffer = std::vector<unsigned char>(beginIt, beginIt + length);
 
     return info;
 }

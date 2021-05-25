@@ -78,6 +78,8 @@ void Communicator::handleNewClient(SOCKET socket)
 			RequestResult result = receiveMessage(socket);
 
 			sendMessage(socket, result.response);
+
+			delete m_clients[socket]; // delte the preveios handler
 			m_clients[socket] = result.newHandler;
 		}
 
@@ -108,9 +110,9 @@ RequestResult Communicator::receiveMessage(const SOCKET& socket)
 
 		throw std::exception(s.c_str());
 	}
-	
-	auto info = JsonRequestPacketDeserializer::createRequestInfo(message);
 
+	auto info = JsonRequestPacketDeserializer::createRequestInfo(message);
+	std::cout << "info: " << std::string(info.buffer.begin(), info.buffer.end()) << std::endl;
 	return m_clients[socket]->handleRequest(info);
 }
 
