@@ -14,12 +14,52 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request)
     switch (request.id)
     {
     case (int)Codes::Login:
-        return handleRequest(LoginResponse(), nullptr);
+        return createRequestResult(LoginResponse());
+
     case (int)Codes::Signup:
-        return handleRequest(SignupResponse(), LoginRequestHandler());
+        return createRequestResult(SignupResponse());
+
     default:
         std::cout << "Error: Unknown message code. " << std::endl;
-        return handleRequest(ErrorResponse(), nullptr);
+        return createRequestResult(ErrorResponse());
     }
 }
 
+RequestResult LoginRequestHandler::createRequestResult(LoginResponse response)
+{
+    RequestResult result = RequestResult();
+    response.status = 1;
+
+    result.response =
+        JsonResponsePacketSerializer::serializeResponse(response);
+
+    result.newHandler = nullptr;
+
+    return result;
+}
+
+RequestResult LoginRequestHandler::createRequestResult(SignupResponse response)
+{
+    RequestResult result = RequestResult();
+    response.status = 1;
+
+    result.response =
+        JsonResponsePacketSerializer::serializeResponse(response);
+
+    result.newHandler = new LoginRequestHandler();
+    
+    return result;
+}
+
+RequestResult LoginRequestHandler::createRequestResult(ErrorResponse response)
+{
+    RequestResult result = RequestResult();
+
+    response.message = "Unknown message code";
+    result.response =
+        JsonResponsePacketSerializer::serializeResponse(response);
+
+    result.newHandler = nullptr;
+
+    return result; 
+}

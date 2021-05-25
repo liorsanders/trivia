@@ -1,6 +1,9 @@
 #pragma once
 
 #include "LoginResponse.h"
+#include "SignupResponse.h"
+#include "ErrorResponse.h"
+#include "LoginResponse.h"
 #include "JsonRequestPacketDeserializer.h"
 #include "RequestResult.h"
 #include "Codes.h"
@@ -12,19 +15,12 @@ public:
 	bool isRequestRelevant(const RequestInfo& request) override;
 
 	RequestResult handleRequest(const RequestInfo& request) override;
+
 private:
-    template <class Response, class Handler>
-    RequestResult handleRequest(Response response, Handler handler) override
-    {
-        RequestResult result = RequestResult();
-        response.status = 1;
+	RequestResult createRequestResult(LoginResponse response);
+	
+	RequestResult createRequestResult(SignupResponse response);
 
-        result.response =
-            JsonResponsePacketSerializer::serializeResponse(response);
+	RequestResult createRequestResult(ErrorResponse response);
 
-        result.newHandler = handler;
-
-        return result;
-    }
-    
 };
