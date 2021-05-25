@@ -14,21 +14,20 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request)
     switch (request.id)
     {
     case (int)Codes::Login:
-        return createRequestResult(LoginResponse());
+        return HandleLoginRequest(request);
 
     case (int)Codes::Signup:
-        return createRequestResult(SignupResponse());
+        return HandleSignupRequest(request);
 
     default:
-        std::cout << "Error: Unknown message code. " << std::endl;
-        return createRequestResult(ErrorResponse());
+        return HandleErrorRequest(request);
     }
 }
 
-RequestResult LoginRequestHandler::createRequestResult(LoginResponse response)
+RequestResult LoginRequestHandler::HandleLoginRequest(const RequestInfo& request)
 {
     RequestResult result = RequestResult();
-    response.status = 1;
+    LoginResponse response = { 1 }; // init status with 1 that equal to true
 
     result.response =
         JsonResponsePacketSerializer::serializeResponse(response);
@@ -38,10 +37,10 @@ RequestResult LoginRequestHandler::createRequestResult(LoginResponse response)
     return result;
 }
 
-RequestResult LoginRequestHandler::createRequestResult(SignupResponse response)
+RequestResult LoginRequestHandler::HandleSignupRequest(const RequestInfo& request)
 {
     RequestResult result = RequestResult();
-    response.status = 1;
+    SignupResponse response = { 1 }; // init status with 1 that equal to true
 
     result.response =
         JsonResponsePacketSerializer::serializeResponse(response);
@@ -51,11 +50,13 @@ RequestResult LoginRequestHandler::createRequestResult(SignupResponse response)
     return result;
 }
 
-RequestResult LoginRequestHandler::createRequestResult(ErrorResponse response)
+RequestResult LoginRequestHandler::HandleErrorRequest(const RequestInfo& request)
 {
     RequestResult result = RequestResult();
+    ErrorResponse response = { "Unknown message code" };
 
-    response.message = "Unknown message code";
+    std::cerr << "Error: Unknown message code!." << std::endl;
+
     result.response =
         JsonResponsePacketSerializer::serializeResponse(response);
 

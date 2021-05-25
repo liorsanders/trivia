@@ -17,10 +17,10 @@ public:
 	RequestResult handleRequest(const RequestInfo& request) override;
 
 private:
-	RequestResult createRequestResult(LoginResponse response);
+	RequestResult HandleLoginRequest(const RequestInfo& request);
 	
-	RequestResult createRequestResult(SignupResponse response);
+	RequestResult HandleSignupRequest(const RequestInfo& request);
 
-	RequestResult createRequestResult(ErrorResponse response);
+	RequestResult HandleErrorRequest(const RequestInfo& request);
 
 };
