@@ -4,7 +4,6 @@
 
 struct SignupResponse
 {
-	int code = (int)Codes::Signup;
-
 	unsigned int status;
+	const int code = (int)Codes::Signup;
 };
