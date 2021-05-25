@@ -77,6 +77,14 @@ void Communicator::handleNewClient(SOCKET socket)
 
 	try
 	{
+		while (m_clients[socket] != nullptr)
+		{
+			RequestResult result = receiveMessage(socket);
+
+			sendMessage(socket, result.response);
+			m_clients[socket] = result.newHandler;
+		}
+
 		closesocket(socket);
 	}
 	catch (std::exception& e)
