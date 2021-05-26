@@ -87,6 +87,9 @@
     <ClInclude Include="RequestResult.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InvalidLoginException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Communicator.cpp">
@@ -141,6 +144,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RequestResult.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InvalidLoginException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

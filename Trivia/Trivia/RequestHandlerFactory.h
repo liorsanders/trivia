@@ -5,6 +5,7 @@
 #include "IDatabase.h"
 
 class LoginManager;
+class LoginRequestHandler;
 
 class RequestHandlerFactory
 {

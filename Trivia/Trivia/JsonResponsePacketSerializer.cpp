@@ -8,7 +8,7 @@ std::vector<unsigned char>
 	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
 {
 	return buildMessage(
-		dataToJson<string>(response.message, "message"), response.code);
+		dataToJson<string>(response.message, "message"), (int)Codes::Error);
 }
 
 std::vector<unsigned char> 

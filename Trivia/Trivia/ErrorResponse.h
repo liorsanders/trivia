@@ -6,7 +6,6 @@
 
 struct ErrorResponse
 {
-	int code = (int)Codes::Error;
 
 	std::string message;
 };

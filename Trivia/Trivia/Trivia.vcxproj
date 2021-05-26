@@ -145,6 +145,7 @@
     <ClInclude Include="ErrorResponse.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IDatabase.h" />
+    <ClInclude Include="InvalidLoginException.h" />
     <ClInclude Include="IRequestHandler.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonRequestPacketDeserializer.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="Communicator.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="IDatabase.cpp" />
+    <ClCompile Include="InvalidLoginException.cpp" />
     <ClCompile Include="JsonRequestPacketDeserializer.cpp" />
     <ClCompile Include="JsonResponsePacketSerializer.cpp" />
     <ClCompile Include="LoggedUser.cpp" />

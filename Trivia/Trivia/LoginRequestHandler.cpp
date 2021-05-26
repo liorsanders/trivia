@@ -20,15 +20,32 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& request)
 
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request)
 {
-    RequestResult result = RequestResult();
-    LoginResponse response = LoginResponse();
+    //RequestResult result = RequestResult();
+    //LoginResponse response = LoginResponse();
+    //
+    //response.status = 1;
+    //result.response =
+    //    JsonResponsePacketSerializer::serializeResponse(response);
+    //result.newHandler = nullptr;
 
-    response.status = 1;
+    //return result;
 
-    result.response =
-        JsonResponsePacketSerializer::serializeResponse(response);
-    result.newHandler = nullptr;
 
-    return result;
+    if (!isRequestRelevant(request)) {
+        RequestResult errorResult;
+        errorResult.newHandler = nullptr; //error
+        ErrorResponse err;
+        err.message = "request is not relevant";
+        errorResult.response = JsonResponsePacketSerializer::serializeResponse(err);
+        return errorResult;
+    }
+    
+    if (request.id == (int)Codes::Login) {
+        RequestResult loginResult;
+        auto loginRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(request.buffer);
+        m_loginManager.login(loginRequest.username, loginRequest.password);
+
+    }
+    
 }
 

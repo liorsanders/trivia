@@ -7,6 +7,9 @@
 #include "RequestHandlerFactory.h"
 #include "Codes.h"
 
+class LoginManager;
+class RequestHandlerFactory;
+
 class LoginRequestHandler : public IRequestHandler
 {
 private:

@@ -29,6 +29,7 @@ void LoginManager::login(std::string username,
 	if (!m_database->doesUserExist(username))
 	{
 		std::cerr << "Error: " << username << " does not exist." << std::endl;
+		
 		return;
 	}
 

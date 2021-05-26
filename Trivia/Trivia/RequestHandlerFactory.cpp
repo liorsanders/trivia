@@ -2,7 +2,7 @@
 
 LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
 {
-    LoginRequestHandler* res = new LoginRequestHandler(this->m_loginManager, this);
+    LoginRequestHandler* res = new LoginRequestHandler(this->m_loginManager, *this);
     return res;
 }
 
