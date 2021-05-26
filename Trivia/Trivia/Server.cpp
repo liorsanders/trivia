@@ -6,17 +6,15 @@
 #include <fstream>
 
 
-Server::Server() : 
-	m_database(new SqliteDatabase), 
-	m_handlerFactory(RequestHandlerFactory(m_database)), 
+Server::Server() :  
+	m_handlerFactory(RequestHandlerFactory(m_database.get())), 
 	m_communicator(Communicator(m_handlerFactory))
 {
-
+	m_database = std::make_shared<SqliteDatabase>();
 }
 
 Server::~Server()
 {
-	delete m_database;
 }
 
 void Server::run()
