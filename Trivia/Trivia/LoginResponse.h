@@ -4,7 +4,6 @@
 
 struct LoginResponse
 {
-	int code = (int)Codes::Login;
 
 	unsigned int status;
 };

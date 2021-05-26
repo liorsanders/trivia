@@ -20,7 +20,7 @@ private:
 public:
 	LoginRequestHandler(LoginManager& loginManager, RequestHandlerFactory& handlerFactory):
 	m_loginManager(loginManager), m_handlerFactory(handlerFactory) {}
-	bool isRequestRelevant(const RequestInfo& request) override;
+	bool isRequestRelevant(const RequestInfo& request) const override;
 
-	RequestResult handleRequest(const RequestInfo& request) override;
+	RequestResult handleRequest(const RequestInfo& request)override;
 };
