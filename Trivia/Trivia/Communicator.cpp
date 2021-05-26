@@ -68,9 +68,7 @@ void Communicator::bindAndListen()
 
 void Communicator::handleNewClient(SOCKET socket)
 {
-	IRequestHandler* requestManager = new LoginRequestHandler;
-	m_clients.insert(std::pair<SOCKET, IRequestHandler*>
-		(socket, requestManager));
+
 	try
 	{
 		while (m_clients[socket] != nullptr)

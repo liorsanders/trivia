@@ -10,21 +10,6 @@
 #include "RequestHandlerFactory.h"
 #include "Codes.h"
 
-class LoginRequestHandler : public IRequestHandler 
-{
-
-public:
-	bool isRequestRelevant(const RequestInfo& request) override;
-
-	RequestResult handleRequest(const RequestInfo& request) override;
-
-private:
-	RequestResult HandleLoginRequest(const RequestInfo& request);
-	
-	RequestResult HandleSignupRequest(const RequestInfo& request);
-
-	RequestResult HandleErrorRequest(const RequestInfo& request);
-
 class LoginManager;
 class RequestHandlerFactory;
 
