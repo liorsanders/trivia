@@ -56,6 +56,21 @@ def sign_up(sock):
 
     sock.sendall(full_message)
 
+def send_invalid_messages(sock):
+    print('sending message with invalid code')
+    data = {
+        "Username": input('Enter username: '),
+        "Password": input('Enter password: '),
+    }
+    json_data = json.dumps(data)
+    print("sending:", json_data, ",to server.")
+
+    full_message = '\x13'.encode() + \
+                   length_to_four_bytes(json_data) + \
+                   json_data.encode()
+    sock.sendall(full_message)
+    receive_message(sock)
+
 
 def log_in(sock):
     data = {
@@ -75,18 +90,23 @@ def log_in(sock):
 
 def main():
     try:
+
         # Create a TCP/IP socket
         print('started tester')
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect(get_server_details(constants.CONFIG_FILE_NAME))
 
+            ans = 0
             while True:
-                islogin = int(input('enter 0 to login or 1 to signup: ')) == 0
-                if islogin:
+                ans = int(input('enter 0 to login or 1 to signup -1 to send next message: '))
+                if ans == 0:
                     log_in(sock)
-                else:
+                elif ans == 1:
                     sign_up(sock)
+                else:
+                    break
                 receive_message(sock)
+            send_invalid_messages(sock)
 
     except Exception as e:
         print("error:", {e})
