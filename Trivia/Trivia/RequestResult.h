@@ -1,7 +1,6 @@
 #pragma once
 
 #include "IRequestHandler.h"
-#include <memory>
 #include <vector>
 
 class IRequestHandler;

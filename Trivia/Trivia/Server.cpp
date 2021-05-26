@@ -6,13 +6,17 @@
 #include <fstream>
 
 
-Server::Server()
+Server::Server() : 
+	m_database(new SqliteDatabase), 
+	m_handlerFactory(RequestHandlerFactory(m_database)), 
+	m_communicator(Communicator(m_handlerFactory))
 {
-	m_communicator = Communicator();
+
 }
 
 Server::~Server()
 {
+	delete m_database;
 }
 
 void Server::run()

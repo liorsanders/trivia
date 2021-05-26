@@ -60,9 +60,9 @@ createRequestInfo(const std::vector<unsigned char>& message)
 
     int length = extractMessageLength(message);
 
-    std::copy_n(message.begin() + (int)BytesLength::Data,
-        length,
-        info.buffer.begin());
+    auto beginIt = message.begin() + (int)BytesLength::Data;
+    info.buffer = std::vector<unsigned char>(beginIt, beginIt + length);
+
 
     return info;
 }

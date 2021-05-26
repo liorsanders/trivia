@@ -8,16 +8,21 @@
 RequestResult LoginRequestHandler::login(RequestInfo info) 
 {
     RequestResult loginResult;
-    auto loginRequest = JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
-    try {
+    auto loginRequest = 
+        JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
+
+    try 
+    {
         m_loginManager.login(loginRequest.username, loginRequest.password);
     }
-    catch (const InvalidLoginException& e) {
+    catch (const InvalidLoginException& e) 
+    {
         std::cout << e.what() << std::endl;
         loginResult.newHandler = this;
         ErrorResponse errorResponse;
         errorResponse.message = e.what();
-        loginResult.response = JsonResponsePacketSerializer::serializeResponse(errorResponse);
+        loginResult.response = 
+            JsonResponsePacketSerializer::serializeResponse(errorResponse);
         return loginResult;
     }
 
@@ -31,7 +36,9 @@ RequestResult LoginRequestHandler::login(RequestInfo info)
 RequestResult LoginRequestHandler::signup(RequestInfo info) 
 {
     RequestResult signupResult;
-    auto signupRequest = JsonRequestPacketDeserializer::deserializeSignupRequest(info.buffer);
+    auto signupRequest = 
+        JsonRequestPacketDeserializer::deserializeSignupRequest(info.buffer);
+    
     try {
         m_loginManager.signup(signupRequest.username, signupRequest.password, signupRequest.email);
     }
@@ -40,7 +47,8 @@ RequestResult LoginRequestHandler::signup(RequestInfo info)
         signupResult.newHandler = this;
         ErrorResponse errorResponse;
         errorResponse.message = e.what();
-        signupResult.response = JsonResponsePacketSerializer::serializeResponse(errorResponse);
+        signupResult.response = 
+            JsonResponsePacketSerializer::serializeResponse(errorResponse);
         return signupResult;
     }
 
@@ -51,6 +59,12 @@ RequestResult LoginRequestHandler::signup(RequestInfo info)
     return signupResult;
 }
 
+LoginRequestHandler::LoginRequestHandler(LoginManager& loginManager,
+    RequestHandlerFactory& handlerFactory):
+    m_loginManager(loginManager), m_handlerFactory(handlerFactory) 
+{
+}
+
 bool LoginRequestHandler::isRequestRelevant(const RequestInfo& request) const
 {
     return request.id == (int)Codes::Login || request.id == (int)Codes::Signup;
@@ -58,7 +72,8 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& request) const
 
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request) 
 {
-    if (!isRequestRelevant(request)) {
+    if (!isRequestRelevant(request)) 
+    {
         RequestResult errorResult;
         errorResult.newHandler = nullptr; //error
         ErrorResponse err;
@@ -67,7 +82,8 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request)
         return errorResult;
     }
     
-    if (request.id == (int)Codes::Login) {
+    if (request.id == (int)Codes::Login)
+    {
         return login(request);
     }
     

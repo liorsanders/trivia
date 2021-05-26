@@ -12,12 +12,17 @@ class RequestHandlerFactory
 public:
 	RequestHandlerFactory(LoginManager loginManager) :
 		m_loginManager(loginManager), m_database(nullptr) {}
+
 	RequestHandlerFactory(IDatabase* database) :
 		m_database(database) {}
+
 	RequestHandlerFactory(LoginManager loginManager, IDatabase* database) :
 		m_loginManager(loginManager), m_database(database) {}
+
 	LoginRequestHandler* createLoginRequestHandler();
+
 	LoginManager& getLoginManager();
+
 private:
 	LoginManager m_loginManager;
 	IDatabase* m_database; 

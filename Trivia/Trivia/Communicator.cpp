@@ -6,6 +6,12 @@
 
 #define MAX_BYTES 1024
 
+Communicator::Communicator(RequestHandlerFactory& handlerFactory) : 
+	m_handlerFactory(handlerFactory), m_serverSocket(0)
+
+{
+}
+
 void Communicator::startHandleRequests()
 {
 	m_serverSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -68,6 +74,12 @@ void Communicator::bindAndListen()
 
 void Communicator::handleNewClient(SOCKET socket)
 {
+	LoginManager manager = LoginManager();
+
+	IRequestHandler* requestManager = 
+		new LoginRequestHandler(manager, m_handlerFactory);
+
+	m_clients.insert(std::make_pair(socket, requestManager));
 
 	try
 	{

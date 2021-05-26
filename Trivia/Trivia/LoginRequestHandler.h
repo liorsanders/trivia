@@ -15,15 +15,18 @@ class RequestHandlerFactory;
 
 class LoginRequestHandler : public IRequestHandler
 {
-private:
-	RequestResult login(RequestInfo info);
-	RequestResult signup(RequestInfo info);
-	LoginManager& m_loginManager;
-	RequestHandlerFactory& m_handlerFactory;
+
 public:
-	LoginRequestHandler(LoginManager& loginManager, RequestHandlerFactory& handlerFactory):
-	m_loginManager(loginManager), m_handlerFactory(handlerFactory) {}
+	LoginRequestHandler(LoginManager& loginManager, RequestHandlerFactory&
+		handlerFactory);
 	bool isRequestRelevant(const RequestInfo& request) const override;
 
 	RequestResult handleRequest(const RequestInfo& request)override;
+
+private:
+	RequestResult login(RequestInfo info);
+	RequestResult signup(RequestInfo info);
+
+	LoginManager& m_loginManager;
+	RequestHandlerFactory& m_handlerFactory;
 };
