@@ -4,7 +4,7 @@
 #include "Bytes.h"
 
 LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest
-    (const std::vector<unsigned char>& buffer)
+(const std::vector<unsigned char>& buffer)
 {
     LoginRequest request = LoginRequest();
 
@@ -22,12 +22,11 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest
     {
         std::cerr << e.what();
     }
- 
     return request;
 }
 
 SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest
-    (const std::vector<unsigned char>& buffer)
+(const std::vector<unsigned char>& buffer)
 {
     SignupRequest request = SignupRequest();
 
@@ -51,25 +50,25 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest
 }
 
 RequestInfo JsonRequestPacketDeserializer::
-    createRequestInfo(const std::vector<unsigned char>& message)
+createRequestInfo(const std::vector<unsigned char>& message)
 {
     RequestInfo info = RequestInfo();
 
     info.id = (int)message[0];
 
     info.receivalTime = time(nullptr);
-    
+
     int length = extractMessageLength(message);
-    
-    // cant use std::copy because message and info doesnt has the same size
-    auto beginIt = message.begin() + (int)BytesLength::Data;
-    info.buffer = std::vector<unsigned char>(beginIt, beginIt + length);
+
+    std::copy_n(message.begin() + (int)BytesLength::Data,
+        length,
+        info.buffer.begin());
 
     return info;
 }
 
 int JsonRequestPacketDeserializer::extractMessageLength
-    (const std::vector<unsigned char>& message)
+(const std::vector<unsigned char>& message)
 {
     std::array<unsigned char, sizeof(int)> bytesLength = { 0 };
 
@@ -81,7 +80,7 @@ int JsonRequestPacketDeserializer::extractMessageLength
 }
 
 int JsonRequestPacketDeserializer::fourBytesToInt
-    (const std::array<unsigned char, sizeof(int)>& bytes)
+(const std::array<unsigned char, sizeof(int)>& bytes)
 {
     int length = int((unsigned char)(bytes[0]) << 24 |
         (unsigned char)(bytes[1]) << 16 |
@@ -90,6 +89,3 @@ int JsonRequestPacketDeserializer::fourBytesToInt
     
     return length;
 }
-
-
-

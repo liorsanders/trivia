@@ -5,5 +5,4 @@
 struct ErrorResponse
 {
 	std::string message;
-	const int code = (int)Codes::Error;
 };

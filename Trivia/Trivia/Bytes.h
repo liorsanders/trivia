@@ -1,7 +1,7 @@
 #pragma once
 
-enum class BytesLength 
-{ 
+enum class BytesLength
+{
 	Code = 1,
 	Length = 4,
 	Data = 5

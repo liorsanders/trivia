@@ -6,21 +6,21 @@ std::vector<unsigned char>
 	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
 {
 	return buildMessage(
-		dataToJson<string>(response.message, "message"), response.code);
+		dataToJson<string>(response.message, "message"), (int)Codes::Error);
 }
 
 std::vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(LoginResponse& response)
 {
 	return buildMessage(
-		dataToJson<unsigned int>(response.status, "status"), response.code);
+		dataToJson<unsigned int>(response.status, "status"), (int)Codes::Login);
 }
 
 std::vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(SignupResponse& response)
 {
 	return buildMessage( 
-		dataToJson<unsigned int>(response.status, "status"), response.code);
+		dataToJson<unsigned int>(response.status, "status"), (int)Codes::Signup);
 }
 
 std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
