@@ -6,6 +6,7 @@
 #include <queue>
 #include <mutex>
 #include <condition_variable>
+#include <memory>
 
 class Server
 {
@@ -17,7 +18,7 @@ public:
 
 private:
 	Communicator m_communicator;
-	IDatabase* m_database;
+	std::shared_ptr<IDatabase> m_database;
 	RequestHandlerFactory m_handlerFactory;
 
 };

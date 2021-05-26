@@ -74,7 +74,7 @@ void Communicator::bindAndListen()
 
 void Communicator::handleNewClient(SOCKET socket)
 {
-	LoginManager manager = LoginManager();
+	LoginManager manager = m_handlerFactory.getLoginManager();
 
 	IRequestHandler* requestManager = 
 		new LoginRequestHandler(manager, m_handlerFactory);

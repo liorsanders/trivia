@@ -3,9 +3,9 @@
 #include <algorithm>
 #include <iostream>
 
-LoginManager::LoginManager()
+LoginManager::LoginManager(IDatabase* db) :
+	m_database(db)
 {
-	m_database = std::make_shared<SqliteDatabase>();
 }
 
 void LoginManager::logout(const std::string& username)
