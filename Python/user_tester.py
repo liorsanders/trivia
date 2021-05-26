@@ -6,7 +6,6 @@ import json
 # return (server_ip, server_port)
 def get_server_details(file_name):
     config_file = open(file_name, "r")
-
     server_ip = config_file.readline()
     server_ip = server_ip[server_ip.find('=') + 1:].replace("\n", "")  # extract ip
 
@@ -43,9 +42,9 @@ def length_to_four_bytes(data):
 
 def sign_up(sock):
     data = {
-        "Username": constants.USERNAME,
-        "Password": constants.PASSWORD,
-        "Mail": constants.USER_MAIL
+        "Username": input('Enter username: '),
+        "Password": input('Enter password'),
+        "Mail": input('Enter mail: ')
     }
 
     json_data = json.dumps(data)
@@ -60,8 +59,8 @@ def sign_up(sock):
 
 def log_in(sock):
     data = {
-        "Username": constants.USERNAME,
-        "Password": constants.PASSWORD,
+        "Username": input('Enter username: '),
+        "Password": input('Enter password: '),
     }
 
     json_data = json.dumps(data)
@@ -77,17 +76,17 @@ def log_in(sock):
 def main():
     try:
         # Create a TCP/IP socket
-
+        print('started tester')
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect(get_server_details(constants.CONFIG_FILE_NAME))
 
-            print('connected to server..')
-
-            sign_up(sock)
-            receive_message(sock)
-
-            log_in(sock)
-            receive_message(sock)
+            while True:
+                islogin = int(input('enter 0 to login or 1 to signup: ')) == 0
+                if islogin:
+                    log_in(sock)
+                else:
+                    sign_up(sock)
+                receive_message(sock)
 
     except Exception as e:
         print("error:", {e})

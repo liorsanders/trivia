@@ -63,7 +63,6 @@ createRequestInfo(const std::vector<unsigned char>& message)
     std::copy_n(message.begin() + (int)BytesLength::Data,
         length,
         info.buffer.begin());
-
     return info;
 }
 

@@ -37,8 +37,13 @@ void Communicator::acceptClients()
 
 		std::cout << "someone has arrived:)\n" << std::endl;
 
-		std::thread therad(&Communicator::handleNewClient, this, clientSocket);
-		therad.detach();
+		RequestHandlerFactory factory;
+		auto loginHandler = factory.createLoginRequestHandler();
+		m_clients.insert({ clientSocket, loginHandler });
+
+		//std::thread therad(&Communicator::handleNewClient, this, clientSocket);
+		//therad.detach();
+		handleNewClient(clientSocket);
 	}
 }
 
@@ -68,12 +73,15 @@ void Communicator::bindAndListen()
 
 void Communicator::handleNewClient(SOCKET socket)
 {
-
 	try
 	{
 		while (m_clients[socket] != nullptr)
 		{
+			std::cout << "recieving message" << std::endl;
 			RequestResult result = receiveMessage(socket);
+			auto signup = JsonRequestPacketDeserializer::deserializeSignupRequest(result.response);
+			std::cout << "email: " << signup.email << " username: " << signup.username << " password: " <<
+				signup.password << std::endl;
 
 			sendMessage(socket, result.response);
 
