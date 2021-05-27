@@ -27,6 +27,8 @@ private:
 	RequestResult login(RequestInfo info);
 	RequestResult signup(RequestInfo info);
 
+	const RequestResult& createErrorResponse(const std::string& errorMessage, RequestResult& result);
+
 	LoginManager& m_loginManager;
 	RequestHandlerFactory& m_handlerFactory;
 };

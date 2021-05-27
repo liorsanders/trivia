@@ -4,9 +4,14 @@
 std::pair<std::string, int> Helper::importDetailsFromConfig(std::string configName)
 {
 	std::ifstream config(configName);
-	if (!config.is_open()) {
-		throw std::exception((std::string("failed to open: ") + configName).c_str());
+
+	if (!config.is_open()) 
+	{
+
+		std::string error = "Error: failt to open " + configName;
+		throw std::exception(error.c_str());
 	}
+
 	std::string line = "";
 
 	// extract server ip
@@ -22,6 +27,7 @@ std::pair<std::string, int> Helper::importDetailsFromConfig(std::string configNa
 
 const std::string Helper::extractDetailsFromLine(std::string& line)
 {
-	int found_at = line.find('=');
-	return line.substr(line.find('=')+1, line.length()-found_at);
+	int pos = line.find('=') + 1;
+
+	return line.substr(pos);
 }
