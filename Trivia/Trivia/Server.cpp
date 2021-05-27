@@ -7,10 +7,10 @@
 
 
 Server::Server() :  
+	m_database(std::make_shared<SqliteDatabase>()),
 	m_handlerFactory(RequestHandlerFactory(m_database.get())), 
 	m_communicator(Communicator(m_handlerFactory))
 {
-	m_database = std::make_shared<SqliteDatabase>();
 }
 
 Server::~Server()

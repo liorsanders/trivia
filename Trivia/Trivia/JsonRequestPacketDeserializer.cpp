@@ -15,8 +15,8 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest
     // in case some one try to trick us and there is no user name
     try
     {
-        request.username = data["username"];
-        request.password = data["password"];
+        request.username = data["Username"];
+        request.password = data["Password"];
     }
     catch (std::exception& e)
     {
@@ -37,9 +37,9 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest
     // in case some one try to trick us and there is no user name
     try
     {
-        request.username = data["username"];
-        request.password = data["password"];
-        request.email = data["email"];
+        request.username = data["Username"];
+        request.password = data["Password"];
+        request.email = data["Mail"];
     }
     catch (std::exception& e)
     {
