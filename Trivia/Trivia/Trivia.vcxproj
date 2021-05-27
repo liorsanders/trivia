@@ -161,6 +161,7 @@
     <ClInclude Include="RequestResult.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomData.h" />
+    <ClInclude Include="RoomManager.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="SignupRequest.h" />
     <ClInclude Include="SignupResponse.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="RequestInfo.cpp" />
     <ClCompile Include="RequestResult.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="SignupRequest.cpp" />
     <ClCompile Include="sqlite3.c" />
