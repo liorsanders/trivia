@@ -1,5 +1,7 @@
 #include "RoomManager.h"
 
+#include <algorithm>
+
 void RoomManager::createRoom(LoggedUser user, RoomData roomData)
 {
 	Room room = Room(roomData);
@@ -15,5 +17,22 @@ void RoomManager::deleteRoom(int id)
 
 unsigned int RoomManager::getRoomState(int id)
 {
-	return m_rooms[id].isRoomActive();
+	return m_rooms[id].getRoomData().isActive;
+}
+
+std::vector<RoomData> RoomManager::getRooms()
+{
+	std::vector<RoomData> allRooms;
+
+	auto getRoomData = [](const Room& room)
+	{ return room.getRoomData(); };
+
+	std::transform(
+		m_rooms.begin(),
+		m_rooms.end(),
+		allRooms.begin(),
+		getRoomData);
+
+
+	return allRooms;
 }
