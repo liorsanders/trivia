@@ -16,6 +16,6 @@ public:
 	std::vector<RoomData> getRooms();
 
 private: 
-	std::map<LoggedUser, Room> m_rooms;
+	std::map<int, Room> m_rooms;
 };
 
