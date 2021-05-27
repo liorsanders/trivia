@@ -12,3 +12,8 @@ void RoomManager::deleteRoom(int id)
 {
 	m_rooms.erase(id);
 }
+
+unsigned int RoomManager::getRoomState(int id)
+{
+	return m_rooms[id].isRoomActive();
+}
