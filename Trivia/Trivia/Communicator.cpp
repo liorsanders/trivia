@@ -79,7 +79,7 @@ void Communicator::handleNewClient(SOCKET socket)
 	IRequestHandler* requestManager = 
 		new LoginRequestHandler(manager, m_handlerFactory);
 
-	m_clients.insert(std::make_pair(socket, requestManager));
+	m_clients.emplace(socket, requestManager);
 
 	try
 	{
@@ -89,8 +89,12 @@ void Communicator::handleNewClient(SOCKET socket)
 
 			sendMessage(socket, result.response);
 
-			delete m_clients[socket]; // delete the preveios handler
-			m_clients[socket] = result.newHandler;
+			auto key = m_clients.find(socket);
+
+			if(key != m_clients.end())
+				m_clients.erase(key);
+
+			m_clients.emplace(socket, result.newHandler);
 		}
 
 		closesocket(socket);
@@ -129,9 +133,14 @@ RequestResult Communicator::receiveMessage(const SOCKET& socket)
 void Communicator::sendMessage(const SOCKET& socket,
 	const std::vector<unsigned char>& message)
 {
-	std::cout << "sending Hello to client...\n" << std::endl;
+	std::cout << "sending message to client...\n" << std::endl;
 
-	if (send(socket, (char*)&message[0], message.size(), 0) == INVALID_SOCKET)
+	bool isMessageInvalid = 
+		!message.empty() && 
+		send(socket, (char*)&message[0], message.size(), 0) ==
+		INVALID_SOCKET;
+
+	if (isMessageInvalid)
 	{
 		throw std::exception("Error while sending message to client");
 	}

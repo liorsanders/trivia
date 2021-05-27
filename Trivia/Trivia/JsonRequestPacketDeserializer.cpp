@@ -15,8 +15,8 @@ LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest
     // in case some one try to trick us and there is no user name
     try
     {
-        request.username = data["username"];
-        request.password = data["password"];
+        request.username = data["Username"];
+        request.password = data["Password"];
     }
     catch (std::exception& e)
     {
