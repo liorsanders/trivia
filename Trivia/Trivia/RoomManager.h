@@ -1,7 +1,8 @@
 #pragma once
 
-#include <map>
 #include <vector>
+#include <map>
+
 #include "Room.h"
 #include "RoomData.h"
 #include "LoggedUser.h"
@@ -15,6 +16,6 @@ public:
 	std::vector<RoomData> getRooms();
 
 private: 
-	std::map<unsigned int, Room> m_rooms;
+	std::map<LoggedUser, Room> m_rooms;
 };
 
