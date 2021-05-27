@@ -36,7 +36,7 @@ std::vector<std::string> Room::getAllUsers()
 	return allUsers;
 }
 
-unsigned int Room::isRoomActive()
+RoomData Room::getRoomData()
 {
-	return m_metadata.isActive;
+	return m_metadata;
 }

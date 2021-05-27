@@ -16,7 +16,7 @@ public:
 	void removeUser(LoggedUser user);
 
 	std::vector<std::string> getAllUsers();
-	unsigned int isRoomActive();
+	RoomData getRoomData();
 private:
 	RoomData m_metadata;
 	std::vector<LoggedUser> m_users;
