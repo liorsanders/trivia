@@ -21,10 +21,10 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request)
     switch (request.id)
     {
     case (int)Codes::Login:
-        return handleLogin(request);
+        return login(request);
 
     case (int)Codes::Signup:
-        return handleSignup(request);
+        return signup(request);
 
     default:
         std::string error = "inavlid message code";
@@ -34,7 +34,7 @@ RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request)
     }
 }
 
-RequestResult LoginRequestHandler::handleLogin(RequestInfo info) 
+RequestResult LoginRequestHandler::login(RequestInfo info) 
 {
     RequestResult result;
 
@@ -59,7 +59,7 @@ RequestResult LoginRequestHandler::handleLogin(RequestInfo info)
     return result;
 }
 
-RequestResult LoginRequestHandler::handleSignup(RequestInfo info)
+RequestResult LoginRequestHandler::signup(RequestInfo info)
 {
     RequestResult result;
     auto signupRequest =
