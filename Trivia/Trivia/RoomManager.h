@@ -12,8 +12,9 @@ class RoomManager
 public: 
 	void createRoom(LoggedUser user, RoomData room);
 	void deleteRoom(int id);
+
 	unsigned int getRoomState(int id);
-	std::vector<RoomData> getRooms();
+	std::vector<RoomData> getRooms() const;
 
 private: 
 	std::map<int, Room> m_rooms;
