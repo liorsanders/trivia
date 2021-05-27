@@ -5,60 +5,6 @@
 #include "InvalidLoginException.h"
 #include "MenuRequestHandler.h"
 
-RequestResult LoginRequestHandler::login(RequestInfo info) 
-{
-    RequestResult loginResult;
-    auto loginRequest = 
-        JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
-
-    try 
-    {
-        m_loginManager.login(loginRequest.username, loginRequest.password);
-    }
-    catch (const InvalidLoginException& e) 
-    {
-        std::cout << e.what() << std::endl;
-        loginResult.newHandler = this;
-        ErrorResponse errorResponse;
-        errorResponse.message = e.what();
-        loginResult.response = 
-            JsonResponsePacketSerializer::serializeResponse(errorResponse);
-        return loginResult;
-    }
-
-    LoginResponse resp;
-    resp.status = (int)Codes::Login;
-    loginResult.response = JsonResponsePacketSerializer::serializeResponse(resp);
-    loginResult.newHandler = new MenuRequestHandler();
-    return loginResult;
-}
-
-RequestResult LoginRequestHandler::signup(RequestInfo info) 
-{
-    RequestResult signupResult;
-    auto signupRequest = 
-        JsonRequestPacketDeserializer::deserializeSignupRequest(info.buffer);
-    
-    try {
-        m_loginManager.signup(signupRequest.username, signupRequest.password, signupRequest.email);
-    }
-    catch (const InvalidLoginException& e) {
-        std::cout << e.what() << std::endl;
-        signupResult.newHandler = this;
-        ErrorResponse errorResponse;
-        errorResponse.message = e.what();
-        signupResult.response = 
-            JsonResponsePacketSerializer::serializeResponse(errorResponse);
-        return signupResult;
-    }
-
-    SignupResponse resp;
-    resp.status = int(Codes::Signup);
-    signupResult.response = JsonResponsePacketSerializer::serializeResponse(resp);
-    signupResult.newHandler = new MenuRequestHandler();
-    return signupResult;
-}
-
 LoginRequestHandler::LoginRequestHandler(LoginManager& loginManager,
     RequestHandlerFactory& handlerFactory):
     m_loginManager(loginManager), m_handlerFactory(handlerFactory) 
@@ -72,23 +18,86 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& request) const
 
 RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request) 
 {
-    if (!isRequestRelevant(request)) 
+    switch (request.id)
     {
-        RequestResult errorResult;
-        errorResult.newHandler = nullptr; //error
-        ErrorResponse err;
-        err.message = "request is not relevant";
-        errorResult.response = JsonResponsePacketSerializer::serializeResponse(err);
-        return errorResult;
+    case (int)Codes::Login:
+        return handleLogin(request);
+
+    case (int)Codes::Signup:
+        return handleSignup(request);
+
+    default:
+        std::string error = "inavlid message code";
+        RequestResult result = RequestResult();
+
+        return createErrorResponse(error, result);
     }
-    
-    if (request.id == (int)Codes::Login)
-    {
-        return login(request);
-    }
-    
-    //if request is relevant and not login it must be signup
-    return signup(request);
-    
 }
+
+RequestResult LoginRequestHandler::handleLogin(RequestInfo info) 
+{
+    RequestResult result;
+
+    auto request = 
+        JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
+
+    try 
+    {
+        m_loginManager.login(request.username,
+            request.password);
+    }
+    catch (const InvalidLoginException& e) 
+    {
+        return createErrorResponse(e.what(), result);
+    }
+
+    LoginResponse response = { (int)Codes::Login };
+
+    result.response = JsonResponsePacketSerializer::serializeResponse(response);
+    result.newHandler = new MenuRequestHandler();
+
+    return result;
+}
+
+RequestResult LoginRequestHandler::handleSignup(RequestInfo info)
+{
+    RequestResult result;
+    auto signupRequest =
+        JsonRequestPacketDeserializer::deserializeSignupRequest(info.buffer);
+
+    try
+    {
+        m_loginManager.signup(signupRequest.username,
+            signupRequest.password,
+            signupRequest.email);
+    }
+    catch (const InvalidLoginException& e)
+    {
+        return createErrorResponse(e.what(), result);
+    }
+
+    SignupResponse response = { int(Codes::Signup) };
+
+    result.response = JsonResponsePacketSerializer::serializeResponse(response);
+    result.newHandler = new MenuRequestHandler();
+
+    return result;
+}
+
+const RequestResult& LoginRequestHandler::createErrorResponse
+    (const std::string& error, RequestResult& result)
+{
+    std::cout << error << std::endl;
+
+    result.newHandler = this;
+
+    ErrorResponse errorResponse = { error };
+
+    result.response =
+        JsonResponsePacketSerializer::serializeResponse(errorResponse);
+
+    return result;
+}
+
+
 

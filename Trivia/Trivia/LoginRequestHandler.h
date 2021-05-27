@@ -24,8 +24,10 @@ public:
 	RequestResult handleRequest(const RequestInfo& request)override;
 
 private:
-	RequestResult login(RequestInfo info);
-	RequestResult signup(RequestInfo info);
+	RequestResult handleLogin(RequestInfo info);
+	RequestResult handleSignup(RequestInfo info);
+
+	const RequestResult& createErrorResponse(const std::string& errorMessage, RequestResult& result);
 
 	LoginManager& m_loginManager;
 	RequestHandlerFactory& m_handlerFactory;
