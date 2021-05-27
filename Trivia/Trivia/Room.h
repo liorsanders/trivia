@@ -9,6 +9,7 @@
 class Room
 {
 public:
+	Room() = default;
 	Room(RoomData metadata);
 
 	void addUser(LoggedUser user);
