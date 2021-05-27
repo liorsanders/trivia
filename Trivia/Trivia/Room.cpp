@@ -19,7 +19,7 @@ void Room::removeUser(LoggedUser user)
 	m_users.erase(userIt);
 }
 
-std::vector<std::string> Room::getAllUsers()
+std::vector<std::string> Room::getAllUsers() const
 {
 	std::vector<std::string> allUsers;
 
@@ -36,7 +36,7 @@ std::vector<std::string> Room::getAllUsers()
 	return allUsers;
 }
 
-RoomData Room::getRoomData()
+const RoomData Room::getRoomData() const
 {
 	return m_metadata;
 }
