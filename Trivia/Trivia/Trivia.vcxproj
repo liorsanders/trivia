@@ -159,6 +159,7 @@
     <ClInclude Include="RequestHandlerFactory.h" />
     <ClInclude Include="RequestInfo.h" />
     <ClInclude Include="RequestResult.h" />
+    <ClInclude Include="RoomData.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="SignupRequest.h" />
     <ClInclude Include="SignupResponse.h" />
