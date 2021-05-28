@@ -142,6 +142,7 @@
     <ClInclude Include="Bytes.h" />
     <ClInclude Include="Codes.h" />
     <ClInclude Include="Communicator.h" />
+    <ClInclude Include="CreateRoomResponse.h" />
     <ClInclude Include="ErrorResponse.h" />
     <ClInclude Include="getHighScoreResponse.h" />
     <ClInclude Include="getPersonalStatsResponse.h" />
