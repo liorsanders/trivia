@@ -144,6 +144,7 @@
     <ClInclude Include="Communicator.h" />
     <ClInclude Include="ErrorResponse.h" />
     <ClInclude Include="getHighScoreResponse.h" />
+    <ClInclude Include="getPersonalStatsResponse.h" />
     <ClInclude Include="GetPlayersInRoomResponse.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IDatabase.h" />
