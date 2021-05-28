@@ -9,9 +9,13 @@ http_success = 200
 apostrophe = "&#039;"
 quot = "&quot;"
 A, B, C, D = 0, 1, 2, 3
+sql_insert_to_table = """INSERT INTO questions
+                        (question, A, B, C, D, correct_answer)
+                        VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}');"""
 
 
 def replace_http_signs(http_str):
+    # the sign apostrophe create a problem so we will replace it with quot
     http_str = http_str.replace(apostrophe, '"')
     http_str = http_str.replace(quot, '"')
 
@@ -29,6 +33,7 @@ def extract_question_details(question_data):
                replace_http_signs(incorrect_answers[1]),
                replace_http_signs(incorrect_answers[2])]
 
+    # shuffle the answers order
     random.shuffle(answers)
 
     return {"question": question,
@@ -56,29 +61,27 @@ def import_questions():
 
 def sql_connection():
     try:
-        db = sqlite3.connect('Trivia.db')
+        conn = sqlite3.connect('Trivia.db')
         print("Connection is established: Database is created in memory")
 
     except Error:
         print(Error)
 
-    return db
+    return conn
 
 
-def execute_command(db, create_table_sql):
+def execute_command(conn, sql_command):
     try:
-        sql = db.cursor()
-        sql.execute(create_table_sql)
+        curr = conn.cursor()
+        curr.execute(sql_command)
 
     except Error as error:
         print(error)
 
-    db.commit()
-
-    return sql.lastrowid
+    conn.commit()
 
 
-def create_question_table(db):
+def create_question_table(conn):
     sql_create_question_table = """CREATE TABLE IF NOT EXISTS questions (
                                     id	INTEGER,
                                     question	TEXT NOT NULL,
@@ -90,15 +93,13 @@ def create_question_table(db):
                                     PRIMARY KEY(id AUTOINCREMENT)
                                     );"""
 
-    execute_command(db, sql_create_question_table)
+    execute_command(conn, sql_create_question_table)
 
 
-def insert_questions_to_table(db, questions):
-    sql_insert_to_table = """INSERT INTO questions
-                            (question, A, B, C, D, correct_answer)
-                            VALUES('{0}', '{1}', '{2}', '{3}', '{4}', '{5}');"""
+def insert_questions_to_table(conn, questions):
 
     for question_details in questions:
+        # format the table with the right parameters
         sql_formatted_command = sql_insert_to_table.format(
             question_details["question"],
             question_details["answers"][A],
@@ -107,26 +108,25 @@ def insert_questions_to_table(db, questions):
             question_details["answers"][D],
             question_details["correct_answer"])
 
-        execute_command(db, sql_formatted_command)
+        execute_command(conn, sql_formatted_command)
 
 
-def clear_table(db):
+def clear_table(conn):
     sql_command = 'DELETE FROM questions'
 
-    sql = db.cursor()
-    sql.execute(sql_command)
-    db.commit()
+    execute_command(conn, sql_command)
 
 
 def main():
     questions = import_questions()
 
-    db = sql_connection()
-    create_question_table(db)
-    clear_table(db)
-    insert_questions_to_table(db, questions)
+    # create connection and clear table
+    conn = sql_connection()
+    create_question_table(conn)
+    clear_table(conn)
+    insert_questions_to_table(conn, questions)
 
-    db.close()
+    conn.close()
 
 
 if __name__ == "__main__":
