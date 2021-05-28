@@ -47,7 +47,8 @@ vector<unsigned char>
 		(int)Codes::Logout);
 }
 
-vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
+vector<unsigned char> 
+	JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
 {
 	vector<string> keys{ "status" };
 	vector<unsigned int> values{ response.status };
@@ -55,6 +56,17 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(GetRoomsRe
 	return buildMessage(
 		dataToJson<unsigned int>(values, keys),
 		(int)Codes::GetRooms);
+}
+
+vector<unsigned char> 
+	JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse& response)
+{
+	vector<string> keys{ "status" };
+	vector<unsigned int> values{ response.status };
+
+	return buildMessage(
+		dataToJson<unsigned int>(values, keys),
+		(int)Codes::JoinRoom);
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage

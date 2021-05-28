@@ -6,5 +6,6 @@ enum class Codes
 	Login = 25,
 	Error = 8,
 	Logout = 98,
-	GetRooms = 88
+	GetRooms = 88,
+	JoinRoom = 44
 };
