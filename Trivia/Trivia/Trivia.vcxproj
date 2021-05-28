@@ -143,6 +143,7 @@
     <ClInclude Include="Codes.h" />
     <ClInclude Include="Communicator.h" />
     <ClInclude Include="ErrorResponse.h" />
+    <ClInclude Include="GetPlayersInRoomResponse.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IDatabase.h" />
     <ClInclude Include="InvalidLoginException.h" />
