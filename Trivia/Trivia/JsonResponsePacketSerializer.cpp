@@ -47,6 +47,16 @@ vector<unsigned char>
 		(int)Codes::Logout);
 }
 
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
+{
+	vector<string> keys{ "status" };
+	vector<unsigned int> values{ response.status };
+
+	return buildMessage(
+		dataToJson<unsigned int>(values, keys),
+		(int)Codes::GetRooms);
+}
+
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	(const std::string& data, const int& messageCode)
 {
