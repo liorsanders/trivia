@@ -1,11 +1,19 @@
 #pragma once
 #include <vector>
+#include <iostream>
+#include <string>
+
+#include "json.hpp"
 #include "ErrorResponse.h"
 #include "SignupResponse.h"
 #include "LoginResponse.h"
-#include "json.hpp"
-#include <iostream>
-#include <string>
+#include "LogoutResponse.h"
+#include "GetRoomsResponse.h"
+#include "GetPlayersInRoomResponse.h"
+#include "JoinRoomResponse.h"
+#include "CreateRoomResponse.h"
+#include "getHighScoreResponse.h"
+#include "getPersonalStatsResponse.h"
 
 using std::string; 
 using std::vector;
@@ -18,6 +26,20 @@ public:
 	static vector<unsigned char> serializeResponse(LoginResponse& response);
 
 	static vector<unsigned char> serializeResponse(SignupResponse& response);
+
+	static vector<unsigned char> serializeResponse(LogoutResponse& response);
+
+	static vector<unsigned char> serializeResponse(GetRoomsResponse& response);
+
+	static vector<unsigned char> serializeResponse(JoinRoomResponse& response);
+
+	static vector<unsigned char> serializerResponse(GetPlayersInRoomResponse& response);
+
+
+	static vector<unsigned char> serializeResponse(CreateRoomResponse& response);
+
+	static vector<unsigned char> serializeResponse
+		(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse);
 
 private:
 	/*

@@ -1,4 +1,5 @@
 #include "JsonResponsePacketSerializer.h"
+
 #include <bitset>
 #include "Bytes.h"
 
