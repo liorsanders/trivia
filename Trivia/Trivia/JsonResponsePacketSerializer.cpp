@@ -2,7 +2,7 @@
 
 #include <bitset>
 #include <algorithm>
-#include <sstream>
+#include <numeric>
 #include "Bytes.h"
 
 vector<unsigned char> 
@@ -76,28 +76,19 @@ vector<unsigned char>
 {
 	vector<string> keys{ "Rooms" };
 	vector<string> values;
-	
-	values.push_back(createStringOfRooms(response));
+	vector<string> rooms(response.rooms.size());
+
+	std::transform(response.rooms.begin(),
+		response.rooms.end(),
+		rooms.begin(),
+		[&](const RoomData& room) { return room.name + ","; });
+
+	values.push_back(accumulate(rooms.begin(), rooms.end(), string()));
 
 	return buildMessage(
 		dataToJson<string>(values, keys),
 		(int)Codes::GetRoom);
 }
-
-string JsonResponsePacketSerializer::createStringOfRooms(GetRoomsResponse& response)
-{
-	string rooms = "";
-
-	for (auto& room : response.rooms)
-	{
-		rooms += room.name + ", ";
-	}
-
-	rooms.resize(rooms.size() - string(", ").length());
-
-	return rooms;
-}
-
 
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	(const std::string& data, const int& messageCode)

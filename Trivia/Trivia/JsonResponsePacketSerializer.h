@@ -64,6 +64,5 @@ private:
 	static std::array<unsigned char, sizeof(int)>
 		intToBytes(const uint32_t& length);
 
-	static string createStringOfRooms(GetRoomsResponse& response);
 };
 
