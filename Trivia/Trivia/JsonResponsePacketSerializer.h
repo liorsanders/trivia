@@ -29,14 +29,14 @@ public:
 
 	static vector<unsigned char> serializeResponse(LogoutResponse& response);
 
-	static vector<unsigned char> serializeResponse(GetRoomsResponse& response);
-
+	static vector<unsigned char> serializeResponse(CreateRoomResponse& response);
+	
 	static vector<unsigned char> serializeResponse(JoinRoomResponse& response);
 
 	static vector<unsigned char> serializerResponse(GetPlayersInRoomResponse& response);
 
 
-	static vector<unsigned char> serializeResponse(CreateRoomResponse& response);
+	static vector<unsigned char> serializeResponse(GetRoomsResponse& response);
 
 	static vector<unsigned char> serializeResponse
 		(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse);

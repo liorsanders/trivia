@@ -48,7 +48,7 @@ vector<unsigned char>
 }
 
 vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
+	JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse& response)
 {
 	vector<string> keys{ "status" };
 	vector<unsigned int> values{ response.status };
