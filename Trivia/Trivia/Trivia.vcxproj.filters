@@ -111,6 +111,9 @@
     <ClInclude Include="getPersonalStatsResponse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="JoinRoomResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Communicator.cpp">
