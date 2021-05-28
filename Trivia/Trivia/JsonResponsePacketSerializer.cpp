@@ -2,28 +2,40 @@
 #include <bitset>
 #include "Bytes.h"
 
-std::vector<unsigned char> 
+vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
 {
+	vector<string> keys { "message" };
+	vector<string> values { response.message };
+
 	return buildMessage(
-		dataToJson<string>(response.message, "message"), (int)Codes::Error);
+		dataToJson<string>(values, keys),
+		(int)Codes::Error);
 }
 
-std::vector<unsigned char> 
+vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(LoginResponse& response)
 {
+	vector<string> keys{ "status" };
+	vector<unsigned int> values{ response.status };
+
 	return buildMessage(
-		dataToJson<unsigned int>(response.status, "status"), (int)Codes::Login);
+		dataToJson<unsigned int>(values, keys),
+		(int)Codes::Login);
 }
 
-std::vector<unsigned char> 
+vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(SignupResponse& response)
 {
+	vector<string> keys{ "status" };
+	vector<unsigned int> values{ response.status };
+
 	return buildMessage( 
-		dataToJson<unsigned int>(response.status, "status"), (int)Codes::Signup);
+		dataToJson<unsigned int>(values, keys),
+		(int)Codes::Signup);
 }
 
-std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
+vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	(const std::string& data, const int& messageCode)
 {
 	uint32_t length = 
@@ -32,7 +44,7 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 
 
 	// create message vector and build the full message
-	std::vector<unsigned char> fullMessage;
+	vector<unsigned char> fullMessage;
 
 	fullMessage.push_back(binaryCode);
 
