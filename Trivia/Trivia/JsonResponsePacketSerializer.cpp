@@ -110,8 +110,15 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 	(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse)
 {
-	scoreResponse.statistics
-	return vector<unsigned char>();
+	vector<string> keys{ "HighScores" , "UserStatistics" };
+	vector<string> values{
+		vectorToString(scoreResponse.statistics),
+		vectorToString(statsResponse.statistics) };
+
+
+	return buildMessage(
+		dataToJson<string>(values, keys),
+		(int)Codes::statistics);
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
