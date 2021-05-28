@@ -55,7 +55,7 @@ vector<unsigned char>
 
 	return buildMessage(
 		dataToJson<unsigned int>(values, keys),
-		(int)Codes::GetRooms);
+		(int)Codes::CreateRoom);
 }
 
 vector<unsigned char> 
@@ -67,6 +67,17 @@ vector<unsigned char>
 	return buildMessage(
 		dataToJson<unsigned int>(values, keys),
 		(int)Codes::JoinRoom);
+}
+
+vector<unsigned char> 
+JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
+{
+	vector<string> keys{ "Rooms" };
+	vector<string> values{ string(response.rooms.begin(), response.rooms.end()) };
+
+	return buildMessage(
+		dataToJson<string>(values, keys),
+		(int)Codes::GetRoom);
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
