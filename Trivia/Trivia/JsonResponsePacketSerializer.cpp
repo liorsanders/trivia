@@ -1,6 +1,8 @@
 #include "JsonResponsePacketSerializer.h"
 
 #include <bitset>
+#include <algorithm>
+#include <sstream>
 #include "Bytes.h"
 
 vector<unsigned char> 
@@ -70,15 +72,26 @@ vector<unsigned char>
 }
 
 vector<unsigned char> 
-JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
+	JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
 {
+	string rooms = "";
 	vector<string> keys{ "Rooms" };
-	vector<string> values{ string(response.rooms.begin(), response.rooms.end()) };
+	vector<string> values;
+	
+	for (auto& room : response.rooms)
+	{
+		rooms += room.name + ", ";
+	}
+
+	rooms.resize(rooms.size() - string(", ").length());
+	
+	values.push_back(rooms);
 
 	return buildMessage(
 		dataToJson<string>(values, keys),
 		(int)Codes::GetRoom);
 }
+
 
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	(const std::string& data, const int& messageCode)
@@ -123,3 +136,4 @@ std::array<unsigned char, sizeof(int)>
 
 	return bytes;
 }
+
