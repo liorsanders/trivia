@@ -78,15 +78,15 @@ JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
 	vector<string> values;
 	vector<string> rooms(response.rooms.size());
 
-	auto separateNames = [&](const RoomData& room)
-	{ return room.name + ", "; };
+	auto roomDataToName = [&](const RoomData& room)
+	{ return room.name; };
 
 	std::transform(response.rooms.begin(),
 		response.rooms.end(),
 		rooms.begin(),
-		separateNames);
+		roomDataToName);
 
-	values.push_back(accumulate(rooms.begin(), rooms.end(), string()));
+	values.push_back(vectorToString(rooms));
 
 	return buildMessage(
 		dataToJson<string>(values, keys),
@@ -99,18 +99,19 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 	vector<string> keys{ "PlayersInRoom" };
 	vector<string> values;
 
-	auto separateNames = [](string before, string name)
-	{ return std::move(before) + ", " + name; };
 
-	values.push_back(
-		accumulate(response.players.begin(),
-			response.players.end(),
-			string(),
-			separateNames));
+	values.push_back(vectorToString(response.players));
 
 	return buildMessage(
 		dataToJson<string>(values, keys),
-		(int)Codes::GetRoom);
+		(int)Codes::GetPlayers);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
+	(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse)
+{
+	scoreResponse.statistics
+	return vector<unsigned char>();
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
@@ -155,5 +156,20 @@ JsonResponsePacketSerializer::intToBytes(const uint32_t& length)
 	bytes[3] = length;
 
 	return bytes;
+}
+
+string JsonResponsePacketSerializer::vectorToString(const vector<string>& vec)
+{
+	const string comma = ", ";
+	std::string str = "";
+
+	for (auto& value : vec)
+	{
+		str += value + ", ";
+	}
+
+	str.resize(str.length() - comma.length());
+
+	return str;
 }
 

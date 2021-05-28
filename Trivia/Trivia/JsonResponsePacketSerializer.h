@@ -64,5 +64,7 @@ private:
 	static std::array<unsigned char, sizeof(int)>
 		intToBytes(const uint32_t& length);
 
+	static string vectorToString(const vector<string>& vec);
+
 };
 
