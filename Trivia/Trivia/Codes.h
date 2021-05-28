@@ -8,6 +8,7 @@ enum class Codes
 	Logout = 98,
 	CreateRoom = 88,
 	JoinRoom = 44, 
-	GetRoom = 15
+	GetRoom = 15,
+	GetPlayers = 64
 
 };
