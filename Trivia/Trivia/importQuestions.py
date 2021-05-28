@@ -1,6 +1,7 @@
 import requests
-import sqlite3
 import random
+import sqlite3
+from sqlite3 import Error
 
 questions_url = "https://opentdb.com/api.php?amount=10&type=multiple"
 http_success = 200
@@ -50,9 +51,17 @@ def import_questions():
         return extract_questions(data["results"])
 
 
+def sql_connection():
+    try:
+        con = sqlite3.connect('Trivia.db')
+        print("Connection is established: Database is created in memory")
+
+    except Error:
+        print(Error)
+
+
 def main():
-    questions = import_questions()
-    print(questions)
+    sql_connection()
 
 
 if __name__ == "__main__":
