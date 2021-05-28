@@ -12,7 +12,12 @@ void RoomManager::createRoom(LoggedUser user, RoomData roomData)
 
 void RoomManager::deleteRoom(int id) 
 {
-	m_rooms.erase(id);
+	bool isIdValid = m_rooms.find(id) != m_rooms.end();
+
+	if (isIdValid)
+	{
+		m_rooms.erase(id);
+	}
 }
 
 unsigned int RoomManager::getRoomState(int id)
