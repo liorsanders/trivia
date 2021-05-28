@@ -12,16 +12,25 @@ void RoomManager::createRoom(LoggedUser user, RoomData roomData)
 
 void RoomManager::deleteRoom(int id) 
 {
-	bool isIdValid = m_rooms.find(id) != m_rooms.end();
+	bool isIdInvalid = m_rooms.find(id) == m_rooms.end();
 
-	if (isIdValid)
+	if (isIdInvalid)
 	{
-		m_rooms.erase(id);
+		throw invalidId();
 	}
+	
+	m_rooms.erase(id);
 }
 
 unsigned int RoomManager::getRoomState(int id)
 {
+	bool isIdInvalid = m_rooms.find(id) == m_rooms.end();
+
+	if (isIdInvalid)
+	{
+		throw invalidId();
+	}
+
 	return m_rooms[id].getRoomData().isActive;
 }
 
@@ -40,4 +49,9 @@ std::vector<RoomData> RoomManager::getRooms() const
 
 
 	return allRooms;
+}
+
+invalidId::invalidId() : 
+	std::logic_error("id wasn't found on the map!")
+{
 }

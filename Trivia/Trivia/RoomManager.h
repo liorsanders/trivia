@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <map>
+#include <stdexcept>
+#include <string>
 
 #include "Room.h"
 #include "RoomData.h"
@@ -20,3 +22,8 @@ private:
 	std::map<int, Room> m_rooms;
 };
 
+class invalidId : public std::logic_error
+{
+public:
+	invalidId();
+};
