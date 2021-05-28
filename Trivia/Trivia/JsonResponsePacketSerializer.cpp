@@ -5,19 +5,19 @@
 #include <numeric>
 #include "Bytes.h"
 
-vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
 {
-	vector<string> keys { "message" };
-	vector<string> values { response.message };
+	vector<string> keys{ "message" };
+	vector<string> values{ response.message };
 
 	return buildMessage(
 		dataToJson<string>(values, keys),
 		(int)Codes::Error);
 }
 
-vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(LoginResponse& response)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(LoginResponse& response)
 {
 	vector<string> keys{ "status" };
 	vector<unsigned int> values{ response.status };
@@ -27,19 +27,19 @@ vector<unsigned char>
 		(int)Codes::Login);
 }
 
-vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(SignupResponse& response)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(SignupResponse& response)
 {
 	vector<string> keys{ "status" };
 	vector<unsigned int> values{ response.status };
 
-	return buildMessage( 
+	return buildMessage(
 		dataToJson<unsigned int>(values, keys),
 		(int)Codes::Signup);
 }
 
-vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(LogoutResponse& response)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(LogoutResponse& response)
 {
 	vector<string> keys{ "status" };
 	vector<unsigned int> values{ response.status };
@@ -49,8 +49,8 @@ vector<unsigned char>
 		(int)Codes::Logout);
 }
 
-vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse& response)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse& response)
 {
 	vector<string> keys{ "status" };
 	vector<unsigned int> values{ response.status };
@@ -60,8 +60,8 @@ vector<unsigned char>
 		(int)Codes::CreateRoom);
 }
 
-vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse& response)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse& response)
 {
 	vector<string> keys{ "status" };
 	vector<unsigned int> values{ response.status };
@@ -71,17 +71,20 @@ vector<unsigned char>
 		(int)Codes::JoinRoom);
 }
 
-vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
 {
 	vector<string> keys{ "Rooms" };
 	vector<string> values;
 	vector<string> rooms(response.rooms.size());
 
+	auto separateNames = [&](const RoomData& room)
+	{ return room.name + ", "; };
+
 	std::transform(response.rooms.begin(),
 		response.rooms.end(),
 		rooms.begin(),
-		[&](const RoomData& room) { return room.name + ","; });
+		separateNames);
 
 	values.push_back(accumulate(rooms.begin(), rooms.end(), string()));
 
@@ -90,11 +93,31 @@ vector<unsigned char>
 		(int)Codes::GetRoom);
 }
 
-vector<unsigned char> JsonResponsePacketSerializer::buildMessage
-	(const std::string& data, const int& messageCode)
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
+(GetPlayersInRoomResponse& response)
 {
-	uint32_t length = 
-		std::bitset<32>(data.length()).to_ulong(); 
+	vector<string> keys{ "PlayersInRoom" };
+	vector<string> values;
+
+	auto separateNames = [](string before, string name)
+	{ return std::move(before) + ", " + name; };
+
+	values.push_back(
+		accumulate(response.players.begin(),
+			response.players.end(),
+			string(),
+			separateNames));
+
+	return buildMessage(
+		dataToJson<string>(values, keys),
+		(int)Codes::GetRoom);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::buildMessage
+(const std::string& data, const int& messageCode)
+{
+	uint32_t length =
+		std::bitset<32>(data.length()).to_ulong();
 	uint8_t binaryCode = (uint8_t)messageCode;
 
 
@@ -108,7 +131,7 @@ vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	auto start = fullMessage.begin() + (int)BytesLength::Code;
 	fullMessage.insert(
 		start, bytes.begin(), bytes.end());
-	
+
 	// insert data to vector
 	start = fullMessage.begin() + (int)BytesLength::Code + (int)BytesLength::Length;
 	fullMessage.insert(
@@ -122,7 +145,7 @@ vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 * After, the function insert the bytes into the vector.
 */
 std::array<unsigned char, sizeof(int)>
-	JsonResponsePacketSerializer::intToBytes(const uint32_t& length)
+JsonResponsePacketSerializer::intToBytes(const uint32_t& length)
 {
 	std::array<unsigned char, sizeof(int)> bytes = { 0 };
 
