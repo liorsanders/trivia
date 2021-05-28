@@ -2,7 +2,7 @@ import requests
 import sqlite3
 import random
 
-db_url = "https://opentdb.com/api.php?amount=10&type=multiple"
+questions_url = "https://opentdb.com/api.php?amount=10&type=multiple"
 http_success = 200
 
 
@@ -24,13 +24,15 @@ def create_data_dict(data):
             "correct_answer": correct_answer}
 
 
-def main():
-    data = requests.get(db_url)
+def import_questions():
+    data = requests.get(questions_url)
 
     if data.status_code == http_success:
         data = data.json()
-        dict = create_data_dict(data["results"][0])
-        print(dict)
+
+
+def main():
+    import_questions()
 
 
 if __name__ == "__main__":
