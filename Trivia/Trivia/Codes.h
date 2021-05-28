@@ -9,6 +9,7 @@ enum class Codes
 	CreateRoom = 88,
 	JoinRoom = 44, 
 	GetRoom = 15,
-	GetPlayers = 64
+	GetPlayers = 64,
+	statistics = 30
 
 };
