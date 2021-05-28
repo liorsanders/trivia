@@ -35,7 +35,6 @@ public:
 
 	static vector<unsigned char> serializeResponse(GetRoomsResponse& response);
 
-
 	static vector<unsigned char> serializerResponse(GetPlayersInRoomResponse& response);
 
 	static vector<unsigned char> serializeResponse
@@ -64,5 +63,7 @@ private:
 
 	static std::array<unsigned char, sizeof(int)>
 		intToBytes(const uint32_t& length);
+
+	static string createStringOfRooms(GetRoomsResponse& response);
 };
 

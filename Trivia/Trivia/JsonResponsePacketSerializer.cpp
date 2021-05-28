@@ -74,22 +74,28 @@ vector<unsigned char>
 vector<unsigned char> 
 	JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
 {
-	string rooms = "";
 	vector<string> keys{ "Rooms" };
 	vector<string> values;
 	
+	values.push_back(createStringOfRooms(response));
+
+	return buildMessage(
+		dataToJson<string>(values, keys),
+		(int)Codes::GetRoom);
+}
+
+string JsonResponsePacketSerializer::createStringOfRooms(GetRoomsResponse& response)
+{
+	string rooms = "";
+
 	for (auto& room : response.rooms)
 	{
 		rooms += room.name + ", ";
 	}
 
 	rooms.resize(rooms.size() - string(", ").length());
-	
-	values.push_back(rooms);
 
-	return buildMessage(
-		dataToJson<string>(values, keys),
-		(int)Codes::GetRoom);
+	return rooms;
 }
 
 
