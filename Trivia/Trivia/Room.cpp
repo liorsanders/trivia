@@ -1,6 +1,7 @@
 #include "Room.h"
 
 #include <algorithm>
+#include <iterator>
 
 Room::Room(RoomData metadata) :
 	m_metadata(metadata)
@@ -29,7 +30,7 @@ std::vector<std::string> Room::getAllUsers() const
 	std::transform(
 		m_users.begin(),
 		m_users.end(),
-		allUsers.begin(),
+		std::back_inserter(allUsers),
 		getUsername);
 
 
