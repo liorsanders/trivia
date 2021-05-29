@@ -8,74 +8,54 @@
 vector<unsigned char>
 JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
 {
-	vector<string> keys{ "message" };
-	vector<string> values{ response.message };
-
 	return buildMessage(
-		dataToJson<string>(values, keys),
+		dataToJson<string>(response.message, "message"),
 		(int)Codes::Error);
 }
 
 vector<unsigned char>
 JsonResponsePacketSerializer::serializeResponse(LoginResponse& response)
 {
-	vector<string> keys{ "status" };
-	vector<unsigned int> values{ response.status };
-
 	return buildMessage(
-		dataToJson<unsigned int>(values, keys),
+		dataToJson<unsigned int>(response.status, "status"),
 		(int)Codes::Login);
 }
 
 vector<unsigned char>
 JsonResponsePacketSerializer::serializeResponse(SignupResponse& response)
 {
-	vector<string> keys{ "status" };
-	vector<unsigned int> values{ response.status };
-
 	return buildMessage(
-		dataToJson<unsigned int>(values, keys),
+		dataToJson<unsigned int>(response.status, "status"),
 		(int)Codes::Signup);
 }
 
 vector<unsigned char>
 JsonResponsePacketSerializer::serializeResponse(LogoutResponse& response)
 {
-	vector<string> keys{ "status" };
-	vector<unsigned int> values{ response.status };
-
 	return buildMessage(
-		dataToJson<unsigned int>(values, keys),
+		dataToJson<unsigned int>(response.status, "status"),
 		(int)Codes::Logout);
 }
 
 vector<unsigned char>
 JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse& response)
 {
-	vector<string> keys{ "status" };
-	vector<unsigned int> values{ response.status };
-
 	return buildMessage(
-		dataToJson<unsigned int>(values, keys),
+		dataToJson<unsigned int>(response.status, "status"),
 		(int)Codes::CreateRoom);
 }
 
 vector<unsigned char>
 JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse& response)
 {
-	vector<string> keys{ "status" };
-	vector<unsigned int> values{ response.status };
-
 	return buildMessage(
-		dataToJson<unsigned int>(values, keys),
+		dataToJson<unsigned int>(response.status, "status"),
 		(int)Codes::JoinRoom);
 }
 
 vector<unsigned char>
 JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
 {
-	vector<string> keys{ "Rooms" };
-	vector<string> values;
 	vector<string> rooms(response.rooms.size());
 
 	auto roomDataToName = [&](const RoomData& room)
@@ -86,24 +66,16 @@ JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
 		rooms.begin(),
 		roomDataToName);
 
-	values.push_back(vectorToString(rooms));
-
 	return buildMessage(
-		dataToJson<string>(values, keys),
+		dataToJson<string>(vectorToString(rooms), "Rooms"),
 		(int)Codes::GetRoom);
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 (GetPlayersInRoomResponse& response)
 {
-	vector<string> keys{ "PlayersInRoom" };
-	vector<string> values;
-
-
-	values.push_back(vectorToString(response.players));
-
 	return buildMessage(
-		dataToJson<string>(values, keys),
+		dataToJson<string>(vectorToString(response.players), "Players:"),
 		(int)Codes::GetPlayers);
 }
 

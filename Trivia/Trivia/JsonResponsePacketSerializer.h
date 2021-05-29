@@ -46,14 +46,11 @@ private:
 	*/
 	template <typename Value>
 	static string dataToJson
-		(const vector<Value>& value, const vector <string>& keys)
+		(const Value& value, const string& key)
 	{
 		nlohmann::json data;
 		
-		for (size_t i = 0; i < keys.size() && i < value.size(); i++)
-		{
-			data[keys[i]] = value[i];
-		}
+		data[key] = value;
 
 		return data.dump();
 	}
