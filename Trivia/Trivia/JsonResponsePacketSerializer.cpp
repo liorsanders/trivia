@@ -65,7 +65,7 @@ JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
 		response.rooms.end(),
 		rooms.begin(),
 		roomDataToName);
-
+	
 	return buildMessage(
 		dataToJson<string>(vectorToString(rooms), "Rooms"),
 		(int)Codes::GetRoom);
@@ -82,14 +82,14 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 	(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse)
 {
-	vector<string> keys{ "HighScores" , "UserStatistics" };
-	vector<string> values{
-		vectorToString(scoreResponse.statistics),
-		vectorToString(statsResponse.statistics) };
+	string highScores = dataToJson<string>(
+		vectorToString(scoreResponse.statistics), "HighScores");
 
+	string statistics = dataToJson<string>(
+		vectorToString(statsResponse.statistics), "UserStatistics");
 
 	return buildMessage(
-		dataToJson<string>(values, keys),
+		statistics + highScores,
 		(int)Codes::statistics);
 }
 
