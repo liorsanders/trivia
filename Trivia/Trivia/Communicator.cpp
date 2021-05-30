@@ -6,19 +6,11 @@
 
 #define MAX_BYTES 1024
 
-<<<<<<< HEAD
 Communicator::Communicator(RequestHandlerFactory& handlerFactory) : 
-=======
-Communicator::Communicator(RequestHandlerFactory& handlerFactory) :
->>>>>>> v1.0.3/python-tester
 	m_handlerFactory(handlerFactory), m_serverSocket(0)
 
 {
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> v1.0.3/python-tester
 void Communicator::startHandleRequests()
 {
 	m_serverSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
