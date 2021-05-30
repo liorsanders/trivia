@@ -10,7 +10,6 @@ class LoginRequestHandler;
 class RequestHandlerFactory
 {
 public:
-	RequestHandlerFactory() {}
 	RequestHandlerFactory(LoginManager loginManager) :
 		m_loginManager(loginManager), m_database(nullptr) {}
 	RequestHandlerFactory(IDatabase* database) :

@@ -44,6 +44,7 @@ void Communicator::acceptClients()
 		
 
 		auto loginHandler = m_handlerFactory.createLoginRequestHandler();
+		//TODO add lock support here
 		m_clients.insert({ clientSocket, loginHandler });
 
 		std::thread therad(&Communicator::handleNewClient, this, clientSocket);
