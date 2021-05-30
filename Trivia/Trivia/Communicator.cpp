@@ -81,7 +81,6 @@ void Communicator::bindAndListen()
 
 void Communicator::handleNewClient(SOCKET socket)
 {
-<<<<<<< HEAD
 	LoginManager manager = m_handlerFactory.getLoginManager();
 
 	IRequestHandler* requestManager = 
@@ -89,8 +88,6 @@ void Communicator::handleNewClient(SOCKET socket)
 
 	m_clients.emplace(socket, requestManager);
 
-=======
->>>>>>> v1.0.3/python-tester
 	try
 	{
 		while (m_clients[socket] != nullptr)
