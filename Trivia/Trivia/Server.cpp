@@ -8,16 +8,17 @@
 
 Server::Server() :  
 	m_database(std::make_shared<SqliteDatabase>()),
-	m_handlerFactory(RequestHandlerFactory(m_database.get())), 
-	m_communicator(Communicator(m_handlerFactory))
+	m_handlerFactory(RequestHandlerFactory(m_database.get()))
 {
+	m_communicator = new Communicator(m_handlerFactory);
 }
 
 Server::~Server()
 {
+	delete m_communicator;
 }
 
 void Server::run()
 {
-	m_communicator.startHandleRequests();
+	m_communicator->startHandleRequests();
 }

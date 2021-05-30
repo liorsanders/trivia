@@ -17,7 +17,7 @@ public:
 
 
 private:
-	Communicator m_communicator;
+	Communicator* m_communicator;
 	std::shared_ptr<IDatabase> m_database;
 	RequestHandlerFactory m_handlerFactory;
 

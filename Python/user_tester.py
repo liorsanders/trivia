@@ -88,6 +88,7 @@ def log_in(sock):
     sock.sendall(full_message)
 
 
+
 def main():
     try:
 
@@ -105,7 +106,7 @@ def main():
                     sign_up(sock)
                 else:
                     break
-                receive_message(sock)
+                #receive_message(sock)
             send_invalid_messages(sock)
 
     except Exception as e:
