@@ -97,9 +97,6 @@ void Communicator::handleNewClient(SOCKET socket)
 		{
 			std::cout << "recieving message" << std::endl;
 			RequestResult result = receiveMessage(socket);
-			auto signup = JsonRequestPacketDeserializer::deserializeSignupRequest(result.response);
-			std::cout << "email: " << signup.email << " username: " << signup.username << " password: " <<
-				signup.password << std::endl;
 
 			sendMessage(socket, result.response);
 

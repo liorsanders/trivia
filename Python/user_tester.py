@@ -10,7 +10,7 @@ def get_server_details(file_name):
     server_ip = server_ip[server_ip.find('=') + 1:].replace("\n", "")  # extract ip
 
     server_port = config_file.readline()
-    server_port = int(server_port[server_port.find('=') + 1:]) # extract port
+    server_port = int(server_port[server_port.find('=') + 1:])  # extract port
 
     return server_ip, server_port
 
@@ -56,6 +56,7 @@ def sign_up(sock):
 
     sock.sendall(full_message)
 
+
 def send_invalid_messages(sock):
     print('sending message with invalid code')
     data = {
@@ -88,7 +89,6 @@ def log_in(sock):
     sock.sendall(full_message)
 
 
-
 def main():
     try:
 
@@ -102,11 +102,13 @@ def main():
                 ans = int(input('enter 0 to login or 1 to signup -1 to send next message: '))
                 if ans == 0:
                     log_in(sock)
+                    receive_message(sock)
                 elif ans == 1:
                     sign_up(sock)
+                    receive_message(sock)
                 else:
                     break
-                #receive_message(sock)
+                # receive_message(sock)
             send_invalid_messages(sock)
 
     except Exception as e:
