@@ -3,6 +3,7 @@
 #include <vector>
 #include "SqliteDatabase.h"
 #include "LoggedUser.h"
+#include <mutex>
 
 class LoginManager
 {
@@ -20,6 +21,8 @@ public:
 private:
 	IDatabase* m_database;
 	std::vector<LoggedUser> m_loggedUsers;
+	std::mutex m_databaseMutex;
+	std::mutex m_loggedUsersMutex;
 
 };	
 

@@ -20,7 +20,7 @@ void LoginManager::logout(const std::string& username)
 			<< " because user is not online." << std::endl;
 		return;
 	}
-	
+	std::lock_guard<std::mutex> lock(m_loggedUsersMutex);
 	m_loggedUsers.erase(loggedUser);
 }
 
@@ -40,7 +40,7 @@ void LoginManager::login(const std::string& username,
 			" does not match." << std::endl;
 		throw InvalidLoginException("invalid username or password");
 	}
-
+	std::lock_guard<std::mutex> lock(m_loggedUsersMutex);
 	m_loggedUsers.emplace_back(username);
 }
 
@@ -52,7 +52,7 @@ void LoginManager::signup(const std::string username,
 		std::cerr << "Error: " << username << "is already exist." << std::endl;
 		throw InvalidLoginException("user already exists");
 	}
-
+	std::lock_guard<std::mutex> lock(m_databaseMutex);
 	m_database->addNewUser(username, password, mail);
 
 }
