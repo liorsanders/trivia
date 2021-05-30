@@ -50,7 +50,7 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest
 }
 
 RequestInfo JsonRequestPacketDeserializer::
-createRequestInfo(const std::vector<unsigned char>& message)
+    createRequestInfo(const std::vector<unsigned char>& message)
 {
     RequestInfo info = RequestInfo();
 
