@@ -45,7 +45,9 @@ void Communicator::acceptClients()
 
 		auto loginHandler = m_handlerFactory.createLoginRequestHandler();
 		//TODO add lock support here
+		std::unique_lock <std::mutex> lock(this->m_mapMutex);
 		m_clients.insert({ clientSocket, loginHandler });
+		lock.unlock();
 
 		std::thread therad(&Communicator::handleNewClient, this, clientSocket);
 		therad.detach();
@@ -85,8 +87,9 @@ void Communicator::handleNewClient(SOCKET socket)
 
 	IRequestHandler* requestManager = 
 		new LoginRequestHandler(manager, m_handlerFactory);
-
+	std::unique_lock<std::mutex> lock(m_mapMutex);
 	m_clients.emplace(socket, requestManager);
+	lock.unlock();
 
 	try
 	{
@@ -101,7 +104,7 @@ void Communicator::handleNewClient(SOCKET socket)
 			sendMessage(socket, result.response);
 
 			auto key = m_clients.find(socket);
-
+			std::lock_guard<std::mutex> lock(m_mapMutex);
 			if(key != m_clients.end())
 				m_clients.erase(key);
 

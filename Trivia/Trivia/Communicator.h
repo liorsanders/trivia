@@ -9,6 +9,7 @@
 #include <Windows.h>
 #include "RequestResult.h"
 #include "RequestHandlerFactory.h"
+#include <mutex>
 
 class Communicator {
 public:
@@ -25,6 +26,7 @@ private:
 
 	void sendMessage(const SOCKET& sc, const std::vector<unsigned char>& message);
 
+	std::mutex m_mapMutex;
 	SOCKET m_serverSocket;
 	std::map<SOCKET, IRequestHandler*> m_clients;
 	RequestHandlerFactory& m_handlerFactory;
