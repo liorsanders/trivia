@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-void RoomManager::createRoom(LoggedUser user, RoomData roomData)
+void RoomManager::createRoom(const LoggedUser user, const RoomData roomData)
 {
 	Room room = Room(roomData);
 
@@ -10,7 +10,7 @@ void RoomManager::createRoom(LoggedUser user, RoomData roomData)
 	m_rooms.emplace(roomData.id, room);
 }
 
-void RoomManager::deleteRoom(int id) 
+void RoomManager::deleteRoom(const int id) 
 {
 	bool isIdInvalid = m_rooms.find(id) == m_rooms.end();
 
@@ -22,7 +22,7 @@ void RoomManager::deleteRoom(int id)
 	m_rooms.erase(id);
 }
 
-unsigned int RoomManager::getRoomState(int id)
+unsigned int RoomManager::getRoomState(const int id)
 {
 	bool isIdInvalid = m_rooms.find(id) == m_rooms.end();
 

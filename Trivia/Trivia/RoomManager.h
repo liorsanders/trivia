@@ -12,10 +12,10 @@
 class RoomManager
 {
 public: 
-	void createRoom(LoggedUser user, RoomData room);
-	void deleteRoom(int id);
+	void createRoom(const LoggedUser user, const RoomData roomData);
+	void deleteRoom(const int id);
 
-	unsigned int getRoomState(int id);
+	unsigned int getRoomState(const int id);
 	std::vector<RoomData> getRooms() const;
 
 private: 

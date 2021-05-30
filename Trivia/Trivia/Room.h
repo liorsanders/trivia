@@ -16,7 +16,7 @@ public:
 	void removeUser(LoggedUser user);
 
 	std::vector<std::string> getAllUsers() const;
-	const RoomData getRoomData() const;
+	const RoomData& getRoomData() const;
 
 private:
 	RoomData m_metadata;
