@@ -6,6 +6,11 @@
 
 #define MAX_BYTES 1024
 
+Communicator::Communicator(RequestHandlerFactory& handlerFactory) :
+	m_handlerFactory(handlerFactory), m_serverSocket(0)
+
+{
+}
 void Communicator::startHandleRequests()
 {
 	m_serverSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -36,16 +41,18 @@ void Communicator::acceptClients()
 		}
 
 		std::cout << "someone has arrived:)\n" << std::endl;
+		
 
-		RequestHandlerFactory factory;
-		auto loginHandler = factory.createLoginRequestHandler();
+		auto loginHandler = m_handlerFactory.createLoginRequestHandler();
 		m_clients.insert({ clientSocket, loginHandler });
 
-		//std::thread therad(&Communicator::handleNewClient, this, clientSocket);
-		//therad.detach();
-		handleNewClient(clientSocket);
+		std::thread therad(&Communicator::handleNewClient, this, clientSocket);
+		therad.detach();
+		//handleNewClient(clientSocket);
 	}
 }
+
+
 
 void Communicator::bindAndListen()
 {
