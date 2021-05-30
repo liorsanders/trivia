@@ -6,7 +6,6 @@ import json
 # return (server_ip, server_port)
 def get_server_details(file_name):
     config_file = open(file_name, "r")
-
     server_ip = config_file.readline()
     server_ip = server_ip[server_ip.find('=') + 1:].replace("\n", "")  # extract ip
 
@@ -43,9 +42,9 @@ def length_to_four_bytes(data):
 
 def sign_up(sock):
     data = {
-        "Username": constants.USERNAME,
-        "Password": constants.PASSWORD,
-        "Mail": constants.USER_MAIL
+        "Username": input('Enter username: '),
+        "Password": input('Enter password'),
+        "Mail": input('Enter mail: ')
     }
 
     json_data = json.dumps(data)
@@ -57,11 +56,26 @@ def sign_up(sock):
 
     sock.sendall(full_message)
 
+def send_invalid_messages(sock):
+    print('sending message with invalid code')
+    data = {
+        "Username": input('Enter username: '),
+        "Password": input('Enter password: '),
+    }
+    json_data = json.dumps(data)
+    print("sending:", json_data, ",to server.")
+
+    full_message = '\x13'.encode() + \
+                   length_to_four_bytes(json_data) + \
+                   json_data.encode()
+    sock.sendall(full_message)
+    receive_message(sock)
+
 
 def log_in(sock):
     data = {
-        "Username": constants.USERNAME,
-        "Password": constants.PASSWORD,
+        "Username": input('Enter username: '),
+        "Password": input('Enter password: '),
     }
 
     json_data = json.dumps(data)
@@ -76,18 +90,23 @@ def log_in(sock):
 
 def main():
     try:
-        # Create a TCP/IP socket
 
+        # Create a TCP/IP socket
+        print('started tester')
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             sock.connect(get_server_details(constants.CONFIG_FILE_NAME))
 
-            print('connected to server..')
-
-            sign_up(sock)
-            receive_message(sock)
-
-            log_in(sock)
-            receive_message(sock)
+            ans = 0
+            while True:
+                ans = int(input('enter 0 to login or 1 to signup -1 to send next message: '))
+                if ans == 0:
+                    log_in(sock)
+                elif ans == 1:
+                    sign_up(sock)
+                else:
+                    break
+                receive_message(sock)
+            send_invalid_messages(sock)
 
     except Exception as e:
         print("error:", {e})

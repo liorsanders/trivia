@@ -6,12 +6,19 @@
 
 #define MAX_BYTES 1024
 
+<<<<<<< HEAD
 Communicator::Communicator(RequestHandlerFactory& handlerFactory) : 
+=======
+Communicator::Communicator(RequestHandlerFactory& handlerFactory) :
+>>>>>>> v1.0.3/python-tester
 	m_handlerFactory(handlerFactory), m_serverSocket(0)
 
 {
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> v1.0.3/python-tester
 void Communicator::startHandleRequests()
 {
 	m_serverSocket = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -42,11 +49,19 @@ void Communicator::acceptClients()
 		}
 
 		std::cout << "someone has arrived:)\n" << std::endl;
+		
+
+		auto loginHandler = m_handlerFactory.createLoginRequestHandler();
+		//TODO add lock support here
+		m_clients.insert({ clientSocket, loginHandler });
 
 		std::thread therad(&Communicator::handleNewClient, this, clientSocket);
 		therad.detach();
+		//handleNewClient(clientSocket);
 	}
 }
+
+
 
 void Communicator::bindAndListen()
 {
@@ -74,6 +89,7 @@ void Communicator::bindAndListen()
 
 void Communicator::handleNewClient(SOCKET socket)
 {
+<<<<<<< HEAD
 	LoginManager manager = m_handlerFactory.getLoginManager();
 
 	IRequestHandler* requestManager = 
@@ -81,11 +97,17 @@ void Communicator::handleNewClient(SOCKET socket)
 
 	m_clients.emplace(socket, requestManager);
 
+=======
+>>>>>>> v1.0.3/python-tester
 	try
 	{
 		while (m_clients[socket] != nullptr)
 		{
+			std::cout << "recieving message" << std::endl;
 			RequestResult result = receiveMessage(socket);
+			auto signup = JsonRequestPacketDeserializer::deserializeSignupRequest(result.response);
+			std::cout << "email: " << signup.email << " username: " << signup.username << " password: " <<
+				signup.password << std::endl;
 
 			sendMessage(socket, result.response);
 
