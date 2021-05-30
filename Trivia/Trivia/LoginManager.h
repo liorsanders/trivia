@@ -10,6 +10,10 @@ class LoginManager
 public:
 	// ctor and dtor
 	LoginManager(IDatabase* db);
+	LoginManager(const LoginManager& other) {
+		m_database = other.m_database;
+		m_loggedUsers = other.m_loggedUsers;
+	}
 	~LoginManager() = default;
 
 	// db methods
