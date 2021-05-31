@@ -142,7 +142,9 @@
     <ClInclude Include="Bytes.h" />
     <ClInclude Include="Codes.h" />
     <ClInclude Include="Communicator.h" />
+    <ClInclude Include="CreateRoomRequest.h" />
     <ClInclude Include="ErrorResponse.h" />
+    <ClInclude Include="GetPlayersInRoomRequest.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IDatabase.h" />
     <ClInclude Include="InvalidLoginException.h" />
@@ -168,6 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Communicator.cpp" />
+    <ClCompile Include="CreateRoomRequest.cpp" />
+    <ClCompile Include="GetPlayersInRoomRequest.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="InvalidLoginException.cpp" />
     <ClCompile Include="JsonRequestPacketDeserializer.cpp" />
