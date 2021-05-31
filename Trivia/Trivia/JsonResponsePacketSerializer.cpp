@@ -1,38 +1,108 @@
 #include "JsonResponsePacketSerializer.h"
+
 #include <bitset>
+#include <algorithm>
+#include <numeric>
 #include "Bytes.h"
 
-std::vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(ErrorResponse& response)
 {
 	return buildMessage(
-		dataToJson<string>(response.message, "message"), (int)Codes::Error);
+		dataToJson<string>(response.message, "message"),
+		(int)Codes::Error);
 }
 
-std::vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(LoginResponse& response)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(LoginResponse& response)
 {
 	return buildMessage(
-		dataToJson<unsigned int>(response.status, "status"), (int)Codes::Login);
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::Login);
 }
 
-std::vector<unsigned char> 
-	JsonResponsePacketSerializer::serializeResponse(SignupResponse& response)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(SignupResponse& response)
 {
-	return buildMessage( 
-		dataToJson<unsigned int>(response.status, "status"), (int)Codes::Signup);
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::Signup);
 }
 
-std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
-	(const std::string& data, const int& messageCode)
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(LogoutResponse& response)
 {
-	uint32_t length = 
-		std::bitset<32>(data.length()).to_ulong(); 
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::Logout);
+}
+
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(CreateRoomResponse& response)
+{
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::CreateRoom);
+}
+
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse& response)
+{
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::JoinRoom);
+}
+
+vector<unsigned char>
+JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
+{
+	vector<string> rooms(response.rooms.size());
+
+	auto roomDataToName = [&](const RoomData& room)
+	{ return room.name; };
+
+	std::transform(response.rooms.begin(),
+		response.rooms.end(),
+		rooms.begin(),
+		roomDataToName);
+	
+	return buildMessage(
+		dataToJson<string>(vectorToString(rooms), "Rooms"),
+		(int)Codes::GetRoom);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
+(GetPlayersInRoomResponse& response)
+{
+	return buildMessage(
+		dataToJson<string>(vectorToString(response.players), "Players:"),
+		(int)Codes::GetPlayers);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
+	(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse)
+{
+	string highScores = dataToJson<string>(
+		vectorToString(scoreResponse.statistics), "HighScores");
+
+	string statistics = dataToJson<string>(
+		vectorToString(statsResponse.statistics), "UserStatistics");
+
+	return buildMessage(
+		statistics + highScores,
+		(int)Codes::statistics);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::buildMessage
+(const std::string& data, const int& messageCode)
+{
+	uint32_t length =
+		std::bitset<32>(data.length()).to_ulong();
 	uint8_t binaryCode = (uint8_t)messageCode;
 
 
 	// create message vector and build the full message
-	std::vector<unsigned char> fullMessage;
+	vector<unsigned char> fullMessage;
 
 	fullMessage.push_back(binaryCode);
 
@@ -41,7 +111,7 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 	auto start = fullMessage.begin() + (int)BytesLength::Code;
 	fullMessage.insert(
 		start, bytes.begin(), bytes.end());
-	
+
 	// insert data to vector
 	start = fullMessage.begin() + (int)BytesLength::Code + (int)BytesLength::Length;
 	fullMessage.insert(
@@ -55,7 +125,7 @@ std::vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 * After, the function insert the bytes into the vector.
 */
 std::array<unsigned char, sizeof(int)>
-	JsonResponsePacketSerializer::intToBytes(const uint32_t& length)
+JsonResponsePacketSerializer::intToBytes(const uint32_t& length)
 {
 	std::array<unsigned char, sizeof(int)> bytes = { 0 };
 
@@ -66,3 +136,19 @@ std::array<unsigned char, sizeof(int)>
 
 	return bytes;
 }
+
+string JsonResponsePacketSerializer::vectorToString(const vector<string>& vec)
+{
+	const string comma = ", ";
+	std::string str = "";
+
+	for (auto& value : vec)
+	{
+		str += value + ", ";
+	}
+
+	str.resize(str.length() - comma.length());
+
+	return str;
+}
+
