@@ -15,7 +15,7 @@ SqliteDatabase::~SqliteDatabase()
 void SqliteDatabase::createTable()
 {
 	char* errorMessage;
-	std::string sql = "CREATE TABLE IF NOT EXISTS users("
+	std::string createUserTable = "CREATE TABLE IF NOT EXISTS users("
 		"id	INTEGER,"
 		"name TEXT NOT NULL,"
 		"password TEXT NOT NULL,"
@@ -23,8 +23,10 @@ void SqliteDatabase::createTable()
 		"PRIMARY KEY(id AUTOINCREMENT)"
 		");";
 
+	std::string createStatisticsTable = "CREATE TABLE IF NOT EXISTS statistics (num_correct_answers INTEGER NOT NULL,num_wrong_answers INTEGER NOT NULL,num_games INTEGER NOT NULL,total_time FLOAT NOT NULL,user_id INTEGER,FOREIGN KEY(user_id) REFERENCES users(id));";
+
 	int isBad = sqlite3_exec(db,
-		sql.c_str(),
+		createUserTable.c_str(),
 		NULL,
 		NULL,
 		&errorMessage);
@@ -34,10 +36,17 @@ void SqliteDatabase::createTable()
 		std::cerr << "Can't open database: " << errorMessage << std::endl;
 	}
 
+	isBad = sqlite3_exec(db,
+		createStatisticsTable.c_str(),
+		NULL,
+		NULL,
+		&errorMessage);
+
 }
 
 void SqliteDatabase::createDB()
 {
+	
 	int isBad = sqlite3_open("Trivia.db", &db);
 
 	if (isBad != SQLITE_OK)
