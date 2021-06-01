@@ -72,27 +72,24 @@ vector<unsigned char>
 		(int)Codes::GetRoom);
 }
 
-void to_json(nlohmann::json& j, const string& str)
-{
-	j = { str };
-}
-
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 (GetPlayersInRoomResponse& response)
 {
 	return buildMessage(
-		dataToJson<vector<string>>(response.players, "Players"),
+		dataToJson<string>(vectorToString(response.players), "Players"),
 		(int)Codes::GetPlayers);
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 	(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse)
 {
-	string highScores = dataToJson<vector<string>>(
-		scoreResponse.statistics, "HighScores");
+	string highScores = dataToJson<string>(
+		vectorToString(scoreResponse.statistics),
+		"HighScores");
 
-	string statistics = dataToJson<vector<string>>(
-		statsResponse.statistics, "UserStatistics");
+	string statistics = dataToJson<string>(
+		vectorToString(statsResponse.statistics),
+		"UserStatistics");
 
 	return buildMessage(
 		statistics + highScores,
