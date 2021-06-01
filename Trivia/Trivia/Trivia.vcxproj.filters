@@ -115,6 +115,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CreateRoomResponse.h">
+    <ClInclude Include="CreateRoomRequest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GetPlayersInRoomRequest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="JoinRoomRequest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

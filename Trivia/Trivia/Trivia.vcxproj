@@ -147,11 +147,14 @@
     <ClInclude Include="getHighScoreResponse.h" />
     <ClInclude Include="getPersonalStatsResponse.h" />
     <ClInclude Include="GetPlayersInRoomResponse.h" />
+    <ClInclude Include="CreateRoomRequest.h" />    
+    <ClInclude Include="GetPlayersInRoomRequest.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IDatabase.h" />
     <ClInclude Include="InvalidLoginException.h" />
     <ClInclude Include="IRequestHandler.h" />
     <ClInclude Include="JoinRoomResponse.h" />
+    <ClInclude Include="JoinRoomRequest.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonRequestPacketDeserializer.h" />
     <ClInclude Include="JsonResponsePacketSerializer.h" />
@@ -176,8 +179,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Communicator.cpp" />
+    <ClCompile Include="CreateRoomRequest.cpp" />
+    <ClCompile Include="GetPlayersInRoomRequest.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="InvalidLoginException.cpp" />
+    <ClCompile Include="JoinRoomRequest.cpp" />
     <ClCompile Include="JsonRequestPacketDeserializer.cpp" />
     <ClCompile Include="JsonResponsePacketSerializer.cpp" />
     <ClCompile Include="LoggedUser.cpp" />

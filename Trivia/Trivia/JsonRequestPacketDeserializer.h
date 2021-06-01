@@ -5,6 +5,9 @@
 #include "LoginRequest.h"
 #include "SignupRequest.h"
 #include "RequestInfo.h"
+#include "GetPlayersInRoomRequest.h"
+#include "JoinRoomRequest.h"
+#include "CreateRoomRequest.h"
 
 class JsonRequestPacketDeserializer 
 {
@@ -16,6 +19,11 @@ public:
 		(const std::vector<unsigned char>& message);	
 	
 	static RequestInfo createRequestInfo(const std::vector<unsigned char>& message);
+
+	static GetPlayersInRoomRequest deserializeGetPlayersRequest(const std::vector<unsigned char>& message);
+	static JoinRoomRequest deserializeJoinRoomRequest(const std::vector<unsigned char>& message);
+	static CreateRoomRequest deserializeCreateRoomRequest(const std::vector<unsigned char>& message);
+
 
 private:
 	static int extractMessageLength(const std::vector<unsigned char>& message);
