@@ -16,7 +16,11 @@ public:
 	void addNewUser(const std::string& username, 
 		const std::string& password, const std::string& mail) override;
 
-	
+	float getPlayersAverageAnswerTime(const std::string& username) const override;
+	int getNumOfCorrectAnswers(const std::string& username) const override;
+	int getNumOfTotalAnswers(const std::string& username) const override;
+	int getNumOfPlayerGames(const std::string& username) const override;
+
 private:
 	sqlite3* db;
 
@@ -24,6 +28,7 @@ private:
 	void createDB();
 	static int doeasExistsCallback
 		(void* isExists, int argc, char** argv, char** cols);
-
+	static int statisticsCallBack
+	(void* data, int argc, char** argv, char** azColName);
 };
 
