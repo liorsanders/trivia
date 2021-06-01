@@ -42,6 +42,11 @@ void SqliteDatabase::createTable()
 		NULL,
 		&errorMessage);
 
+	if (isBad != SQLITE_OK) {
+		std::cerr << "Can't open database: " << errorMessage << std::endl;
+	}
+
+
 }
 
 void SqliteDatabase::createDB()
