@@ -134,3 +134,8 @@ void SqliteDatabase::addNewUser
 		std::cerr << "Error: " << errorMessage << std::endl;
 	}
 }
+
+float SqliteDatabase::getPlayersAverageAnswerTime(const std::string& username) const
+{
+	return 0.0f;
+}
