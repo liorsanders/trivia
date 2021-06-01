@@ -53,40 +53,46 @@ JsonResponsePacketSerializer::serializeResponse(JoinRoomResponse& response)
 		(int)Codes::JoinRoom);
 }
 
-vector<unsigned char>
-JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
+void to_json(nlohmann::json& j, const RoomData& room)
 {
-	vector<string> rooms(response.rooms.size());
+	j = {
+		{"id", room.id},
+		{"name", room.name},
+		{"maxPlayers", room.maxPlayers},
+		{"timePerQuestion", room.timePerQuestion},
+		{"isActive", room.isActive}
+	};
+}
 
-	auto roomDataToName = [&](const RoomData& room)
-	{ return room.name; };
-
-	std::transform(response.rooms.begin(),
-		response.rooms.end(),
-		rooms.begin(),
-		roomDataToName);
-	
+vector<unsigned char>
+	JsonResponsePacketSerializer::serializeResponse(GetRoomsResponse& response)
+{
 	return buildMessage(
-		dataToJson<string>(vectorToString(rooms), "Rooms"),
+		dataToJson<std::vector<RoomData>>(response.rooms, "Rooms"),
 		(int)Codes::GetRoom);
+}
+
+void to_json(nlohmann::json& j, const string& str)
+{
+	j = { str };
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 (GetPlayersInRoomResponse& response)
 {
 	return buildMessage(
-		dataToJson<string>(vectorToString(response.players), "Players:"),
+		dataToJson<vector<string>>(response.players, "Players"),
 		(int)Codes::GetPlayers);
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 	(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse)
 {
-	string highScores = dataToJson<string>(
-		vectorToString(scoreResponse.statistics), "HighScores");
+	string highScores = dataToJson<vector<string>>(
+		scoreResponse.statistics, "HighScores");
 
-	string statistics = dataToJson<string>(
-		vectorToString(statsResponse.statistics), "UserStatistics");
+	string statistics = dataToJson<vector<string>>(
+		statsResponse.statistics, "UserStatistics");
 
 	return buildMessage(
 		statistics + highScores,
