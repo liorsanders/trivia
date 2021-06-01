@@ -1,5 +1,8 @@
 #include "SqliteDatabase.h"
+#include "StatisticsInfo.h"
 #include <iostream>
+
+StatisticsInfo info;
 
 SqliteDatabase::SqliteDatabase()
 {
@@ -115,6 +118,24 @@ int SqliteDatabase::doeasExistsCallback
 	return 0;
 }
 
+int SqliteDatabase::statisticsCallBack(void* data, int argc, char** argv, char** azColName)
+{
+	for (int i = 0; i < argc; i++) {
+		if (azColName[i] == std::string("num_correct_answers")) {
+			info.correctCount = std::stoi(argv[i]);
+		}
+		else if (azColName[i] == std::string("num_wrong_answers")) {
+			info.incorrectCount = std::stoi(argv[i]);
+		}
+		else if (azColName[i] == std::string("num_games")) {
+			info.totalGames = std::stoi(argv[i]);
+		}
+		else if (azColName[i] == std::string("total_time")) {
+			info.totalTime = std::stof(argv[i]);
+		}
+	}
+}
+
 void SqliteDatabase::addNewUser
 (const std::string& username, const std::string& password, const std::string& mail)
 {
@@ -137,5 +158,75 @@ void SqliteDatabase::addNewUser
 
 float SqliteDatabase::getPlayersAverageAnswerTime(const std::string& username) const
 {
-	return 0.0f;
+	bool flag = false;
+	char* errorMessage;
+	std::string sql = "SELECT num_correct_answers, num_wrong_answers, num_games, total_time, FROM users WHERE "
+		"name LIKE '" + username + ";";
+	int isBad = sqlite3_exec(db,
+		sql.c_str(),
+		&SqliteDatabase::statisticsCallBack,
+		&flag,
+		&errorMessage
+	);
+	if (isBad != SQLITE_OK) {
+		std::cerr << errorMessage << std::endl;
+	}
+	if (info.correctCount + info.incorrectCount == 0) {
+		return 0;
+	}
+	return info.totalTime / (info.correctCount + info.incorrectCount);
+}
+
+int SqliteDatabase::getNumOfCorrectAnswers(const std::string& username) const
+{
+	bool flag = false;
+	char* errorMessage;
+	std::string sql = "SELECT num_correct_answers FROM users WHERE "
+		"name LIKE '" + username + ";";
+	int isBad = sqlite3_exec(db,
+		sql.c_str(),
+		&SqliteDatabase::statisticsCallBack,
+		&flag,
+		&errorMessage
+	);
+	if (isBad != SQLITE_OK) {
+		std::cerr << errorMessage << std::endl;
+	}
+	return info.correctCount;
+}
+
+int SqliteDatabase::getNumOfTotalAnswers(const std::string& username) const
+{
+	bool flag = false;
+	char* errorMessage;
+	std::string sql = "SELECT num_correct_answers FROM users WHERE "
+		"name LIKE '" + username + ";";
+	int isBad = sqlite3_exec(db,
+		sql.c_str(),
+		&SqliteDatabase::statisticsCallBack,
+		&flag,
+		&errorMessage
+	);
+	if (isBad != SQLITE_OK) {
+		std::cerr << errorMessage << std::endl;
+	}
+	return info.correctCount + info.incorrectCount;
+}
+
+int SqliteDatabase::getNumOfPlayerGames(const std::string& username) const
+{
+	bool flag = false;
+	char* errorMessage;
+	std::string sql = "SELECT num_correct_answers FROM users WHERE "
+		"name LIKE '" + username + ";";
+	int isBad = sqlite3_exec(db,
+		sql.c_str(),
+		&SqliteDatabase::statisticsCallBack,
+		&flag,
+		&errorMessage
+	);
+	if (isBad != SQLITE_OK) {
+		std::cerr << errorMessage << std::endl;
+	}
+	return info.totalGames;
 }

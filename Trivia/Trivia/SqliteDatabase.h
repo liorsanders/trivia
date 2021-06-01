@@ -29,6 +29,6 @@ private:
 	static int doeasExistsCallback
 		(void* isExists, int argc, char** argv, char** cols);
 	static int statisticsCallBack
-	(void* data, int argc, char** argv, char* azColName);
+	(void* data, int argc, char** argv, char** azColName);
 };
 
