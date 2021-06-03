@@ -16,6 +16,7 @@ public:
 	void addNewUser(const std::string& username, 
 		const std::string& password, const std::string& mail) override;
 
+	std::map<std::string, float> getUsersScores() const override;
 	float getPlayersAverageAnswerTime(const std::string& username) const override;
 	int getNumOfCorrectAnswers(const std::string& username) const override;
 	int getNumOfTotalAnswers(const std::string& username) const override;
@@ -30,5 +31,7 @@ private:
 		(void* isExists, int argc, char** argv, char** cols);
 	static int statisticsCallBack
 	(void* data, int argc, char** argv, char** azColName);
+	static int idAndNameCallback(void* data, int argc, char** argv, char** azColName);
+	static int nameAndScoreCallback(void* data, int argc, char** argv, char** azColName);
 };
 
