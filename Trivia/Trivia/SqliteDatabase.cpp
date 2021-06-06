@@ -150,24 +150,20 @@ int SqliteDatabase::idAndNameCallback(void* data, int argc, char** argv, char** 
 			if (lastId == -1 && lastName == "") {
 				idFirst = true;
 				lastId = std::stoi(argv[i]);
+				continue;
 			}
-			else {
-				if (idFirst) {
-					lastId = std::stoi(argv[i]);
-				}
-				else {
-					idAndName.emplace(std::stoi(argv[i]), lastName);
-				}
+			if (idFirst) {
+				lastId = std::stoi(argv[i]);
+				continue;
 			}
+			idAndName.emplace(std::stoi(argv[i]), lastName);
+			continue;
 		}
-		else if (azColName[i] == std::string("name")) {
-			if (!idFirst) {
-				lastName = argv[i];
-			}
-			else {
-				idAndName.emplace(lastId, argv[i]);
-			}
+		if (!idFirst) {
+			lastName = argv[i];
+			continue;
 		}
+		idAndName.emplace(lastId, argv[i]);
 	}
 	return 0;
 }
@@ -182,24 +178,19 @@ int SqliteDatabase::nameAndScoreCallback(void* data, int argc, char** argv, char
 			if (lastId == -1 && lastScore == -999) {
 				idFirst = true;
 				lastId = std::stoi(argv[i]);
+				continue;
 			}
-			else {
-				if (idFirst) {
-					lastId = std::stoi(argv[i]);
-				}
-				else {
-					nameAndScore.emplace(idAndName[std::stoi(argv[i])], lastScore);
-				}
+			if (idFirst) {
+				lastId = std::stoi(argv[i]);
+				continue;
 			}
+			nameAndScore.emplace(idAndName[std::stoi(argv[i])], lastScore);
 		}
-		else if (azColName[i] == std::string("score")) {
-			if (!idFirst) {
-				lastScore = std::stof(argv[i]);
-			}
-			else {
-				nameAndScore.emplace(idAndName[lastId], std::stof(argv[i]));
-			}
+		if (!idFirst) {
+			lastScore = std::stof(argv[i]);
+			continue;
 		}
+		nameAndScore.emplace(idAndName[lastId], std::stof(argv[i]));
 	}
 	return 0;
 }
