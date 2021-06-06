@@ -1,8 +1,11 @@
 #include "SqliteDatabase.h"
 #include "StatisticsInfo.h"
 #include <iostream>
+#include<vector>
 
 StatisticsInfo info;
+std::map<int, std::string> idAndName;
+std::map<std::string, float> nameAndScore;
 
 SqliteDatabase::SqliteDatabase()
 {
@@ -26,7 +29,7 @@ void SqliteDatabase::createTable()
 		"PRIMARY KEY(id AUTOINCREMENT)"
 		");";
 
-	std::string createStatisticsTable = "CREATE TABLE IF NOT EXISTS statistics (num_correct_answers INTEGER NOT NULL,num_wrong_answers INTEGER NOT NULL,num_games INTEGER NOT NULL,total_time FLOAT NOT NULL,user_id INTEGER,FOREIGN KEY(user_id) REFERENCES users(id));";
+	std::string createStatisticsTable = "CREATE TABLE IF NOT EXISTS statistics (score FLOAT NOT NULL, num_correct_answers INTEGER NOT NULL,num_wrong_answers INTEGER NOT NULL,num_games INTEGER NOT NULL,total_time FLOAT NOT NULL,user_id INTEGER,FOREIGN KEY(user_id) REFERENCES users(id));";
 
 	int isBad = sqlite3_exec(db,
 		createUserTable.c_str(),
@@ -134,7 +137,65 @@ int SqliteDatabase::statisticsCallBack(void* data, int argc, char** argv, char**
 			info.totalTime = std::stof(argv[i]);
 		}
 	}
+	return 0;
 }
+
+int SqliteDatabase::idAndNameCallback(void* data, int argc, char** argv, char** azColName)
+{
+	static bool idFirst = false;
+	static int lastId = -1;
+	static std::string lastName = "";
+	for (int i = 0; i < argc; i++) {
+		if (azColName[i] == std::string("id")) {
+			if (lastId == -1 && lastName == "") {
+				idFirst = true;
+				lastId = std::stoi(argv[i]);
+				continue;
+			}
+			if (idFirst) {
+				lastId = std::stoi(argv[i]);
+				continue;
+			}
+			idAndName.emplace(std::stoi(argv[i]), lastName);
+			continue;
+		}
+		if (!idFirst) {
+			lastName = argv[i];
+			continue;
+		}
+		idAndName.emplace(lastId, argv[i]);
+	}
+	return 0;
+}
+
+int SqliteDatabase::nameAndScoreCallback(void* data, int argc, char** argv, char** azColName)
+{
+	static bool idFirst = false;
+	static int lastId = -1;
+	static float lastScore = -999;
+	for (int i = 0; i < argc; i++) {
+		if (azColName[i] == std::string("user_id")) {
+			if (lastId == -1 && lastScore == -999) {
+				idFirst = true;
+				lastId = std::stoi(argv[i]);
+				continue;
+			}
+			if (idFirst) {
+				lastId = std::stoi(argv[i]);
+				continue;
+			}
+			nameAndScore.emplace(idAndName[std::stoi(argv[i])], lastScore);
+			continue;
+		}
+		if (!idFirst) {
+			lastScore = std::stof(argv[i]);
+			continue;
+		}
+		nameAndScore.emplace(idAndName[lastId], std::stof(argv[i]));
+	}
+	return 0;
+}
+
 
 void SqliteDatabase::addNewUser
 (const std::string& username, const std::string& password, const std::string& mail)
@@ -154,6 +215,35 @@ void SqliteDatabase::addNewUser
 	{
 		std::cerr << "Error: " << errorMessage << std::endl;
 	}
+}
+
+
+
+std::map<std::string, float> SqliteDatabase::getUsersScores() const
+{
+	bool isExist = false;
+	char* errorMessage;
+	std::string sql = "SELECT name, id FROM users;";
+
+	int isBad = sqlite3_exec(db,
+		sql.c_str(),
+		SqliteDatabase::idAndNameCallback,
+		&isExist,
+		&errorMessage);
+	if (isBad != SQLITE_OK)
+	{
+		std::cerr << "Error: " << errorMessage << std::endl;
+	}
+	sql = "SELECT user_id, score FROM statistics;";
+	isBad = sqlite3_exec(db,
+		sql.c_str(),
+		SqliteDatabase::nameAndScoreCallback,
+		&isExist,
+		&errorMessage);
+	if (isBad != SQLITE_OK) {
+		std::cerr << "Error: " << errorMessage << std::endl;
+	}
+	return nameAndScore;
 }
 
 float SqliteDatabase::getPlayersAverageAnswerTime(const std::string& username) const
