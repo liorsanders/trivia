@@ -185,6 +185,7 @@ int SqliteDatabase::nameAndScoreCallback(void* data, int argc, char** argv, char
 				continue;
 			}
 			nameAndScore.emplace(idAndName[std::stoi(argv[i])], lastScore);
+			continue;
 		}
 		if (!idFirst) {
 			lastScore = std::stof(argv[i]);
