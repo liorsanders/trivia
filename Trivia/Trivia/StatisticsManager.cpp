@@ -2,16 +2,6 @@
 #include <array>
 #include <algorithm>
 
-std::string getName(const std::map<std::string, float>& Map,
-    float K)
-{
-    for (auto& it : Map) {
-        if (it.second == K) {
-            return it.first;
-        }
-    }
-}
-
 std::vector<std::string> StatisticsManager::getHighScore() const
 {
 	std::vector<std::string> res;
