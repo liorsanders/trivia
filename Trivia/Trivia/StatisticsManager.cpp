@@ -5,14 +5,10 @@
 std::string getName(const std::map<std::string, float>& Map,
     float K)
 {
-    bool a = true;
     for (auto& it : Map) {
         if (it.second == K) {
             return it.first;
         }
-    }
-    if (a) {
-        return "";
     }
 }
 
