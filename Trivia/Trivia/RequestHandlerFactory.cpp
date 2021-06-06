@@ -24,7 +24,7 @@ LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
 
 MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
 {
-    MenuRequestHandler* newMenuRequestHandler = new MenuRequestHandler("", m_roomManager, m_statisticsManager, *this);;
+    return new MenuRequestHandler("", m_roomManager, m_statisticsManager, *this);
 }
 
 RoomManager& RequestHandlerFactory::getRoomManager()
