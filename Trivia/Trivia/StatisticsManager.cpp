@@ -6,14 +6,15 @@ std::vector<std::string> StatisticsManager::getHighScore() const
 {
 	std::vector<std::string> res;
 	auto scores = m_database->getUsersScores();
-	auto scoresVector = { scores.begin(), scores.end() };
+	std::vector<std::pair<std::string, float>> scoresVector = { scores.begin(), scores.end() };
 	std::partial_sort(scoresVector.begin(), scoresVector.end(), scoresVector.begin() + 5,
 		[](const auto& lhs, const auto& rhs) {
 			return lhs.second > rhs.second;
 		});
-	std::for_each(scoresVector.begin(), scoresVector.begin() + 5, [&](std::pair<const std::string, const float>& element) {
+	for (auto& element : scoresVector)
+	{
 		res.push_back(element.first);
-		});
+	}
 	std::reverse(res.begin(), res.end());
 	return res;
 }
