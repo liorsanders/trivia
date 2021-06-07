@@ -17,6 +17,17 @@ bool MenuRequestHandler::isRequestRelevant(const RequestInfo& request) const
         int(Codes::statistics) == code;
 }
 
+RequestResult createError(MenuRequestHandler* menu) {
+    std::string error = "invalid message code";
+    RequestResult result = RequestResult();
+    std::cout << error << std::endl;
+    result.newHandler = menu;
+    ErrorResponse errorResponse = { error };
+    result.response =
+        JsonResponsePacketSerializer::serializeResponse(errorResponse);
+    return result;
+}
+
 RequestResult MenuRequestHandler::handleRequest(const RequestInfo& request)
 {
     RequestResult requestResult;
@@ -33,16 +44,8 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& request)
         return signout(request);
     case (int)Codes::statistics:
         return getHighScore(request);
-    default:
-        std::string error = "inavlid message code";
-        RequestResult result = RequestResult();
-        std::cout << error << std::endl;
-        result.newHandler = this;
-        ErrorResponse errorResponse = { error };
-        result.response =
-            JsonResponsePacketSerializer::serializeResponse(errorResponse);
-        return result;
     }
+    return createError(this);
 }
 
 RequestResult MenuRequestHandler::signout(RequestInfo info)
