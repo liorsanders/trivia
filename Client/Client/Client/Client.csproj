@@ -97,5 +97,10 @@
   <ItemGroup>
     <Resource Include="Resource\Logo.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\background.png" />
+    <Resource Include="logo.png" />
+    <Content Include="intro.mp4" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
