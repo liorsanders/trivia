@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        WindowState="Maximized" WindowStyle="None" Background="#26323c" AllowsTransparency="True" ResizeMode="NoResize" Icon="./Resource/logo.png">
+        WindowState="Maximized" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" Icon="./Resource/logo.png">
 
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -22,13 +22,23 @@
 			<RowDefinition Height="1*"/>
 		</Grid.RowDefinitions>
 
-		<Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#1e2634">
+		<Image Source="./Resource/bg.jpg" Stretch="Fill" Grid.RowSpan="4" Grid.ColumnSpan="4"/>
+		
+		<Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="GhostWhite" CornerRadius="50">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="4*"/>
 					<ColumnDefinition Width="3.5*"/>
 				</Grid.ColumnDefinitions>
-				<Image Source="./Resource/bg.jpg" Stretch="fill" Grid.Column="1"/>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="1*"/>
+				</Grid.RowDefinitions>
+				<Image Margin="60,0" Source="4.png" Stretch="fill" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2"/>
 			</Grid>
 		</Border>
 
