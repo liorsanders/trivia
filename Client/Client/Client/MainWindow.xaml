@@ -5,10 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        WindowState="Maximized" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" Icon="./Resource/Logo.png">
-	<Grid>
+        WindowState="Normal" WindowStyle="None" Background="Transparent" AllowsTransparency="True" ResizeMode="NoResize" Icon="./Resource/logo.png">
+	
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*"/>
+				<ColumnDefinition Width="4*"/>
+				<ColumnDefinition Width="4*"/>
+				<ColumnDefinition Width="1*"/>
+			</Grid.ColumnDefinitions>
 
-		<Image Source="/Resource/background.png" Stretch="Fill" />
+		<Grid.RowDefinitions>
+			<RowDefinition Height="1*"/>
+			<RowDefinition Height="4*"/>
+			<RowDefinition Height="4*"/>
+			<RowDefinition Height="1*"/>
+		</Grid.RowDefinitions>
 
 	</Grid>
 </Window>
