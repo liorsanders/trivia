@@ -6,9 +6,14 @@
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
         WindowState="Maximized" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" Icon="./Resource/logo.png">
-
 	<Grid>
-
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="7*"/>
+			<ColumnDefinition Width="6*"/>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="1*"/>
+		</Grid.ColumnDefinitions>
 
 	</Grid>
 </Window>
