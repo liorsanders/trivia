@@ -14,7 +14,6 @@
 			<ColumnDefinition Width="7*"/>
 			<ColumnDefinition Width="1*"/>
 		</Grid.ColumnDefinitions>
-
 		<Grid.RowDefinitions>
 			<RowDefinition Height="1*"/>
 			<RowDefinition Height="6*"/>
@@ -24,18 +23,18 @@
 
 		<Image Source="./Resource/bg.jpg" Stretch="Fill" Grid.RowSpan="4" Grid.ColumnSpan="4"/>
 
-		<Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Background="#2e3e4c" CornerRadius="30,0,0,30">
+		<Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Background="#1ca2f3" CornerRadius="30,0,0,30">
 			<Grid>
 				<Grid.RowDefinitions>
 					<RowDefinition Height="0.5*"/>
 					<RowDefinition Height="1.5*"/>
 					<RowDefinition Height="3*"/>
-					<RowDefinition Height="0.5*"/>
+					<RowDefinition Height="0.2*"/>
 				</Grid.RowDefinitions>
 				<Image Source="./Resource/trivia.png" Grid.Row="2"/>
 			</Grid>
 		</Border>
-		<Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Background="#1e2a34" CornerRadius="0,30,30,0">
+		<Border Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Background="#151f2a" CornerRadius="0,30,30,0">
 
 		</Border>
 
