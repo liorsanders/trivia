@@ -29,6 +29,19 @@
 					<GradientStop Color="White" Offset="1"/>
 				</RadialGradientBrush>
 			</Border.Background>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="6*"/>
+					<ColumnDefinition Width="5*"/>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="1*"/>
+					<RowDefinition Height="3*"/>
+					<RowDefinition Height="3*"/>
+					<RowDefinition Height="3*"/>
+					<RowDefinition Height="1*"/>
+				</Grid.RowDefinitions>
+			</Grid>
 		</Border>
 	</Grid>
 </Window>
