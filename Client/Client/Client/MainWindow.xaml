@@ -82,6 +82,9 @@
 				<Image Source="./Resource/border/left-shapes.png" 
 					   Grid.Column="1"
 					   HorizontalAlignment="Left"/>
+				<Image Source="./Resource/border/right-shapes.png" 
+					   Grid.Column="1"
+					   HorizontalAlignment="Right"/>
 			</Grid>
 		</Border>
 	</Grid>
