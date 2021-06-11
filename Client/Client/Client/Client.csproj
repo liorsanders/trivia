@@ -101,7 +101,13 @@
     <Resource Include="Resource\bg.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resource\side-bg.png" />
+    <Resource Include="Resource\border\left-shapes.png" />
+    <Resource Include="Resource\border\mid-shapes.png" />
+    <Resource Include="Resource\border\right-shapes.png" />
+    <Resource Include="Resource\border\shapes.png" />
+    <Resource Include="Resource\border\side-bg.png" />
+    <Resource Include="Resource\border\sparkles.png" />
+    <Resource Include="Resource\border\trivia.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
