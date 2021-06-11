@@ -72,11 +72,13 @@
 
 			<Grid>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="1*"/>
-					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="317*"/>
+					<ColumnDefinition Width="349*"/>
 				</Grid.ColumnDefinitions>
 
-				
+				<Image Source="./Resource/side-bg.png" 
+					   Grid.Column="1"
+					   Stretch="Fill"/>
 			</Grid>
 		</Border>
 	</Grid>
