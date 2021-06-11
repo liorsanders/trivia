@@ -8,22 +8,37 @@
         WindowState="Maximized" WindowStyle="None"
 		AllowsTransparency="True" ResizeMode="NoResize"
 		Icon="./Resource/logo.jpg">
-	
+
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="2*"/>
-			<ColumnDefinition Width="16*"/>
+			<ColumnDefinition Width="26*"/>
 			<ColumnDefinition Width="2*"/>
 		</Grid.ColumnDefinitions>
 
 		<Grid.RowDefinitions>
 			<RowDefinition Height="2*"/>
-			<RowDefinition Height="16*"/>
+			<RowDefinition Height="20*"/>
 			<RowDefinition Height="2*"/>
 		</Grid.RowDefinitions>
 
 		<Image Source="./Resource/bg.png"
 			   Grid.RowSpan="3" Grid.ColumnSpan="3"
 			   Stretch="Fill"/>
+
+		<Rectangle Fill="#cdebf9"
+				   Width="140"
+				   Grid.ColumnSpan="2" Grid.RowSpan="2"
+				   Margin="-75,-168,860,230"
+				   RenderTransformOrigin="0.5,0.5">
+			<Rectangle.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform Angle="-42"/>
+					<TranslateTransform/>
+				</TransformGroup>
+			</Rectangle.RenderTransform>
+		</Rectangle>
 	</Grid>
 </Window>
