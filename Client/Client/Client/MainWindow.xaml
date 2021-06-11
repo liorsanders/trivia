@@ -76,9 +76,12 @@
 					<ColumnDefinition Width="349*"/>
 				</Grid.ColumnDefinitions>
 
-				<Image Source="./Resource/side-bg.png" 
+				<Image Source="./Resource/border/side-bg.png" 
 					   Grid.Column="1"
 					   Stretch="Fill"/>
+				<Image Source="./Resource/border/left-shapes.png" 
+					   Grid.Column="1"
+					   HorizontalAlignment="Left"/>
 			</Grid>
 		</Border>
 	</Grid>
