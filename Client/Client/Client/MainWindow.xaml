@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        WindowState="Maximized" WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize" Icon="./Resource/logo.jpg">
+        WindowState="Maximized" WindowStyle="None"
+		AllowsTransparency="True" ResizeMode="NoResize"
+		Icon="./Resource/logo.jpg">
+	
 	<Grid>
-		
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="9*"/>
+			<ColumnDefinition Width="7*"/>
+			<ColumnDefinition Width="1*"/>
+			<ColumnDefinition Width="2*"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="8.5*"/>
+			<RowDefinition Height="8.5*"/>
+			<RowDefinition Height="2*"/>
+		</Grid.RowDefinitions>
 	</Grid>
 </Window>
