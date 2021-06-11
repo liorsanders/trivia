@@ -106,7 +106,7 @@
     <Resource Include="Resource\border\right-shapes.png" />
     <Resource Include="Resource\border\side-bg.png" />
     <Resource Include="Resource\border\sparkles.png" />
-    <Resource Include="Resource\border\trivia.png" />
+    <Resource Include="Resource\border\people.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resource\border\wave.png" />
