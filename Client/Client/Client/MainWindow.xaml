@@ -60,5 +60,23 @@
 				</TransformGroup>
 			</Ellipse.RenderTransform>
 		</Ellipse>
+
+		<Border Background="White" Grid.Row="1" Grid.Column="1">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="15"
+								  Direction="-90"
+								  RenderingBias="Quality"
+								  ShadowDepth="1"
+								  Color="#dbeafc"/>
+			</Border.Effect>
+
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="1*"/>
+					<ColumnDefinition Width="1*"/>
+				</Grid.ColumnDefinitions>
+
+			</Grid>
+		</Border>
 	</Grid>
 </Window>
