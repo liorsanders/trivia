@@ -31,6 +31,7 @@
 				   Grid.ColumnSpan="2" Grid.RowSpan="2"
 				   Margin="-75,-168,860,230"
 				   RenderTransformOrigin="0.5,0.5">
+
 			<Rectangle.RenderTransform>
 				<TransformGroup>
 					<ScaleTransform/>
@@ -40,5 +41,24 @@
 				</TransformGroup>
 			</Rectangle.RenderTransform>
 		</Rectangle>
+
+		<Ellipse
+			Fill="Transparent"
+			StrokeThickness="150"
+			Stroke="#e0c6eb"
+			Grid.ColumnSpan="2"
+			Margin="-252,214,443,-336.417"
+			Grid.Row="1" Grid.RowSpan="2"
+			RenderTransformOrigin="0.5,0.5">
+
+			<Ellipse.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform AngleX="8.288"/>
+					<RotateTransform Angle="-66"/>
+					<TranslateTransform X="-250" Y="250"/>
+				</TransformGroup>
+			</Ellipse.RenderTransform>
+		</Ellipse>
 	</Grid>
 </Window>
