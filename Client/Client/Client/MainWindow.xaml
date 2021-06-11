@@ -88,6 +88,9 @@
 				<Image Source="./Resource/border/mid-shapes.png" 
 					   Grid.Column="1"
 					   VerticalAlignment="Center"/>
+				<Image Source="./Resource/border/sparkles.png" 
+					   Grid.Column="1"
+					   VerticalAlignment="Center"/>
 			</Grid>
 		</Border>
 	</Grid>
