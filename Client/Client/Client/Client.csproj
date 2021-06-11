@@ -108,5 +108,8 @@
     <Resource Include="Resource\border\sparkles.png" />
     <Resource Include="Resource\border\trivia.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\border\wave.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
