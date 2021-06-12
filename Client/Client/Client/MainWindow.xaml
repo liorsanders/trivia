@@ -195,7 +195,7 @@
 								HorizontalAlignment="Left"
 								Margin="5,30,0,0"
 								BorderBrush="#5e42ed"
-								BorderThickness="1"
+								BorderThickness="2"
 								Content="Login"
 								Foreground="#baabf9"
 								FontSize="30"
