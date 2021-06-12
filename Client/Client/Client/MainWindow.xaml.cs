@@ -27,9 +27,30 @@ namespace Client
 
         public void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text == "username or email")
+            {
+                tb.Text = string.Empty;
+            }
+            else
+            {
+                tb.GotFocus -= TextBox_GotFocus;
+            }
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
             TextBox tb = (TextBox)sender;
-            tb.Text = string.Empty;
-            tb.GotFocus -= TextBox_GotFocus;
+
+            if (tb.Text == string.Empty)
+            {
+                tb.Text = "username or email";
+            }
+            else
+            {
+                tb.LostFocus -= TextBox_LostFocus;
+            }
         }
     }
 }
