@@ -128,7 +128,7 @@
 								   FontSize="14"
 								   Foreground="#a9b6ce"/>
 
-						<TextBox x:Name="username_or_email"
+						<TextBox x:Name="TB_Username"
 								 Height="50" Width="400"
 								 HorizontalAlignment="Left"
 								 BorderBrush="#e2e5ea"
@@ -139,8 +139,8 @@
 								 Foreground="#dce0e9"
 								 IsTabStop="True"
 								 FontSize="15"
-								 GotFocus="TextBox_GotFocus"
-								 LostFocus="TextBox_LostFocus">
+								 GotFocus="TB_Username_GotFocus"
+								 LostFocus="TB_Username_LostFocus">
 
 							<TextBox.Resources>
 								<Style TargetType="{x:Type Border}">

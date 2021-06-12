@@ -25,7 +25,7 @@ namespace Client
             InitializeComponent();
         }
 
-        public void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        public void TB_Username_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox tb = sender as TextBox;
 
@@ -35,11 +35,11 @@ namespace Client
             }
             else
             {
-                tb.GotFocus -= TextBox_GotFocus;
+                tb.GotFocus -= TB_Username_GotFocus;
             }
         }
 
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void TB_Username_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox tb = (TextBox)sender;
 
@@ -49,7 +49,7 @@ namespace Client
             }
             else
             {
-                tb.LostFocus -= TextBox_LostFocus;
+                tb.LostFocus -= TB_Username_LostFocus;
             }
         }
     }
