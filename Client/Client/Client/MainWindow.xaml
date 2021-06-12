@@ -218,7 +218,29 @@
 							</Button.Background>
 						</Button>
 
-						
+						<WrapPanel>
+
+							<TextBlock FontFamily="Arial Rounded MT"
+								   Text="Don't have an account?"
+								   Margin="5,40,0,0"
+								   FontSize="12"
+								   FontWeight="Thin"
+								   Foreground="#a9b6ce"/>
+
+							<Button x:Name="Bt_Signup"
+								Content="Click Here"
+								Foreground="#8f50f6"
+								Background="Transparent"
+								BorderBrush="Transparent"
+								Margin="5,32,0,0"
+								Height="30"
+								FontSize="12"
+								FontFamily="Arial Rounded MT"
+								FontWeight="Thin"
+								Style="{DynamicResource SignupButtonStyle}">
+							</Button>
+
+						</WrapPanel>
 					</StackPanel>
 				</Grid>
 

@@ -99,7 +99,7 @@ namespace Client
         {
             TextBox tb = sender as TextBox;
 
-            if (tb.Text != "usernam or email" && tb.Text != "")
+            if (tb.Text != "username or email" && tb.Text != "")
             {
                 Color color = (Color)ColorConverter.ConvertFromString("#2a2e47");
 
@@ -119,6 +119,11 @@ namespace Client
             {
                 TB_Password.FontFamily = new FontFamily("Password");
             }
+        }
+
+        private void Bt_Signup_MouseEnter(object sender, MouseEventArgs e)
+        {
+
         }
     }
 }
