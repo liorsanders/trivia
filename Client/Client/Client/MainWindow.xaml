@@ -121,11 +121,11 @@
 							   FontWeight="ExtraBold"
 							   Foreground="#2a2e47"/>
 						
-						<!--<TextBlock FontFamily="Arial Rounded MT "
+						<TextBlock FontFamily="Arial Rounded MT "
 								   Text="Start the advanture with your friends today"
-								   Margin="2,10,0,0"
-								   FontSize="12"
-								   Foreground="#a9b6ce"/>-->
+								   Margin="5,8,0,0"
+								   FontSize="14"
+								   Foreground="#a9b6ce"/>
 					</StackPanel>
 				</Grid>
 
