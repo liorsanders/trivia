@@ -41,11 +41,39 @@ namespace Client
 
         private void TB_Username_LostFocus(object sender, RoutedEventArgs e)
         {
-            TextBox tb = (TextBox)sender;
+            TextBox tb = sender as TextBox;
 
             if (tb.Text == string.Empty)
             {
                 tb.Text = "username or email";
+            }
+            else
+            {
+                tb.LostFocus -= TB_Username_LostFocus;
+            }
+        }
+
+        private void TB_Password_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text == "password")
+            {
+                tb.Text = string.Empty;
+            }
+            else
+            {
+                tb.GotFocus -= TB_Username_GotFocus;
+            }
+        }
+
+        private void TB_Password_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text == string.Empty)
+            {
+                tb.Text = "password";
             }
             else
             {

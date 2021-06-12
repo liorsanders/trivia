@@ -139,6 +139,7 @@
 								 Foreground="#dce0e9"
 								 IsTabStop="True"
 								 FontSize="15"
+								 FontFamily="Courier"
 								 GotFocus="TB_Username_GotFocus"
 								 LostFocus="TB_Username_LostFocus">
 
@@ -150,34 +151,29 @@
 							
 						</TextBox>
 
-						<PasswordBox x:Name="password"
-									 Height="50" Width="400"
-									 HorizontalAlignment="Left"
-									 BorderBrush="#e2e5ea"
-									 Margin="5,30,0,0"
-									 VerticalContentAlignment="Center"
-									 Padding="10"
-									 Foreground="#dce0e9"
-									 IsTabStop="True"
-									 FontSize="15">
-							
-							<PasswordBox.Resources>
-								<Style TargetType="PasswordBox">
-									<Setter Property="Template">
-										<Setter.Value>
-											<ControlTemplate TargetType="PasswordBox">
-												<Border CornerRadius="5"
-														x:Name="Bd"
-														BorderBrush="#e2e5ea"
-														BorderThickness="1"/>
-											</ControlTemplate>
-										</Setter.Value>
-									</Setter>
+						<TextBox x:Name="TB_Password"
+								 Height="50" Width="400"
+								 HorizontalAlignment="Left"
+								 BorderBrush="#e2e5ea"
+								 Margin="5,30,0,0" 
+								 Text="password"
+								 VerticalContentAlignment="Center"
+								 Padding="10"
+								 Foreground="#dce0e9"
+								 IsTabStop="True"
+								 FontSize="15"
+								 FontFamily="Courier"
+								 GotFocus="TB_Password_GotFocus"
+								 LostFocus="TB_Password_LostFocus">
+
+							<TextBox.Resources>
+								<Style TargetType="{x:Type Border}">
+									<Setter Property="CornerRadius" Value="5"/>
 								</Style>
+							</TextBox.Resources>
 
-
-							</PasswordBox.Resources>
-						</PasswordBox>
+						</TextBox>
+						
 					</StackPanel>
 				</Grid>
 
