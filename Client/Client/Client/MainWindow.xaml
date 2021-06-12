@@ -137,7 +137,17 @@
 								 VerticalContentAlignment="Center"
 								 Padding="10"
 								 Foreground="#dce0e9"
-								 IsTabStop="True" FontSize="15"/>
+								 IsTabStop="True"
+								 FontSize="15"
+								 SelectionBrush="{x:Null}">
+							
+							<TextBox.Resources>
+								<Style TargetType="{x:Type Border}">
+									<Setter Property="CornerRadius" Value="5"/>
+								</Style>
+							</TextBox.Resources>
+							
+						</TextBox>
 
 
 					</StackPanel>
