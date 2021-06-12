@@ -119,7 +119,27 @@
 						</Border>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsDefaulted" Value="true">
-								<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+								<Setter Property="BorderBrush" TargetName="border" Value="#4409bd"/>
+							</Trigger>
+							<Trigger Property="IsMouseOver" Value="true">
+								<Setter Property="Background" TargetName="border">
+									<Setter.Value>
+											<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+												<LinearGradientBrush.RelativeTransform>
+													<TransformGroup>
+														<ScaleTransform CenterY="0.5" CenterX="0.5"/>
+														<SkewTransform CenterY="0.5" CenterX="0.5"/>
+														<RotateTransform Angle="120" CenterY="0.5" CenterX="0.5"/>
+														<TranslateTransform/>
+													</TransformGroup>
+												</LinearGradientBrush.RelativeTransform>
+											<GradientStop Color="#1115df" Offset="1"/>
+											<GradientStop Color="#4f10b0"/>
+											</LinearGradientBrush>
+
+									</Setter.Value>
+								</Setter>
+								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
 							</Trigger>
 							<Trigger Property="IsPressed" Value="true">
 								<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
