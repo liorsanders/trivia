@@ -139,5 +139,14 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
         }
+
+        private void Bt_Signup_Click(object sender, RoutedEventArgs e)
+        {
+            Button bt = sender as Button;
+
+            Color color = (Color)ColorConverter.ConvertFromString("#33067a");
+
+            bt.Foreground = new SolidColorBrush(color);
+        }
     }
 }

@@ -239,6 +239,8 @@
 								FontWeight="Thin"
 								MouseEnter="Bt_Signup_MouseEnter"
 								MouseLeave="Bt_Signup_MouseLeave"
+								Click="Bt_Signup_Click"
+								ClickMode="Press"
 								Style="{DynamicResource SignupButtonStyle}">
 							</Button>
 
