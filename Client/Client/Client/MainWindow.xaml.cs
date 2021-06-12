@@ -109,12 +109,16 @@ namespace Client
 
         private void CB_ShowPassword_Checked(object sender, RoutedEventArgs e)
         {
+
             TB_Password.FontFamily = new FontFamily("Courier");
         }
 
         private void CB_ShowPassword_Unchecked(object sender, RoutedEventArgs e)
         {
-            TB_Password.FontFamily = new FontFamily("Password");
+            if (TB_Password.Text != "password" && TB_Password.Text != "")
+            {
+                TB_Password.FontFamily = new FontFamily("Password");
+            }
         }
     }
 }
