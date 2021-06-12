@@ -139,8 +139,9 @@
 								 Foreground="#dce0e9"
 								 IsTabStop="True"
 								 FontSize="15"
-								 SelectionBrush="{x:Null}">
-							
+								 SelectionBrush="{x:Null}"
+								 GotFocus="TextBox_GotFocus">
+
 							<TextBox.Resources>
 								<Style TargetType="{x:Type Border}">
 									<Setter Property="CornerRadius" Value="5"/>
