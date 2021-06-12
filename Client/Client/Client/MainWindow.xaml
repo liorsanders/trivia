@@ -128,8 +128,8 @@
 								   FontSize="14"
 								   Foreground="#a9b6ce"/>
 
-						<TextBox x:Name="username"
-								 Height="40" Width="400"
+						<TextBox x:Name="username_or_email"
+								 Height="50" Width="400"
 								 HorizontalAlignment="Left"
 								 BorderBrush="#e2e5ea"
 								 Margin="5,50,0,0" 
@@ -150,7 +150,34 @@
 							
 						</TextBox>
 
-						<TextBox></TextBox>
+						<PasswordBox x:Name="password"
+									 Height="50" Width="400"
+									 HorizontalAlignment="Left"
+									 BorderBrush="#e2e5ea"
+									 Margin="5,30,0,0"
+									 VerticalContentAlignment="Center"
+									 Padding="10"
+									 Foreground="#dce0e9"
+									 IsTabStop="True"
+									 FontSize="15">
+							
+							<PasswordBox.Resources>
+								<Style TargetType="PasswordBox">
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="PasswordBox">
+												<Border CornerRadius="5"
+														x:Name="Bd"
+														BorderBrush="#e2e5ea"
+														BorderThickness="1"/>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+
+
+							</PasswordBox.Resources>
+						</PasswordBox>
 					</StackPanel>
 				</Grid>
 
