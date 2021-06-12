@@ -183,6 +183,8 @@
 								  Margin="5,15,0,0"
 								  BorderBrush="#dce0e9"
 								  Content="show password"
+								  IsChecked="False"
+								  VerticalContentAlignment="Center"
 								  Foreground="#a9b6ce"
 								  FontFamily="Courier"
 								  Style="{DynamicResource CheckBoxStyle}"
