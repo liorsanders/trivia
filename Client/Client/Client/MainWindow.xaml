@@ -237,6 +237,8 @@
 								FontSize="12"
 								FontFamily="Arial Rounded MT"
 								FontWeight="Thin"
+								MouseEnter="Bt_Signup_MouseEnter"
+								MouseLeave="Bt_Signup_MouseLeave"
 								Style="{DynamicResource SignupButtonStyle}">
 							</Button>
 

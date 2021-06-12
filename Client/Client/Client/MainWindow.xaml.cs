@@ -123,7 +123,21 @@ namespace Client
 
         private void Bt_Signup_MouseEnter(object sender, MouseEventArgs e)
         {
+            Button bt = sender as Button;
 
+            Color color = (Color)ColorConverter.ConvertFromString("#6711f2");
+
+            bt.Foreground = new SolidColorBrush(color);
+        }
+
+        private void Bt_Signup_MouseLeave(object sender, MouseEventArgs e)
+        {
+
+            Button bt = sender as Button;
+
+            Color color = (Color)ColorConverter.ConvertFromString("#8f50f6");
+
+            bt.Foreground = new SolidColorBrush(color);
         }
     }
 }
