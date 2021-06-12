@@ -115,6 +115,7 @@
 					</Grid.RowDefinitions>
 					
 					<StackPanel Grid.Row="1" Margin="50,0,0,0">
+						
 						<TextBlock Text="Welcome To Trivia!"
 							   FontFamily="Arial Rounded MT Bold"
 							   FontSize="50"
@@ -122,10 +123,23 @@
 							   Foreground="#2a2e47"/>
 						
 						<TextBlock FontFamily="Arial Rounded MT "
-								   Text="Start the advanture with your friends today"
+								   Text="Start the advanture with your friends today."
 								   Margin="5,8,0,0"
 								   FontSize="14"
 								   Foreground="#a9b6ce"/>
+
+						<TextBox x:Name="username"
+								 Height="40" Width="400"
+								 HorizontalAlignment="Left"
+								 BorderBrush="#e2e5ea"
+								 Margin="5,50,0,0" 
+								 Text="Username or email"
+								 VerticalContentAlignment="Center"
+								 Padding="10"
+								 Foreground="#dce0e9"
+								 IsTabStop="True" FontSize="15"/>
+
+
 					</StackPanel>
 				</Grid>
 
