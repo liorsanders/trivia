@@ -110,20 +110,23 @@
 				<Grid Grid.Column="0">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1*"/>
-						<RowDefinition Height="1.5*"/>
-						<RowDefinition Height="1*"/>
-						<RowDefinition Height="1*"/>
-						<RowDefinition Height="1*"/>
+						<RowDefinition Height="6*"/>
 						<RowDefinition Height="1*"/>
 					</Grid.RowDefinitions>
 					
-					<TextBlock Grid.Row="1"
-							   Text="Welcome To Trivia!"
+					<StackPanel Grid.Row="1" Margin="50,0,0,0">
+						<TextBlock Text="Welcome To Trivia!"
 							   FontFamily="Arial Rounded MT Bold"
 							   FontSize="50"
 							   FontWeight="ExtraBold"
-							   Margin="50,0,0,0"
 							   Foreground="#2a2e47"/>
+						
+						<!--<TextBlock FontFamily="Arial Rounded MT "
+								   Text="Start the advanture with your friends today"
+								   Margin="2,10,0,0"
+								   FontSize="12"
+								   Foreground="#a9b6ce"/>-->
+					</StackPanel>
 				</Grid>
 
 
