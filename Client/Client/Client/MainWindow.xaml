@@ -106,22 +106,22 @@
 				<Image Source="./Resource/border/people.png" 
 					   Grid.Column="1"
 					   VerticalAlignment="Center" Margin="0,108,0,10"/>
-				
+
 				<Grid Grid.Column="0">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1*"/>
 						<RowDefinition Height="6*"/>
 						<RowDefinition Height="1*"/>
 					</Grid.RowDefinitions>
-					
+
 					<StackPanel Grid.Row="1" Margin="50,0,0,0">
-						
+
 						<TextBlock Text="Welcome To Trivia!"
 							   FontFamily="Arial Rounded MT Bold"
 							   FontSize="50"
 							   FontWeight="ExtraBold"
 							   Foreground="#2a2e47"/>
-						
+
 						<TextBlock FontFamily="Arial Rounded MT "
 								   Text="Start the advanture with your friends today."
 								   Margin="5,8,0,0"
@@ -148,7 +148,7 @@
 									<Setter Property="CornerRadius" Value="5"/>
 								</Style>
 							</TextBox.Resources>
-							
+
 						</TextBox>
 
 						<TextBox x:Name="TB_Password"
@@ -175,7 +175,19 @@
 							</TextBox.Resources>
 
 						</TextBox>
-						
+
+						<CheckBox x:Name="CB_ShowPassword"
+								  Height="30"
+								  Width="100"
+								  HorizontalAlignment="Left"
+								  Margin="5,15,0,0"
+								  BorderBrush="#dce0e9"
+								  Content="show password"
+								  Foreground="#a9b6ce"
+								  FontFamily="Courier"
+								  Style="{DynamicResource CheckBoxStyle}"
+								  Checked="CB_ShowPassword_Checked"
+								  Unchecked="CB_ShowPassword_Unchecked"/>
 					</StackPanel>
 				</Grid>
 

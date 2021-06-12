@@ -106,5 +106,20 @@ namespace Client
                 tb.Foreground = new SolidColorBrush(color);
             }
         }
+
+        private void CB_ShowPassword_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CB_ShowPassword_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CB_ShowPassword_Unchecked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
