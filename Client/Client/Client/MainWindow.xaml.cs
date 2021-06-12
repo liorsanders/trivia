@@ -89,7 +89,21 @@ namespace Client
             {
                 Color color = (Color)ColorConverter.ConvertFromString("#2a2e47");
 
-                tb.Foreground = new SolidColorBrush(color);         
+                tb.Foreground = new SolidColorBrush(color);
+
+                tb.FontFamily = new FontFamily("Password");
+            }
+        }
+
+        private void TB_Username_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text != "usernam or email" && tb.Text != "")
+            {
+                Color color = (Color)ColorConverter.ConvertFromString("#2a2e47");
+
+                tb.Foreground = new SolidColorBrush(color);
             }
         }
     }

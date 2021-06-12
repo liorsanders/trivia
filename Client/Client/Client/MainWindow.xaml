@@ -141,8 +141,8 @@
 								 FontSize="15"
 								 FontFamily="Courier"
 								 GotFocus="TB_Username_GotFocus"
-								 LostFocus="TB_Username_LostFocus">
-
+								 LostFocus="TB_Username_LostFocus"
+								 TextChanged="TB_Username_TextChanged">
 							<TextBox.Resources>
 								<Style TargetType="{x:Type Border}">
 									<Setter Property="CornerRadius" Value="5"/>
@@ -163,6 +163,7 @@
 								 IsTabStop="True"
 								 FontSize="15"
 								 FontFamily="Courier"
+								 MaxLength="18"
 								 GotFocus="TB_Password_GotFocus"
 								 LostFocus="TB_Password_LostFocus"
 								 TextChanged="TB_Password_TextChanged">
