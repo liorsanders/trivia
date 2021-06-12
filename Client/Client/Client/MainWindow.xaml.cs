@@ -80,5 +80,17 @@ namespace Client
                 tb.LostFocus -= TB_Username_LostFocus;
             }
         }
+
+        private void TB_Password_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text != "password" && tb.Text != "")
+            {
+                Color color = (Color)ColorConverter.ConvertFromString("#2a2e47");
+
+                tb.Foreground = new SolidColorBrush(color);         
+            }
+        }
     }
 }

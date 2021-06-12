@@ -164,7 +164,8 @@
 								 FontSize="15"
 								 FontFamily="Courier"
 								 GotFocus="TB_Password_GotFocus"
-								 LostFocus="TB_Password_LostFocus">
+								 LostFocus="TB_Password_LostFocus"
+								 TextChanged="TB_Password_TextChanged">
 
 							<TextBox.Resources>
 								<Style TargetType="{x:Type Border}">
