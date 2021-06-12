@@ -190,6 +190,35 @@
 								  Style="{DynamicResource CheckBoxStyle}"
 								  Checked="CB_ShowPassword_Checked"
 								  Unchecked="CB_ShowPassword_Unchecked"/>
+
+						<Button Height="50" Width="400"
+								HorizontalAlignment="Left"
+								Margin="5,30,0,0"
+								BorderBrush="#5e42ed"
+								BorderThickness="1"
+								Content="Login"
+								Foreground="#baabf9"
+								FontSize="30"
+								FontFamily="Arial Rounded MT Bold"
+								HorizontalContentAlignment="Center"
+								Style="{DynamicResource LoginButtonStyle}">
+							<Button.Background>
+								<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+									<LinearGradientBrush.RelativeTransform>
+										<TransformGroup>
+											<ScaleTransform CenterY="0.5" CenterX="0.5"/>
+											<SkewTransform CenterY="0.5" CenterX="0.5"/>
+											<RotateTransform Angle="120" CenterY="0.5" CenterX="0.5"/>
+											<TranslateTransform/>
+										</TransformGroup>
+									</LinearGradientBrush.RelativeTransform>
+									<GradientStop Color="#FF6568F3" Offset="1"/>
+									<GradientStop Color="#7529eb"/>
+								</LinearGradientBrush>
+							</Button.Background>
+						</Button>
+
+						
 					</StackPanel>
 				</Grid>
 
