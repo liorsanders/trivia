@@ -109,8 +109,7 @@
 				<Grid Grid.Column="0">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="1*"/>
-						<RowDefinition Height="6*"/>
-						<RowDefinition Height="1*"/>
+						<RowDefinition Height="7*"/>
 					</Grid.RowDefinitions>
 
 					<StackPanel Grid.Row="1" Margin="50,0,0,0">
@@ -126,13 +125,36 @@
 								   Margin="5,8,0,0"
 								   FontSize="14"
 								   Foreground="#a9b6ce"/>
-						TextBox
-						<TextBox x:Name="TB_Username"
+
+						<TextBox x:Name="TB_Email"
 								 Height="50" Width="400"
 								 HorizontalAlignment="Left"
 								 BorderBrush="#e2e5ea"
 								 Margin="5,50,0,0" 
-								 Text="username or email"
+								 Text="email"
+								 VerticalContentAlignment="Center"
+								 Padding="10"
+								 Foreground="#dce0e9"
+								 IsTabStop="True"
+								 FontSize="15"
+								 FontFamily="Courier"
+								 GotFocus="TB_Email_GotFocus"
+								 LostFocus="TB_Email_LostFocus"
+								 TextChanged="TB_Email_TextChanged">
+							<TextBox.Resources>
+								<Style TargetType="{x:Type Border}">
+									<Setter Property="CornerRadius" Value="5"/>
+								</Style>
+							</TextBox.Resources>
+
+						</TextBox>
+						
+						<TextBox x:Name="TB_Username"
+								 Height="50" Width="400"
+								 HorizontalAlignment="Left"
+								 BorderBrush="#e2e5ea"
+								 Margin="5,30,0,0" 
+								 Text="username"
 								 VerticalContentAlignment="Center"
 								 Padding="10"
 								 Foreground="#dce0e9"
@@ -195,7 +217,7 @@
 								Margin="5,30,0,0"
 								BorderBrush="#5e42ed"
 								BorderThickness="2"
-								Content="Signup"
+								Content="Get Started"
 								Foreground="#baabf9"
 								FontSize="30"
 								FontFamily="Arial Rounded MT Bold"
@@ -221,7 +243,7 @@
 
 							<TextBlock FontFamily="Arial Rounded MT"
 								   Text="Don't have an account?"
-								   Margin="5,40,0,0"
+								   Margin="5,30,0,0"
 								   FontSize="12"
 								   FontWeight="Thin"
 								   Foreground="#a9b6ce"/>
@@ -231,7 +253,7 @@
 								Foreground="#8f50f6"
 								Background="Transparent"
 								BorderBrush="Transparent"
-								Margin="5,32,0,0"
+								Margin="4,22,0,0"
 								Height="30"
 								FontSize="12"
 								FontFamily="Arial Rounded MT"
