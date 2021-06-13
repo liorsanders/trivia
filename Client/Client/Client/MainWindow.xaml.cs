@@ -23,6 +23,8 @@ namespace Client
         public MainWindow()
         {
             InitializeComponent();
+
+            Main.Content = new Login();
         }
 
 

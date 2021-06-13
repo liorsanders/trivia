@@ -8,4 +8,6 @@
         WindowState="Maximized" WindowStyle="None"
 		AllowsTransparency="True" ResizeMode="NoResize"
 		Icon="./Resource/logo.jpg">
+
+	<Frame x:Name="Main" NavigationUIVisibility="Hidden"/>
 </Window>
