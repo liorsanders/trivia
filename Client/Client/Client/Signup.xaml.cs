@@ -40,7 +40,16 @@ namespace Client
         }
         private void TB_Email_LostFocus(object sender, RoutedEventArgs e)
         {
+            TextBox tb = sender as TextBox;
 
+            if (tb.Text == string.Empty)
+            {
+                tb.Text = "email";
+            }
+            else
+            {
+                tb.LostFocus -= TB_Email_LostFocus;
+            }
         }
 
         private void TB_Email_TextChanged(object sender, TextChangedEventArgs e)
