@@ -25,6 +25,21 @@ namespace Client
             InitializeComponent();
         }
 
+        private void TB_Email_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void TB_Email_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TB_Email_GotFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         public void TB_Username_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox tb = sender as TextBox;
@@ -158,20 +173,7 @@ namespace Client
             bt.Foreground = new SolidColorBrush(color);
         }
 
-        private void TB_Email_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
-
-        private void TB_Email_LostFocus(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void TB_Email_GotFocus(object sender, RoutedEventArgs e)
-        {
-
-        }
 
 
     }
