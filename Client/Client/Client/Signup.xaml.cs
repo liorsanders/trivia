@@ -25,8 +25,22 @@ namespace Client
             InitializeComponent();
         }
 
+        private void TB_Email_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text == "email")
+            {
+                tb.Text = string.Empty;
+            }
+            else
+            {
+                tb.GotFocus -= TB_Email_GotFocus;
+            }
+        }
         private void TB_Email_TextChanged(object sender, TextChangedEventArgs e)
         {
+
 
         }
 
@@ -35,10 +49,6 @@ namespace Client
 
         }
 
-        private void TB_Email_GotFocus(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         public void TB_Username_GotFocus(object sender, RoutedEventArgs e)
         {
