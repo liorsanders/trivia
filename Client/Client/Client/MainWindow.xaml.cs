@@ -24,7 +24,7 @@ namespace Client
         {
             InitializeComponent();
 
-            Main.Content = new Login();
+            Main.Content = new Signup();
         }
 
 

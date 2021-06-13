@@ -38,17 +38,22 @@ namespace Client
                 tb.GotFocus -= TB_Email_GotFocus;
             }
         }
-        private void TB_Email_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-
-        }
-
         private void TB_Email_LostFocus(object sender, RoutedEventArgs e)
         {
 
         }
 
+        private void TB_Email_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text != "email" && tb.Text != "")
+            {
+                Color color = (Color)ColorConverter.ConvertFromString("#2a2e47");
+
+                tb.Foreground = new SolidColorBrush(color);
+            }
+        }
 
         public void TB_Username_GotFocus(object sender, RoutedEventArgs e)
         {
