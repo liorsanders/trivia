@@ -115,14 +115,14 @@
 
 					<StackPanel Grid.Row="1" Margin="50,0,0,0">
 
-						<TextBlock Text="Welcome To Trivia!"
+						<TextBlock Text="Welcome Back!"
 							   FontFamily="Arial Rounded MT Bold"
 							   FontSize="50"
 							   FontWeight="ExtraBold"
 							   Foreground="#2a2e47"/>
 
 						<TextBlock FontFamily="Arial Rounded MT "
-								   Text="Start the advanture with your friends today."
+								   Text="Play and learn with your friends today."
 								   Margin="5,8,0,0"
 								   FontSize="14"
 								   Foreground="#a9b6ce"/>
