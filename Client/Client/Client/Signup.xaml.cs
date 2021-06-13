@@ -160,7 +160,7 @@ namespace Client
             }
         }
 
-        private void Bt_Signup_MouseEnter(object sender, MouseEventArgs e)
+        private void Bt_Login_MouseEnter(object sender, MouseEventArgs e)
         {
             Button bt = sender as Button;
 
@@ -169,7 +169,7 @@ namespace Client
             bt.Foreground = new SolidColorBrush(color);
         }
 
-        private void Bt_Signup_MouseLeave(object sender, MouseEventArgs e)
+        private void Bt_Login_MouseLeave(object sender, MouseEventArgs e)
         {
 
             Button bt = sender as Button;
@@ -179,7 +179,7 @@ namespace Client
             bt.Foreground = new SolidColorBrush(color);
         }
 
-        private void Bt_Signup_Click(object sender, RoutedEventArgs e)
+        private void Bt_Login_Click(object sender, RoutedEventArgs e)
         {
             Button bt = sender as Button;
 
@@ -188,7 +188,7 @@ namespace Client
             bt.Foreground = new SolidColorBrush(color);
         }
 
-        private void Bt_Signup_LostMouseCapture(object sender, MouseEventArgs e)
+        private void Bt_Login_LostMouseCapture(object sender, MouseEventArgs e)
         {
             Button bt = sender as Button;
 
