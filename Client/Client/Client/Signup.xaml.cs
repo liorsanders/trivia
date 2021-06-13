@@ -29,7 +29,7 @@ namespace Client
         {
             TextBox tb = sender as TextBox;
 
-            if (tb.Text == "username or email")
+            if (tb.Text == "username")
             {
                 tb.Text = string.Empty;
             }
@@ -45,7 +45,7 @@ namespace Client
 
             if (tb.Text == string.Empty)
             {
-                tb.Text = "username or email";
+                tb.Text = "username";
             }
             else
             {
@@ -99,7 +99,7 @@ namespace Client
         {
             TextBox tb = sender as TextBox;
 
-            if (tb.Text != "username or email" && tb.Text != "")
+            if (tb.Text != "username" && tb.Text != "")
             {
                 Color color = (Color)ColorConverter.ConvertFromString("#2a2e47");
 
@@ -149,6 +149,15 @@ namespace Client
             bt.Foreground = new SolidColorBrush(color);
         }
 
+        private void Bt_Signup_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            Button bt = sender as Button;
+
+            Color color = (Color)ColorConverter.ConvertFromString("#6711f2");
+
+            bt.Foreground = new SolidColorBrush(color);
+        }
+
         private void TB_Email_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -163,5 +172,7 @@ namespace Client
         {
 
         }
+
+
     }
 }
