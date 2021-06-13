@@ -148,5 +148,14 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
         }
+
+        private void Bt_Signup_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            Button bt = sender as Button;
+
+            Color color = (Color)ColorConverter.ConvertFromString("#6711f2");
+
+            bt.Foreground = new SolidColorBrush(color);
+        }
     }
 }

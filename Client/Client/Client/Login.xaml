@@ -239,6 +239,7 @@
 								MouseEnter="Bt_Signup_MouseEnter"
 								MouseLeave="Bt_Signup_MouseLeave"
 								Click="Bt_Signup_Click"
+								LostMouseCapture="Bt_Signup_LostMouseCapture"
 								ClickMode="Press"
 								Style="{DynamicResource SignupButtonStyle}">
 							</Button>
