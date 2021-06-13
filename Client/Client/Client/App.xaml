@@ -94,7 +94,7 @@
 			</Setter>
 		</Style>
 
-		<!--Style for login button-->
+		<!--Style for login and signup button-->
 		<SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
 		<SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
 		<SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
@@ -104,7 +104,7 @@
 		<SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
 		<SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
 		<SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-		<Style x:Key="LoginButtonStyle" TargetType="{x:Type Button}">
+		<Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
 			<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
 			<Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
 			<Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
