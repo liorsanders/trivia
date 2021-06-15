@@ -1,0 +1,77 @@
+﻿<Page x:Class="Client.Page1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page1">
+
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="26*"/>
+			<ColumnDefinition Width="2*"/>
+		</Grid.ColumnDefinitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="20*"/>
+			<RowDefinition Height="2*"/>
+		</Grid.RowDefinitions>
+
+		<Image Source="./Resource/bg.png"
+			   Grid.RowSpan="3" Grid.ColumnSpan="3"
+			   Stretch="Fill"/>
+
+		<Rectangle Fill="#cdebf9"
+				   Width="140"
+				   Grid.ColumnSpan="2" Grid.RowSpan="2"
+				   Margin="-75,-168,860,230"
+				   RenderTransformOrigin="0.5,0.5"
+				   Opacity="80">
+
+			<Rectangle.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform Angle="-42"/>
+					<TranslateTransform/>
+				</TransformGroup>
+			</Rectangle.RenderTransform>
+		</Rectangle>
+
+		<Ellipse
+			Fill="Transparent"
+			StrokeThickness="150"
+			Stroke="#e0c6eb"
+			Grid.ColumnSpan="2"
+			Margin="-252,214,443,-336.417"
+			Grid.Row="1" Grid.RowSpan="2"
+			RenderTransformOrigin="0.5,0.5"
+			Opacity="80">
+
+			<Ellipse.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform AngleX="8.288"/>
+					<RotateTransform Angle="-66"/>
+					<TranslateTransform X="-250" Y="250"/>
+				</TransformGroup>
+			</Ellipse.RenderTransform>
+		</Ellipse>
+
+		<Border Background="White" Grid.Row="1" Grid.Column="1">
+			<Border.Effect>
+				<DropShadowEffect BlurRadius="15"
+								  Direction="-90"
+								  RenderingBias="Quality"
+								  ShadowDepth="2"
+								  Color="#dbeafc"/>
+			</Border.Effect>
+
+		</Border>
+	</Grid>
+
+</Page>
