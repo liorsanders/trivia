@@ -202,5 +202,10 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
         }
+
+        private void BT_Signup_Click(object sender, RoutedEventArgs e)
+        {
+            _main.Content = new MainMenu();
+        }
     }
 }
