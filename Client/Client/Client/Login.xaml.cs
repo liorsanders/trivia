@@ -20,9 +20,12 @@ namespace Client
     /// </summary>
     public partial class Login : Page
     {
-        public Login()
+        private readonly Frame _main;
+
+        public Login(Frame main)
         {
             InitializeComponent();
+            _main = main;
         }
 
         public void TB_Username_GotFocus(object sender, RoutedEventArgs e)
@@ -147,6 +150,8 @@ namespace Client
             Color color = (Color)ColorConverter.ConvertFromString("#33067a");
 
             bt.Foreground = new SolidColorBrush(color);
+
+            _main.Content = new Signup(_main);
         }
 
         private void Bt_Signup_LostMouseCapture(object sender, MouseEventArgs e)

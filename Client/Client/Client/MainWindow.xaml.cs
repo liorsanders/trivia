@@ -24,8 +24,13 @@ namespace Client
         {
             InitializeComponent();
 
-            Main.Content = new Signup();
+            Main.Content = new Login(Main);
         }
+
+        private bool _allowDirectNavigation = false;
+        private NavigatingCancelEventArgs _navArgs = null;
+        private Duration _duration = new Duration(TimeSpan.FromSeconds(1));
+        private double _oldHeight = 0;
 
 
     }

@@ -9,5 +9,5 @@
 		AllowsTransparency="True" ResizeMode="NoResize"
 		Icon="./Resource/logo.jpg">
 
-	<Frame x:Name="Main" NavigationUIVisibility="Hidden" />
+	<Frame x:Name="Main" NavigationUIVisibility="Hidden" Navigating="frame_Navigating"/>
 </Window>
