@@ -202,9 +202,5 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
         }
-
-
-
-
     }
 }
