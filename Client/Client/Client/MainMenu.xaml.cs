@@ -20,9 +20,13 @@ namespace Client
     /// </summary>
     public partial class MainMenu : Page
     {
-        public MainMenu()
+        private readonly Frame _main;
+
+        public MainMenu(Frame main)
         {
             InitializeComponent();
+
+            _main = main;
         }
     }
 }
