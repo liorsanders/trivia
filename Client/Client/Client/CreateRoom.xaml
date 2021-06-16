@@ -78,6 +78,12 @@
 				</Grid.ColumnDefinitions>
 
 				<DockPanel >
+					<DockPanel.Effect>
+						<DropShadowEffect BlurRadius="3"
+										  Direction="350"
+										  Color="#FFEFF5FE"
+										  ShadowDepth="2"/>
+					</DockPanel.Effect>
 					<DockPanel.Background>
 						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 							<GradientStop Color="#d0effc" Offset="0"/>
