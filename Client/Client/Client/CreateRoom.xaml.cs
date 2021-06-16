@@ -85,5 +85,21 @@ namespace Client
                 tb.Foreground = new SolidColorBrush(color);
             }
         }
+
+        private void BT_Up_Click(object sender, RoutedEventArgs e)
+        {
+            if (LBL_Number.Content.ToString() != "10")
+            {
+                LBL_Number.Content = Convert.ToInt32(LBL_Number.Content.ToString()) + 1;
+            }
+        }
+
+        private void BT_Down_Click(object sender, RoutedEventArgs e)
+        {
+            if (LBL_Number.Content.ToString() != "0")
+            {
+                LBL_Number.Content = Convert.ToInt32(LBL_Number.Content.ToString()) - 1;
+            }
+        }
     }
 }

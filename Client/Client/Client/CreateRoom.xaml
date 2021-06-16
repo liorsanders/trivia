@@ -158,7 +158,51 @@
 							   FontFamily="Arial Rounded MT Bold"
 							   FontSize="20"	
 							   Foreground="#2a2e47"/>
-					
+
+					<Border Margin="5"
+							HorizontalAlignment="Left"
+							BorderBrush="#2a2e47"
+							BorderThickness="1">
+
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition/>
+								<RowDefinition/>
+							</Grid.RowDefinitions>
+
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition/>
+								<ColumnDefinition/>
+							</Grid.ColumnDefinitions>
+
+							<Label x:Name="LBL_Number"
+								   Grid.RowSpan="2"
+								   Content="0"
+								   VerticalAlignment="Center"
+								   MinWidth="40"/>
+
+							<RepeatButton x:Name="BT_Up"
+										  Grid.Column="1"
+										  Click="BT_Up_Click">
+								<Polygon Margin="4,0" 
+										 Points="3,0,6,6,0,6,3,0"
+										 Stroke="#2a2e47"
+										 Fill="#2a2e47"/>
+							</RepeatButton>
+
+							<RepeatButton x:Name="BT_Down"
+										  Grid.Column="1"
+										  Grid.Row="1"
+										  Click="BT_Down_Click">
+								<Polygon Margin="4,0" 
+										 Points="3,6,6,0,0,0,3,6"
+										 Stroke="#2a2e47"
+										 Fill="#2a2e47"/>
+							</RepeatButton>
+						</Grid>
+						
+						
+					</Border>
 					<TextBlock Text="Time per question:"
 							   Margin="5,30,0,0"
 							   FontFamily="Arial Rounded MT Bold"
