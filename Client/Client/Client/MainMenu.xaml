@@ -86,28 +86,20 @@
 				</TextBlock>
 
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-					<Button Width="350" Height="60"
-							Content="Create Room"
-							FontFamily="Arial Rounded MT Bold"
-							FontSize="40"/>
-					<Button Width="350" Height="60"
-							Margin="40,0,0,0"
+					<Button Content="Create Room"
+							Style="{DynamicResource MenuButton}"/>
+					<Button Margin="40,0,0,0"
 							Content="Statistics"
-							FontFamily="Arial Rounded MT Bold"
-							FontSize="40"/>
+							Style="{DynamicResource MenuButton}"/>
 				</StackPanel>
 
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
-					<Button Width="350" Height="60"
-							Content="Exit"
-							FontFamily="Arial Rounded MT Bold"
-							FontSize="40"/>
-					
-					<Button Width="350" Height="60"
-							Margin="40,0,0,0"
+					<Button Content="Exit"
+							Style="{DynamicResource MenuButton}"/>
+
+					<Button Margin="40,0,0,0"
 							Content="Join Room"
-							FontFamily="Arial Rounded MT Bold"
-							FontSize="40"/>
+							Style="{DynamicResource MenuButton}"/>
 				</StackPanel>
 
 			</StackPanel>
