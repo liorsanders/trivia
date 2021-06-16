@@ -71,13 +71,11 @@
 								  Color="#dbeafc"/>
 			</Border.Effect>
 
-			<StackPanel>
+			<StackPanel Margin="0,60,0,0">
 				<TextBlock Text="Trivia" 
-					   VerticalAlignment="Top"
-					   HorizontalAlignment="Center"
-					   Margin="0,60,0,0"
-					   FontFamily="Rainball"
-					   FontSize="200">
+						   HorizontalAlignment="Center"
+						   FontFamily="RainBall"
+						   FontSize="230">
 
 					<TextBlock.Foreground>
 						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -87,7 +85,7 @@
 					</TextBlock.Foreground>
 				</TextBlock>
 
-				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
 					<Button Width="350" Height="60"
 							Content=""/>
 					<Button Width="350" Height="60"
