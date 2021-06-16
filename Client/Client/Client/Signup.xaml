@@ -161,6 +161,7 @@
 								 IsTabStop="True"
 								 FontSize="15"
 								 FontFamily="Courier"
+								 MaxLength="14"
 								 GotFocus="TB_Username_GotFocus"
 								 LostFocus="TB_Username_LostFocus"
 								 TextChanged="TB_Username_TextChanged">
