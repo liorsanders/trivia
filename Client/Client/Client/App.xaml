@@ -395,14 +395,21 @@
 			<Setter Property="Padding" Value="1"/>
 			<Setter Property="Background" Value="Transparent"/>
 			<Setter Property="Height" Value="100"/>
-			<Setter Property="Foreground" Value="#2a2e47"/>
 			<Setter Property="FontSize" Value="40"/>
 			<Setter Property="FontFamily" Value="Arial Rounded MT Bold"/>
+			<Setter Property="Foreground">
+				<Setter.Value>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#5c5cdc"/>
+						<GradientStop Color="#578df1" Offset="1"/>
+					</LinearGradientBrush>
+				</Setter.Value>
+			</Setter>
 
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Button}">
-						<Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" BorderBrush="#2a2e47" BorderThickness="0,1,0,1">
+						<Border x:Name="border" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" BorderBrush="#2a2e47" BorderThickness="0,3,0,0">
 							<ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 						</Border>
 						<ControlTemplate.Triggers>
@@ -410,12 +417,40 @@
 								<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
 							</Trigger>
 							<Trigger Property="IsMouseOver" Value="true">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+								<Setter Property="BorderBrush">
+									<Setter.Value>
+										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+											<GradientStop Color="#2c2ccd"/>
+											<GradientStop Color="#1a63eb" Offset="1"/>
+										</LinearGradientBrush>
+									</Setter.Value>
+								</Setter>
+								<Setter Property="Foreground">
+									<Setter.Value>
+										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+											<GradientStop Color="#2c2ccd"/>
+											<GradientStop Color="#1a63eb" Offset="1"/>
+										</LinearGradientBrush>
+									</Setter.Value>
+								</Setter>
 							</Trigger>
 							<Trigger Property="IsPressed" Value="true">
-								<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+								<Setter Property="BorderBrush">
+									<Setter.Value>
+										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+											<GradientStop Color="#2323a4"/>
+											<GradientStop Color="#104dc0" Offset="1"/>
+										</LinearGradientBrush>
+									</Setter.Value>
+								</Setter>
+								<Setter Property="Foreground">
+									<Setter.Value>
+										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+											<GradientStop Color="#2323a4"/>
+											<GradientStop Color="#104dc0" Offset="1"/>
+										</LinearGradientBrush>
+									</Setter.Value>
+								</Setter>
 							</Trigger>
 							<Trigger Property="IsEnabled" Value="false">
 								<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
