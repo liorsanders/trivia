@@ -115,7 +115,8 @@
 							FontSize="40"
 							Foreground="#2a2e47"
 							Background="Transparent"
-							BorderBrush="Transparent"/>
+							BorderBrush="Transparent"
+							Click="BT_Exit_Click"/>
 				</StackPanel>
 
 				<StackPanel Grid.Column="1"

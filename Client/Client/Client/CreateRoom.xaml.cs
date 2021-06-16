@@ -32,5 +32,15 @@ namespace Client
 
             this.username.Text = _username;
         }
+
+        private void BT_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow is MainWindow main)
+            {
+                main.Close();
+            }
+        }
+
+
     }
 }
