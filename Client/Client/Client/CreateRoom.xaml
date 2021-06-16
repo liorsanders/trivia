@@ -117,6 +117,14 @@
 							Background="Transparent"
 							BorderBrush="Transparent"/>
 				</StackPanel>
+
+				<StackPanel Grid.Column="1"
+							Margin="100,50,0,0">
+					<TextBlock Text="Create Room"
+							   FontFamily="Arial Rounded MT Bold"
+							   FontSize="70"	
+							   Foreground="#2a2e47"/>
+				</StackPanel>
 			</Grid>
 
 		</Border>
