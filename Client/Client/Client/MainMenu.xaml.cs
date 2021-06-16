@@ -20,7 +20,7 @@ namespace Client
     /// </summary>
     public partial class MainMenu : Page
     {
-        private readonly Frame _main;
+        private Frame _main;
 
         public MainMenu(Frame main)
         {
@@ -41,7 +41,12 @@ namespace Client
 
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow main = Application.Current.MainWindow as MainWindow;
 
+            if (main != null)
+            {
+                main.Close();
+            }
         }
 
         private void BT_JoinRoom_Click(object sender, RoutedEventArgs e)
