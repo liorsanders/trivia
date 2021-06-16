@@ -139,5 +139,8 @@
   <ItemGroup>
     <Resource Include="Resource\border\wave.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\default-avatar.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
