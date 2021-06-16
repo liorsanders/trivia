@@ -28,11 +28,12 @@ namespace Client
             InitializeComponent();
 
             _main = main;
+            _username = username;
         }
 
         private void BT_CreateRoom_Click(object sender, RoutedEventArgs e)
         {
-            // move to create room
+            _main.Content = new CreateRoom(_main, _username);
         }
 
         private void BT_Statistics_Click(object sender, RoutedEventArgs e)
