@@ -31,12 +31,12 @@ namespace Client
 
         private void BT_CreateRoom_Click(object sender, RoutedEventArgs e)
         {
-
+            // move to create room
         }
 
         private void BT_Statistics_Click(object sender, RoutedEventArgs e)
         {
-
+            // move to statistics
         }
 
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
@@ -51,7 +51,7 @@ namespace Client
 
         private void BT_JoinRoom_Click(object sender, RoutedEventArgs e)
         {
-
+            // move to join room
         }
     }
 }
