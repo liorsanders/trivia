@@ -45,5 +45,45 @@ namespace Client
         {
             _main.Content = new MainMenu(_main);
         }
+
+        public void TB_RoomName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text == "room name")
+            {
+                tb.Text = string.Empty;
+            }
+            else
+            {
+                tb.GotFocus -= TB_RoomName_GotFocus;
+            }
+        }
+
+        private void TB_RoomName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text == string.Empty)
+            {
+                tb.Text = "room name";
+            }
+            else
+            {
+                tb.LostFocus -= TB_RoomName_LostFocus;
+            }
+        }
+
+        private void TB_RoomName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            if (tb.Text != "room name" && tb.Text != "")
+            {
+                Color color = (Color)ColorConverter.ConvertFromString("#2a2e47");
+
+                tb.Foreground = new SolidColorBrush(color);
+            }
+        }
     }
 }

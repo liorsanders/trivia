@@ -121,6 +121,30 @@
 							   FontFamily="Arial Rounded MT Bold"
 							   FontSize="70"	
 							   Foreground="#2a2e47"/>
+
+					<TextBox x:Name="TB_RoomName"
+								 Height="50" Width="400"
+								 HorizontalAlignment="Left"
+								 BorderBrush="#e2e5ea"
+								 Margin="5,50,0,0" 
+								 Text="room name"
+								 VerticalContentAlignment="Center"
+								 Padding="10"
+								 Foreground="#dce0e9"
+								 IsTabStop="True"
+								 FontSize="15"
+								 FontFamily="Courier"
+								 GotFocus="TB_RoomName_GotFocus"
+								 LostFocus="TB_RoomName_LostFocus"
+								 TextChanged="TB_RoomName_TextChanged">
+						<TextBox.Resources>
+							<Style TargetType="{x:Type Border}">
+								<Setter Property="CornerRadius" Value="5"/>
+							</Style>
+						</TextBox.Resources>
+
+					</TextBox>
+					
 				</StackPanel>
 			</Grid>
 
