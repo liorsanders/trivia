@@ -22,12 +22,15 @@ namespace Client
     {
         private readonly Frame _main;
         private readonly string _username;
+
         public CreateRoom(Frame main, string username)
         {
             InitializeComponent();
 
             _main = main;
             _username = username;
+
+            this.username.Text = _username;
         }
     }
 }
