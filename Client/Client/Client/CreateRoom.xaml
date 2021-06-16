@@ -91,6 +91,9 @@
 						</LinearGradientBrush>
 					</DockPanel.Background>
 
+					<Image Source="./Resource/default-avatar.png"
+						   VerticalAlignment="Top"
+						   Width="150" Height="150"/>
 				</DockPanel>
 			</Grid>
 			
