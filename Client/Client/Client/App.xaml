@@ -208,7 +208,7 @@
 			</Setter>
 		</Style>
 
-		<!--Style for menu button-->
+		<!--Style for top menu button-->
 		<Style x:Key="TopMenuBT" TargetType="{x:Type Button}">
 			<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
 			<Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -252,16 +252,16 @@
 								<Setter Property="BorderBrush">
 									<Setter.Value>
 										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-											<GradientStop Color="#4d24a0" Offset="1"/>
-											<GradientStop Color="#2c2ccd"/>
+											<GradientStop Color="#4d24a0"/>
+											<GradientStop Color="#2c2ccd" Offset="1"/>
 										</LinearGradientBrush>
 									</Setter.Value>
 								</Setter>
 								<Setter Property="Foreground">
 									<Setter.Value>
 										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-											<GradientStop Color="#4d24a0" Offset="1"/>
-											<GradientStop Color="#2c2ccd"/>
+											<GradientStop Color="#4d24a0"/>
+											<GradientStop Color="#2c2ccd" Offset="1"/>
 										</LinearGradientBrush>
 									</Setter.Value>
 								</Setter>
@@ -270,16 +270,16 @@
 								<Setter Property="BorderBrush">
 									<Setter.Value>
 										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-											<GradientStop Color="#3d1c80" Offset="1"/>
-											<GradientStop Color="#2323a4"/>
+											<GradientStop Color="#3d1c80"/>
+											<GradientStop Color="#2323a4" Offset="1"/>
 										</LinearGradientBrush>
 									</Setter.Value>
 								</Setter>
 								<Setter Property="Foreground">
 									<Setter.Value>
 										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-											<GradientStop Color="#3d1c80" Offset="1"/>
-											<GradientStop Color="#2323a4"/>
+											<GradientStop Color="#3d1c80"/>
+											<GradientStop Color="#2323a4" Offset="1"/>
 										</LinearGradientBrush>
 									</Setter.Value>
 								</Setter>
@@ -295,6 +295,7 @@
 			</Setter>
 		</Style>
 
+		<!--Style for bottom menu button-->
 		<Style x:Key="BottomMenuBT" TargetType="{x:Type Button}">
 			<Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
 			<Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
@@ -334,6 +335,43 @@
 							<Trigger Property="IsDefaulted" Value="true">
 								<Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
 							</Trigger>
+							<Trigger Property="IsMouseOver" Value="true">
+								<Setter Property="BorderBrush">
+									<Setter.Value>
+										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+											<GradientStop Color="#2c2ccd"/>
+											<GradientStop Color="#1a63eb" Offset="1"/>
+										</LinearGradientBrush>
+									</Setter.Value>
+								</Setter>
+								<Setter Property="Foreground">
+									<Setter.Value>
+										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+											<GradientStop Color="#2c2ccd"/>
+											<GradientStop Color="#1a63eb" Offset="1"/>
+										</LinearGradientBrush>
+									</Setter.Value>
+								</Setter>
+							</Trigger>
+							<Trigger Property="IsPressed" Value="true">
+								<Setter Property="BorderBrush">
+									<Setter.Value>
+										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+											<GradientStop Color="#2323a4"/>
+											<GradientStop Color="#104dc0" Offset="1"/>
+										</LinearGradientBrush>
+									</Setter.Value>
+								</Setter>
+								<Setter Property="Foreground">
+									<Setter.Value>
+										<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+											<GradientStop Color="#2323a4"/>
+											<GradientStop Color="#104dc0" Offset="1"/>
+										</LinearGradientBrush>
+									</Setter.Value>
+								</Setter>
+							</Trigger>
+							
 							<Trigger Property="IsEnabled" Value="false">
 								<Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
 								<Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
