@@ -43,7 +43,7 @@ namespace Client
 
         private void BT_Menu_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main);
+            _main.Content = new MainMenu(_main, _username);
         }
 
         public void TB_RoomName_GotFocus(object sender, RoutedEventArgs e)

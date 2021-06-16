@@ -165,7 +165,7 @@ namespace Client
 
         private void BT_Login_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main);
+            _main.Content = new MainMenu(_main, TB_Username.Text);
         }
     }
 }
