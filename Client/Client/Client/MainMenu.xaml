@@ -93,8 +93,10 @@
 							Style="{DynamicResource TopMenuBT}">
 
 					</Button>
-					<Button Margin="40,0,0,0"
+					<Button x:Name="BT_Statistics"
+							Margin="40,0,0,0"
 							Content="Statistics"
+							Click="BT_Statistics_Click"
 							ClickMode="Press"
 							Style="{DynamicResource TopMenuBT}">
 						
@@ -102,13 +104,17 @@
 				</StackPanel>
 
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
-					<Button Content="Exit"
+					<Button x:Name="BT_Exit"
+							Content="Exit"
+							Click="BT_Exit_Click"
 							ClickMode="Press"
 							Style="{DynamicResource BottomMenuBT}">
 					</Button>
 
-					<Button Margin="40,0,0,0"
+					<Button x:Name="BT_JoinRoom"
+							Margin="40,0,0,0"
 							Content="Join Room"
+							Click="BT_JoinRoom_Click"
 							ClickMode="Press"
 							Style="{DynamicResource BottomMenuBT}">
 					</Button>

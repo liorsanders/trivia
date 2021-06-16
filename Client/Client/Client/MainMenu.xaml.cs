@@ -28,5 +28,25 @@ namespace Client
 
             _main = main;
         }
+
+        private void BT_CreateRoom_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_Statistics_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_Exit_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_JoinRoom_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
