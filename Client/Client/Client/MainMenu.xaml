@@ -87,19 +87,27 @@
 
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
 					<Button Width="350" Height="60"
-							Content="Create Room"/>
+							Content="Create Room"
+							FontFamily="Arial Rounded MT Bold"
+							FontSize="40"/>
 					<Button Width="350" Height="60"
 							Margin="40,0,0,0"
-							Content="Statistics"/>
+							Content="Statistics"
+							FontFamily="Arial Rounded MT Bold"
+							FontSize="40"/>
 				</StackPanel>
 
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
 					<Button Width="350" Height="60"
-							Content="Exit"/>
+							Content="Exit"
+							FontFamily="Arial Rounded MT Bold"
+							FontSize="40"/>
 					
 					<Button Width="350" Height="60"
 							Margin="40,0,0,0"
-							Content="Join Room"/>
+							Content="Join Room"
+							FontFamily="Arial Rounded MT Bold"
+							FontSize="40"/>
 				</StackPanel>
 
 			</StackPanel>
