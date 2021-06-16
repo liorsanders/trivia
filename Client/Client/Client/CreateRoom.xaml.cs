@@ -41,6 +41,9 @@ namespace Client
             }
         }
 
-
+        private void BT_Menu_Click(object sender, RoutedEventArgs e)
+        {
+            _main.Content = new MainMenu(_main);
+        }
     }
 }

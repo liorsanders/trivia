@@ -106,17 +106,13 @@
 					<Button x:Name="BT_Menu"
 							Content="Menu"
 							Margin="0,25,0,0"
+							Click="BT_Menu_Click"
 							Style="{DynamicResource BT_CreateRoom}"/>
 
 					<Button x:Name="BT_Exit"
-							Height="100" 
 							Content="Exit"
-							FontFamily="Arial Rounded MT Bold"
-							FontSize="40"
-							Foreground="#2a2e47"
-							Background="Transparent"
-							BorderBrush="Transparent"
-							Click="BT_Exit_Click"/>
+							Click="BT_Exit_Click"
+							Style="{DynamicResource BT_CreateRoom}"/>
 				</StackPanel>
 
 				<StackPanel Grid.Column="1"
