@@ -21,8 +21,9 @@ namespace Client
     public partial class MainMenu : Page
     {
         private readonly Frame _main;
+        private readonly string _username;
 
-        public MainMenu(Frame main)
+        public MainMenu(Frame main, string username)
         {
             InitializeComponent();
 
