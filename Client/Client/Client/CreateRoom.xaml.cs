@@ -86,19 +86,35 @@ namespace Client
             }
         }
 
-        private void BT_Up_Click(object sender, RoutedEventArgs e)
+        private void BT_People_Up_Click(object sender, RoutedEventArgs e)
         {
-            if (LBL_Number.Content.ToString() != "10")
+            if (People.Content.ToString() != "10")
             {
-                LBL_Number.Content = Convert.ToInt32(LBL_Number.Content.ToString()) + 1;
+                People.Content = Convert.ToInt32(People.Content.ToString()) + 1;
             }
         }
 
-        private void BT_Down_Click(object sender, RoutedEventArgs e)
+        private void BT_People_Down_Click(object sender, RoutedEventArgs e)
         {
-            if (LBL_Number.Content.ToString() != "0")
+            if (People.Content.ToString() != "0")
             {
-                LBL_Number.Content = Convert.ToInt32(LBL_Number.Content.ToString()) - 1;
+                People.Content = Convert.ToInt32(People.Content.ToString()) - 1;
+            }
+        }
+
+        private void BT_Time_Up_Click(object sender, RoutedEventArgs e)
+        {
+            if (Time.Content.ToString() != "30")
+            {
+                Time.Content = Convert.ToInt32(Time.Content.ToString()) + 1;
+            }
+        }
+
+        private void BT_Time_Down_Click(object sender, RoutedEventArgs e)
+        {
+            if (Time.Content.ToString() != "0")
+            {
+                Time.Content = Convert.ToInt32(Time.Content.ToString()) - 1;
             }
         }
     }
