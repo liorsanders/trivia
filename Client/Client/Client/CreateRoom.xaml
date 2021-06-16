@@ -70,6 +70,14 @@
 								  ShadowDepth="2"
 								  Color="#dbeafc"/>
 			</Border.Effect>
+
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="2*"/>
+					<ColumnDefinition Width="10*"/>
+				</Grid.ColumnDefinitions>
+
+			</Grid>
 			
 		</Border>
 	</Grid>
