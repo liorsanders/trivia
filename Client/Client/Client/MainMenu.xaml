@@ -70,7 +70,7 @@
 								  ShadowDepth="2"
 								  Color="#dbeafc"/>
 			</Border.Effect>
-			
+
 			<StackPanel Margin="0,60,0,0">
 				<TextBlock Text="Trivia" 
 						   HorizontalAlignment="Center"
@@ -86,71 +86,27 @@
 				</TextBlock>
 
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
-					<Button Content="Create Room"
-							Style="{DynamicResource MenuButton}">
-						<Button.Foreground>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#612ec9"/>
-								<GradientStop Color="#5c5cdc" Offset="1"/>
-							</LinearGradientBrush>
-						</Button.Foreground>
-						<Button.BorderBrush>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#612ec9"/>
-								<GradientStop Color="#5c5cdc" Offset="1"/>
-							</LinearGradientBrush>
-						</Button.BorderBrush>
+					<Button x:Name="BT_CreateRoom"
+							Content="Create Room"
+							ClickMode="Press"
+							Style="{DynamicResource TopMenuBT}">
+
 					</Button>
 					<Button Margin="40,0,0,0"
 							Content="Statistics"
-							Style="{DynamicResource MenuButton}">
-						<Button.Foreground>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#612ec9"/>
-								<GradientStop Color="#5c5cdc" Offset="1"/>
-							</LinearGradientBrush>
-						</Button.Foreground>
-						<Button.BorderBrush>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#612ec9"/>
-								<GradientStop Color="#5c5cdc" Offset="1"/>
-							</LinearGradientBrush>
-						</Button.BorderBrush>
+							Style="{DynamicResource TopMenuBT}">
+						
 					</Button>
 				</StackPanel>
 
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
 					<Button Content="Exit"
-							Style="{DynamicResource MenuButton}">
-						<Button.Foreground>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#5c5cdc"/>
-								<GradientStop Color="#578df1" Offset="1"/>
-							</LinearGradientBrush>
-						</Button.Foreground>
-						<Button.BorderBrush>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#5c5cdc"/>
-								<GradientStop Color="#578df1" Offset="1"/>
-							</LinearGradientBrush>
-						</Button.BorderBrush>
+							Style="{DynamicResource BottomMenuBT}">
 					</Button>
 
 					<Button Margin="40,0,0,0"
 							Content="Join Room"
-							Style="{DynamicResource MenuButton}">
-						<Button.Foreground>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#5c5cdc"/>
-								<GradientStop Color="#578df1" Offset="1"/>
-							</LinearGradientBrush>
-						</Button.Foreground>
-						<Button.BorderBrush>
-							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-								<GradientStop Color="#5c5cdc"/>
-								<GradientStop Color="#578df1" Offset="1"/>
-							</LinearGradientBrush>
-						</Button.BorderBrush>
+							Style="{DynamicResource BottomMenuBT}">
 					</Button>
 				</StackPanel>
 
