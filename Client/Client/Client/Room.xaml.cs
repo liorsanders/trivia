@@ -20,9 +20,11 @@ namespace Client
     /// </summary>
     public partial class Room : Page
     {
-        public Room()
+        public Room(string username)
         {
             InitializeComponent();
+
+            this.TB_Admin.Text = "Admin: " + username;
         }
     }
 }

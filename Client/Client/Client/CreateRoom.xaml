@@ -250,17 +250,19 @@
 						</Grid>
 					</Border>
 
-					<Button Height="50" Width="400"
-								HorizontalAlignment="Left"
-								Margin="5,30,0,0"
-								BorderBrush="#5e42ed"
-								BorderThickness="2"
-								Content="Create Room"
-								Foreground="#baabf9"
-								FontSize="30"
-								FontFamily="Arial Rounded MT Bold"
-								HorizontalContentAlignment="Center"
-								Style="{DynamicResource ButtonStyle}">
+					<Button x:Name="BT_CreateRoom"
+							Height="50" Width="400"
+							HorizontalAlignment="Left"
+							Margin="5,30,0,0"
+							BorderBrush="#5e42ed"
+							BorderThickness="2"
+							Content="Create Room"
+							Foreground="#baabf9"
+							FontSize="30"
+							FontFamily="Arial Rounded MT Bold"
+							HorizontalContentAlignment="Center"
+							Click="BT_CreateRoom_Click"
+							Style="{DynamicResource ButtonStyle}">
 						<Button.Background>
 							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 								<LinearGradientBrush.RelativeTransform>

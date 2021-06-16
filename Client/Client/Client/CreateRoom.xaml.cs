@@ -117,5 +117,10 @@ namespace Client
                 Time.Content = Convert.ToInt32(Time.Content.ToString()) - 1;
             }
         }
+
+        private void BT_CreateRoom_Click(object sender, RoutedEventArgs e)
+        {
+            _main.Content = new Room(_username);
+        }
     }
 }
