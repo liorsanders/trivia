@@ -159,7 +159,7 @@
 							   FontSize="20"	
 							   Foreground="#2a2e47"/>
 
-					<Border Margin="5"
+					<Border Margin="5,10,5,5"
 							HorizontalAlignment="Left"
 							BorderBrush="#2a2e47"
 							BorderThickness="1">
@@ -207,7 +207,7 @@
 							   FontFamily="Arial Rounded MT Bold"
 							   FontSize="20"	
 							   Foreground="#2a2e47"/>
-					<Border Margin="5"
+					<Border Margin="5,10,5,5"
 							HorizontalAlignment="Left"
 							BorderBrush="#2a2e47"
 							BorderThickness="1">
@@ -249,6 +249,34 @@
 							</RepeatButton>
 						</Grid>
 					</Border>
+
+					<Button Height="50" Width="400"
+								HorizontalAlignment="Left"
+								Margin="5,30,0,0"
+								BorderBrush="#5e42ed"
+								BorderThickness="2"
+								Content="Create Room"
+								Foreground="#baabf9"
+								FontSize="30"
+								FontFamily="Arial Rounded MT Bold"
+								HorizontalContentAlignment="Center"
+								Style="{DynamicResource ButtonStyle}">
+						<Button.Background>
+							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+								<LinearGradientBrush.RelativeTransform>
+									<TransformGroup>
+										<ScaleTransform CenterY="0.5" CenterX="0.5"/>
+										<SkewTransform CenterY="0.5" CenterX="0.5"/>
+										<RotateTransform Angle="120" CenterY="0.5" CenterX="0.5"/>
+										<TranslateTransform/>
+									</TransformGroup>
+								</LinearGradientBrush.RelativeTransform>
+								<GradientStop Color="#FF6568F3" Offset="1"/>
+								<GradientStop Color="#7529eb"/>
+							</LinearGradientBrush>
+						</Button.Background>
+					</Button>
+
 				</StackPanel>
 			</Grid>
 
