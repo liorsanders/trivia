@@ -20,9 +20,11 @@ namespace Client
     /// </summary>
     public partial class Statistics : Page
     {
-        public Statistics()
+        private readonly Frame _main;
+        public Statistics(Frame main)
         {
             InitializeComponent();
+            _main = main;
         }
     }
 }

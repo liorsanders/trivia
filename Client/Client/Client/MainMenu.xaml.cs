@@ -39,6 +39,7 @@ namespace Client
         private void BT_Statistics_Click(object sender, RoutedEventArgs e)
         {
             // move to statistics
+            _main.Content = new Statistics(_main);
         }
 
         private void BT_Exit_Click(object sender, RoutedEventArgs e)

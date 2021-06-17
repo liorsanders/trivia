@@ -28,7 +28,14 @@ namespace Client
             _main = main;
             _username = username;
             tbUsername.Text = "hello " + username;
-            
+            /*TODO:
+            * add room options to StackPannel after getting rooms from the backend
+            * if there are no rooms display a message to say that there are no rooms
+            */
+        }
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            _main.Content = new MainMenu(_main, _username);
         }
     }
 }

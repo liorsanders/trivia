@@ -10,15 +10,25 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
 
-
-        <TextBlock Name="tbUsername"
+        <Button Name="btnBack"
                 Foreground="Black"
                 Grid.Row="0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                FontSize="25"
+                FontFamily="Aharoni"
+                Click="btnBack_Click"
+                >BACK</Button>
+        
+        <TextBlock Name="tbUsername"
+                Foreground="Black"
+                Grid.Row="1"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="loading text..."  
@@ -30,10 +40,10 @@
                        Text="Please choose a room to join!"
                        HorizontalAlignment="Center"
                        FontSize="40"
-                       Grid.Row="1"
+                       Grid.Row="2"
                    FontFamily="Comic Sans MS"
                        />
-        <StackPanel Name="roomsStackPannel" Background="white" Grid.Row="2">
+        <StackPanel Name="roomsStackPannel" Background="white" Grid.Row="3">
             <!--finish implementation in code behind-->
         </StackPanel>
  

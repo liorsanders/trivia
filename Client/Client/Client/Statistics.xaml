@@ -6,9 +6,10 @@
       xmlns:local="clr-namespace:Client"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Statistics">
-
+      Title="Statistics"
+      xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif">
     <Grid>
-        
+        <Image x:Name="image" gif:AnimationBehavior.SourceUri="./Resource/statistics.gif" HorizontalAlignment="Left" Height="248" VerticalAlignment="Top" Width="346"/>
+
     </Grid>
 </Page>
