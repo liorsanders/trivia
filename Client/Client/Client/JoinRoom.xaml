@@ -9,6 +9,34 @@
       Title="JoinRoom">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock Name="tbUsername"
+                Foreground="Black"
+                Grid.Row="0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Text="loading text..."  
+                FontSize="40"
+                FontFamily="Impact"
+            />
+        <TextBlock Foreground="DarkGreen"
+                       VerticalAlignment="Center"
+                       Text="Please choose a room to join!"
+                       HorizontalAlignment="Center"
+                       FontSize="40"
+                       Grid.Row="1"
+                   FontFamily="Comic Sans MS"
+                       />
+        <StackPanel Name="roomsStackPannel" Background="white" Grid.Row="2">
+            <!--finish implementation in code behind-->
+        </StackPanel>
+ 
     </Grid>
+
 </Page>

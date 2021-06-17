@@ -27,6 +27,8 @@ namespace Client
             InitializeComponent();
             _main = main;
             _username = username;
+            tbUsername.Text = "hello " + username;
+            
         }
     }
 }

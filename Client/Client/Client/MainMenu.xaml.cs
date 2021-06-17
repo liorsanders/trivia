@@ -51,7 +51,7 @@ namespace Client
 
         private void BT_JoinRoom_Click(object sender, RoutedEventArgs e)
         {
-            // move to join room
+            _main.Content = new JoinRoom(_main, _username);
         }
     }
 }
