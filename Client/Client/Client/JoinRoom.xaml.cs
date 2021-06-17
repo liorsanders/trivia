@@ -20,9 +20,13 @@ namespace Client
     /// </summary>
     public partial class JoinRoom : Page
     {
-        public JoinRoom()
+        private readonly Frame _main;
+        private readonly string _username;
+        public JoinRoom(Frame main, string username)
         {
             InitializeComponent();
+            _main = main;
+            _username = username;
         }
     }
 }
