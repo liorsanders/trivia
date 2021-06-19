@@ -117,6 +117,24 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(LeaveRoomR
 		(int)Codes::LeaveRoom);
 }
 
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse& response)
+{
+	return buildMessage(
+		dataToJson<GetRoomStateResponse>(response, "RoomState"),
+		(int)Codes::GetRoom);
+}
+
+void to_json(nlohmann::json& j, const GetRoomStateResponse& room)
+{
+	j = {
+		{"status", room.status},
+		{"hasGameBegun", room.hasGameBegun},
+		{"players", room.players},
+		{"questionCount", room.questionCount},
+		{"answerTimeout", room.answerTimeout}
+	};
+}
+
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 (const std::string& data, const int& messageCode)
 {
