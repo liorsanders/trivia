@@ -96,6 +96,20 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 		(int)Codes::Statistics);
 }
 
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(CloseRoomResponse& response)
+{
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::CloseRoom);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(StartGameResponse& response)
+{
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::Start);
+}
+
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 (const std::string& data, const int& messageCode)
 {
