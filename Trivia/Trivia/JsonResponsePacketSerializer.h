@@ -13,6 +13,7 @@
 #include "JoinRoomResponse.h"
 #include "CreateRoomResponse.h"
 #include "getHighScoreResponse.h"
+#include "getPersonalStatsResponse.h"
 #include "CloseRoomResponse.h"
 #include "StartGameResponse.h"
 #include "GetRoomStateResponse.h"
@@ -42,6 +43,15 @@ public:
 
 	static vector<unsigned char> serializeResponse
 		(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse);
+
+	static vector<unsigned char> serializeResponse(CloseRoomResponse& response);
+
+	static vector<unsigned char> serializeResponse(StartGameResponse& response);
+
+	static vector<unsigned char> serializeResponse(LeaveRoomResponse& response);
+
+	static vector<unsigned char> serializeResponse(GetRoomStateResponse& response);
+
 
 private:
 	/*
