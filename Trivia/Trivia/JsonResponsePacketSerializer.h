@@ -13,7 +13,10 @@
 #include "JoinRoomResponse.h"
 #include "CreateRoomResponse.h"
 #include "getHighScoreResponse.h"
-#include "getPersonalStatsResponse.h"
+#include "CloseRoomResponse.h"
+#include "StartGameResponse.h"
+#include "GetRoomStateResponse.h"
+#include "LeaveRoomResponse.h"
 
 using std::string; 
 using std::vector;
