@@ -123,6 +123,9 @@
     <ClInclude Include="StartGameResponse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LeaveRoomResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Communicator.cpp">
