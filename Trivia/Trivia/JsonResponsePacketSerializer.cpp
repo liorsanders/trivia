@@ -110,6 +110,13 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(StartGameR
 		(int)Codes::Start);
 }
 
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(LeaveRoomResponse& response)
+{
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::LeaveRoom);
+}
+
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 (const std::string& data, const int& messageCode)
 {
