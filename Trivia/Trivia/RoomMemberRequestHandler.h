@@ -17,6 +17,8 @@ private:
 	RoomManager& m_roomManager;
 	RequestHandlerFactory& m_handlerFactory;
 
+	const RequestResult& LoginRequestHandler::createErrorResponse
+		(const std::string& error, RequestResult& result);
 	RequestResult leaveRoom(RequestInfo);
 	RequestResult getRoomState(RequestInfo);
 };
