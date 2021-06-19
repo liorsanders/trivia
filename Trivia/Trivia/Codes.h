@@ -10,6 +10,9 @@ enum class Codes
 	JoinRoom = 44, 
 	GetRoom = 15,
 	GetPlayers = 64,
-	statistics = 30
-
+	Statistics = 30,
+	CloseRoom = 67,
+	Start = 4,
+	GetRoomState = 16,
+	LeaveRoom = 49
 };
