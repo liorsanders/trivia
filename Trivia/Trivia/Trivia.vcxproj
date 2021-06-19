@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Bytes.h" />
+    <ClInclude Include="CloseRoomResponse.h" />
     <ClInclude Include="Codes.h" />
     <ClInclude Include="Communicator.h" />
     <ClInclude Include="CreateRoomResponse.h" />

@@ -117,6 +117,9 @@
     <ClInclude Include="CreateRoomResponse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CloseRoomResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Communicator.cpp">
