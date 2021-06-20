@@ -71,83 +71,48 @@
 								  Color="#dbeafc"/>
             </Border.Effect>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2.5*"/>
-                    <ColumnDefinition Width="10*"/>
-                </Grid.ColumnDefinitions>
+            <StackPanel Margin="0,60,0,0">
+                <TextBlock Text="Statistics" 
+						   HorizontalAlignment="Center"
+						   FontFamily="Comic Sans MS"
+						   FontSize="230">
 
-                <StackPanel>
-                    <StackPanel.Effect>
-                        <DropShadowEffect BlurRadius="3"
-										  Direction="350"
-										  Color="#FFEFF5FE"
-										  ShadowDepth="2"/>
-                    </StackPanel.Effect>
-
-                    <StackPanel.Background>
+                    <TextBlock.Foreground>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#d0effc" Offset="0"/>
-                            <GradientStop Color="#f3d4fb" Offset="1"/>
+                            <GradientStop Color="#612ec9" Offset="0"/>
+                            <GradientStop Color="#578df1" Offset="1"/>
                         </LinearGradientBrush>
-                    </StackPanel.Background>
+                    </TextBlock.Foreground>
+                </TextBlock>
 
-                    <Image Source="./Resource/default-avatar.png"
-						   VerticalAlignment="Top"
-						   Margin="0,15,0,0"
-						   Width="150" Height="150"/>
-
-                    <TextBlock x:Name="usernameBlock"
-							   FontFamily="Comic Sans MS"
-							   FontSize="25"
-							   
-							   HorizontalAlignment="Center"
-							   Margin="0,5,0,0">
-                        <TextBlock.Foreground>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="#5c5cdc"/>
-                                <GradientStop Color="#578df1" Offset="1"/>
-                            </LinearGradientBrush>
-                        </TextBlock.Foreground>
-                    </TextBlock>
-
-                    <Button x:Name="BT_Menu"
-							Content="Menu"
-							Margin="0,25,0,0"
-							Click="BT_Menu_Click"
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                    <Button x:Name="BT_High_Scores"
+							Content="High Scores"
+							Click="BT_High_Scores_Click"
+							ClickMode="Press"
                             FontFamily="Comic Sans MS"
-							Style="{DynamicResource BT_CreateRoom}"/>
+                            FontSize="35"
+							Style="{DynamicResource TopMenuBT}">
 
-                    <Button x:Name="BT_Exit"
-							Content="Exit"
-							Click="BT_Exit_Click"
+                    </Button>
+                    <Button x:Name="BT_Personal_Statistics"
+							Margin="40,0,0,0"
+							Content="Personal Statistics"
+							Click="BT_Personal_Statistics_Click"
+							ClickMode="Press"
                             FontFamily="Comic Sans MS"
-							Style="{DynamicResource BT_CreateRoom}"/>
+                            FontSize="20"
+							Style="{DynamicResource TopMenuBT}">
+
+                    </Button>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1"
-							Margin="100,50,0,0">
-                    <Border Margin="5,10,5,5"
-							HorizontalAlignment="Left"
-							BorderBrush="#2a2e47"
-							BorderThickness="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </Border>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,40,0,0">
+                    <Image x:Name="image" gif:AnimationBehavior.SourceUri="./Resource/statistics.gif" HorizontalAlignment="Center" Height="250" VerticalAlignment="Center" Width="700"/>
                 </StackPanel>
-            </Grid>
+
+            </StackPanel>
 
         </Border>
-        <Image x:Name="image" gif:AnimationBehavior.SourceUri="./Resource/statistics.gif" HorizontalAlignment="Right" Height="187" VerticalAlignment="Top" Width="293" Grid.Column="1" Margin="167,42,0,0" Grid.Row="1"/>
     </Grid>
-    <!--<Image x:Name="image" gif:AnimationBehavior.SourceUri="./Resource/statistics.gif" HorizontalAlignment="Left" Height="248" VerticalAlignment="Top" Width="346"/>-->
 </Page>

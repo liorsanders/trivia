@@ -27,7 +27,7 @@ namespace Client
             InitializeComponent();
             _main = main;
             _username = username;
-            usernameBlock.Text = username;
+            BT_Personal_Statistics.Content = username + "'s statistics";
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -40,6 +40,15 @@ namespace Client
         private void BT_Menu_Click(object sender, RoutedEventArgs e)
         {
             _main.Content = new MainMenu(_main, _username);
+        }
+
+        private void BT_Personal_Statistics_Click(object sender, RoutedEventArgs e)
+        {
+            _main.Content = new PersonalStatistics(_main, _username);
+        }
+        private void BT_High_Scores_Click(object sender, RoutedEventArgs e)
+        {
+            _main.Content = new HighScores(_main, _username);
         }
     }
 }
