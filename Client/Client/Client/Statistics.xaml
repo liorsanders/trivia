@@ -76,7 +76,6 @@
 						   HorizontalAlignment="Center"
 						   FontFamily="Comic Sans MS"
 						   FontSize="230">
-
                     <TextBlock.Foreground>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#612ec9" Offset="0"/>

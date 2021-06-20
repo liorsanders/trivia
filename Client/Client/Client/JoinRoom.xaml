@@ -123,26 +123,36 @@
                             FontFamily="Comic Sans MS"
 							Style="{DynamicResource BT_CreateRoom}"/>
                 </StackPanel>
-
-                <StackPanel Grid.Column="1"
-							Margin="100,50,0,0">
-                    <Border Margin="5,10,5,5"
-							HorizontalAlignment="Left"
-							BorderBrush="#2a2e47"
-							BorderThickness="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </Border>
-                </StackPanel>
+                <Grid Name="roomsGrid" Margin="10,5,10,3" Grid.Column="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="4*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Text="Please choose a room to enter" 
+						   HorizontalAlignment="Center"
+						   FontFamily="Comic Sans MS"
+						   FontSize="38">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#612ec9" Offset="0"/>
+                                <GradientStop Color="#578df1" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBlock Grid.Row="1" Text="No rooms so far!" HorizontalAlignment="Center"
+                               FontFamily="Comic Sans MS" FontSize="65" TextWrapping="Wrap" VerticalAlignment="Center">
+                        <TextBlock.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#612ec9" Offset="0"/>
+                                <GradientStop Color="#578df1" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBlock.Background>
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="Yellow"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                </Grid>
             </Grid>
 
         </Border>

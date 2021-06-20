@@ -28,8 +28,12 @@ namespace Client
             _main = main;
             _username = username;
             usernameBlock.Text = username;
+            updateRooms();
         }
-
+        private void updateRooms()
+        {
+            //this function accesses roomsGrid and adds buttons of rooms by the number of rooms
+        }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is MainWindow main)
