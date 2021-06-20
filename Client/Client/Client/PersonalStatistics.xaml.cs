@@ -28,6 +28,27 @@ namespace Client
             _main = main;
             _username = username;
             usernameBlock.Text = username;
+            initializeStats();
+        }
+        private void initializeStats()
+        {
+            //get stats from backend, for now use default values
+            //use colors for red: bad score, green: good score, blue: medium score
+            string defaultAnsweringTime = "00:00";
+            int defaultGamesPlayed = 0;
+            int defaultRightQuestions = 0;
+            int defaultWrongQuestions = 0;
+
+            Personal_averageAnsweringTime.Text = defaultAnsweringTime;
+            Personal_averageAnsweringTime.Foreground = new SolidColorBrush(Colors.Red);
+
+            Personal_gamesPlayed.Text = defaultGamesPlayed.ToString();
+
+            Personal_rightQuestions.Text = defaultRightQuestions.ToString();
+            Personal_rightQuestions.Foreground = new SolidColorBrush(Colors.Red);
+
+            Personal_wrongQuestions.Text = defaultWrongQuestions.ToString();
+            Personal_wrongQuestions.Foreground = new SolidColorBrush(Colors.Green);
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
