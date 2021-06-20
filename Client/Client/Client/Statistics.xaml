@@ -97,8 +97,8 @@
 						   Margin="0,15,0,0"
 						   Width="150" Height="150"/>
 
-                    <TextBlock x:Name="username"
-							   FontFamily="Arial Rounded MT Bold"
+                    <TextBlock x:Name="usernameBlock"
+							   FontFamily="Comic Sans MS"
 							   FontSize="25"
 							   
 							   HorizontalAlignment="Center"
@@ -147,6 +147,7 @@
             </Grid>
 
         </Border>
+        <Image x:Name="image" gif:AnimationBehavior.SourceUri="./Resource/statistics.gif" HorizontalAlignment="Right" Height="187" VerticalAlignment="Top" Width="293" Grid.Column="1" Margin="167,42,0,0" Grid.Row="1"/>
     </Grid>
     <!--<Image x:Name="image" gif:AnimationBehavior.SourceUri="./Resource/statistics.gif" HorizontalAlignment="Left" Height="248" VerticalAlignment="Top" Width="346"/>-->
 </Page>

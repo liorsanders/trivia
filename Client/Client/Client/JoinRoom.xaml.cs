@@ -27,6 +27,7 @@ namespace Client
             InitializeComponent();
             _main = main;
             _username = username;
+            usernameBlock.Text = username;
         }
 
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
