@@ -93,7 +93,7 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 
 	return buildMessage(
 		statistics + highScores,
-		(int)Codes::statistics);
+		(int)Codes::Statistics);
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
