@@ -21,10 +21,24 @@ namespace Client
     public partial class Statistics : Page
     {
         private readonly Frame _main;
-        public Statistics(Frame main)
+        private readonly string _username;
+        public Statistics(Frame main, string username)
         {
             InitializeComponent();
             _main = main;
+            _username = username;
+        }
+        private void BT_Exit_Click(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow is MainWindow main)
+            {
+                main.Close();
+            }
+        }
+
+        private void BT_Menu_Click(object sender, RoutedEventArgs e)
+        {
+            _main.Content = new MainMenu(_main, _username);
         }
     }
 }

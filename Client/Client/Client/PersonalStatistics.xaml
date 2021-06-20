@@ -9,6 +9,143 @@
       Title="PersonalStatistics">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="26*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="./Resource/bg.png"
+			   Grid.RowSpan="3" Grid.ColumnSpan="3"
+			   Stretch="Fill"/>
+
+        <Rectangle Fill="#cdebf9"
+				   Width="140"
+				   Grid.ColumnSpan="2" Grid.RowSpan="2"
+				   Margin="-75,-168,860,230"
+				   RenderTransformOrigin="0.5,0.5"
+				   Opacity="80">
+
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-42"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+
+        <Ellipse
+			Fill="Transparent"
+			StrokeThickness="150"
+			Stroke="#e0c6eb"
+			Grid.ColumnSpan="2"
+			Margin="-252,214,443,-336.417"
+			Grid.Row="1" Grid.RowSpan="2"
+			RenderTransformOrigin="0.5,0.5"
+			Opacity="80">
+
+            <Ellipse.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="8.288"/>
+                    <RotateTransform Angle="-66"/>
+                    <TranslateTransform X="-250" Y="250"/>
+                </TransformGroup>
+            </Ellipse.RenderTransform>
+        </Ellipse>
+
+        <Border Background="White" Grid.Row="1" Grid.Column="1">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15"
+								  Direction="-90"
+								  RenderingBias="Quality"
+								  ShadowDepth="2"
+								  Color="#dbeafc"/>
+            </Border.Effect>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <StackPanel.Effect>
+                        <DropShadowEffect BlurRadius="3"
+										  Direction="350"
+										  Color="#FFEFF5FE"
+										  ShadowDepth="2"/>
+                    </StackPanel.Effect>
+
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#d0effc" Offset="0"/>
+                            <GradientStop Color="#f3d4fb" Offset="1"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+
+                    <Image Source="./Resource/default-avatar.png"
+						   VerticalAlignment="Top"
+						   Margin="0,15,0,0"
+						   Width="150" Height="150"/>
+
+                    <TextBlock x:Name="username"
+							   FontFamily="Arial Rounded MT Bold"
+							   FontSize="25"
+							   
+							   HorizontalAlignment="Center"
+							   Margin="0,5,0,0">
+                        <TextBlock.Foreground>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#5c5cdc"/>
+                                <GradientStop Color="#578df1" Offset="1"/>
+                            </LinearGradientBrush>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+
+                    <Button x:Name="BT_Menu"
+							Content="Menu"
+							Margin="0,25,0,0"
+							Click="BT_Menu_Click"
+                            FontFamily="Comic Sans MS"
+							Style="{DynamicResource BT_CreateRoom}"/>
+
+                    <Button x:Name="BT_Exit"
+							Content="Exit"
+							Click="BT_Exit_Click"
+                            FontFamily="Comic Sans MS"
+							Style="{DynamicResource BT_CreateRoom}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1"
+							Margin="100,50,0,0">
+                    <Border Margin="5,10,5,5"
+							HorizontalAlignment="Left"
+							BorderBrush="#2a2e47"
+							BorderThickness="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+        </Border>
     </Grid>
 </Page>
