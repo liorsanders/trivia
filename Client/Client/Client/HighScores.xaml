@@ -124,26 +124,76 @@
                             FontFamily="Comic Sans MS"
 							Style="{DynamicResource BT_CreateRoom}"/>
                 </StackPanel>
-
-                <StackPanel Grid.Column="1"
-							Margin="100,50,0,0">
-                    <Border Margin="5,10,5,5"
-							HorizontalAlignment="Left"
-							BorderBrush="#2a2e47"
-							BorderThickness="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </Border>
-                </StackPanel>
+                <FlowDocumentReader UseLayoutRounding="True" SnapsToDevicePixels="True" Margin="4,6,6,6" Grid.Column="1" RenderTransformOrigin="0.487,0.622">
+                    <FlowDocumentReader.Resources>
+                        <Style TargetType="TableCell">
+                            <Setter Property="TextAlignment" Value="Center"/>
+                        </Style>
+                    </FlowDocumentReader.Resources>
+                    <FlowDocumentReader.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.118"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </FlowDocumentReader.RenderTransform>
+                    <FlowDocument>
+                        <Table Name="highScoresTable" CellSpacing="0">
+                            <TableRowGroup Name="highScoresTableRowGroup" FontSize="23">
+                                <TableRow Name="highScoresRankRow">
+                                    <TableCell BorderBrush="Black" BorderThickness="1,1,1,1">
+                                        <Paragraph FontWeight="Bold" FontFamily="Comic Sans MS">
+                                            <TextBlock FontSize="30" Text="Rank" TextWrapping="Wrap"
+                                                       HorizontalAlignment="Center"
+                                                       FontFamily="Comic Sans MS">
+                                                <TextBlock.Foreground>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#612ec9" Offset="0"/>
+                                                        <GradientStop Color="#578df1" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </TextBlock.Foreground>
+                                            </TextBlock>
+                                        </Paragraph>
+                                    </TableCell>
+                                    
+                                </TableRow>
+                                <TableRow Name="highScoresNameRow">
+                                    <TableCell BorderBrush="Black" BorderThickness="1,1,1,1">
+                                        <Paragraph FontWeight="Bold" FontFamily="Comic Sans MS">
+                                            <TextBlock FontSize="30" Text="Username" TextWrapping="Wrap"
+                                                       HorizontalAlignment="Center"
+                                                       FontFamily="Comic Sans MS">
+                                                <TextBlock.Foreground>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#612ec9" Offset="0"/>
+                                                        <GradientStop Color="#578df1" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </TextBlock.Foreground>
+                                            </TextBlock>
+                                        </Paragraph>
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow Name="highScoreScoreRow">
+                                    <TableCell BorderBrush="Black" BorderThickness="1,1,1,1">
+                                        <Paragraph FontWeight="Bold" FontFamily="Comic Sans MS">
+                                            <TextBlock FontSize="30" Text="Score" TextWrapping="Wrap"
+                                                       HorizontalAlignment="Center"
+                                                       FontFamily="Comic Sans MS">
+                                                <TextBlock.Foreground>
+                                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                        <GradientStop Color="#612ec9" Offset="0"/>
+                                                        <GradientStop Color="#578df1" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                                </TextBlock.Foreground>
+                                            </TextBlock>
+                                        </Paragraph>
+                                    </TableCell>
+                                </TableRow>
+                            </TableRowGroup>
+                        </Table>
+                    </FlowDocument>
+                </FlowDocumentReader>
             </Grid>
 
         </Border>

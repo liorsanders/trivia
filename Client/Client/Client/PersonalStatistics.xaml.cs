@@ -28,9 +28,9 @@ namespace Client
             _main = main;
             _username = username;
             usernameBlock.Text = username;
-            initializeStats();
+            initializePersonalStats();
         }
-        private void initializeStats()
+        private void initializePersonalStats()
         {
             //get stats from backend, for now use default values
             //use colors for red: bad score, green: good score, blue: medium score

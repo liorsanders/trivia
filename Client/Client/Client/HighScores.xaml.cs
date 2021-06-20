@@ -28,6 +28,12 @@ namespace Client
             _main = main;
             _username = username;
             usernameBlock.Text = username;
+            initializeHighScores();
+        }
+
+        private void initializeHighScores()
+        {
+            //initialize top scores here when connecting to backend
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
