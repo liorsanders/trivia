@@ -124,12 +124,20 @@
                             FontFamily="Comic Sans MS"
 							Style="{DynamicResource BT_CreateRoom}"/>
                 </StackPanel>
-                <FlowDocumentReader UseLayoutRounding="True" SnapsToDevicePixels="True" Margin="37,40,27,10" Grid.Column="1" RenderTransformOrigin="0.487,0.622">
+                <FlowDocumentReader UseLayoutRounding="True" SnapsToDevicePixels="True" Margin="4,6,6,6" Grid.Column="1" RenderTransformOrigin="0.487,0.622">
                     <FlowDocumentReader.Resources>
                         <Style TargetType="TableCell">
                             <Setter Property="TextAlignment" Value="Center"/>
                         </Style>
                     </FlowDocumentReader.Resources>
+                    <FlowDocumentReader.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0.118"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </FlowDocumentReader.RenderTransform>
                     <FlowDocument>
                         <Table CellSpacing="0">
                             <Table.Columns>
