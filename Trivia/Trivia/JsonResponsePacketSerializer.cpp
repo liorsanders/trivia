@@ -96,6 +96,45 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 		(int)Codes::Statistics);
 }
 
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(CloseRoomResponse& response)
+{
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::CloseRoom);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(StartGameResponse& response)
+{
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::Start);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(LeaveRoomResponse& response)
+{
+	return buildMessage(
+		dataToJson<unsigned int>(response.status, "status"),
+		(int)Codes::LeaveRoom);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(GetRoomStateResponse& response)
+{
+	return buildMessage(
+		dataToJson<GetRoomStateResponse>(response, "RoomState"),
+		(int)Codes::GetRoom);
+}
+
+void to_json(nlohmann::json& j, const GetRoomStateResponse& room)
+{
+	j = {
+		{"status", room.status},
+		{"hasGameBegun", room.hasGameBegun},
+		{"players", room.players},
+		{"questionCount", room.questionCount},
+		{"answerTimeout", room.answerTimeout}
+	};
+}
+
 vector<unsigned char> JsonResponsePacketSerializer::buildMessage
 (const std::string& data, const int& messageCode)
 {

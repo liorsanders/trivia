@@ -14,7 +14,7 @@ bool MenuRequestHandler::isRequestRelevant(const RequestInfo& request) const
         int(Codes::GetRoom) == code ||
         int(Codes::JoinRoom) == code ||
         int(Codes::Logout) == code ||
-        int(Codes::statistics) == code;
+        int(Codes::Statistics) == code;
 }
 
 RequestResult createError(MenuRequestHandler* menu) {
@@ -42,7 +42,7 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& request)
         return joinRoom(request);
     case (int)Codes::Logout:
         return signout(request);
-    case (int)Codes::statistics:
+    case (int)Codes::Statistics:
         return getHighScore(request);
     }
     return createError(this);
