@@ -16,7 +16,7 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo info)
         return RequestResult();
 
     case (int)Codes::LeaveRoom:
-        return RequestResult(info);
+        return RequestResult();
 
     default:
         std::string error = "inavlid message code";
@@ -41,15 +41,13 @@ const RequestResult& RoomAdminRequestHandler::createErrorResponse
     return result;
 }
 
-//
-//RequestResult RoomAdminRequestHandler::getRoomState(RequestInfo)
-//{
-//    GetRoomsResponse response = { 1, m_roomManager.getRooms() };
-//
-//    RequestResult result = { JsonResponsePacketSerializer::serializeResponse(response),
-//                             this };
-//
-//    return result;
-//}
-//
-//
+
+RequestResult RoomAdminRequestHandler::getRoomState(RequestInfo)
+{
+    GetRoomsResponse response = { 1, m_roomManager.getRooms() };
+
+    RequestResult result = { JsonResponsePacketSerializer::serializeResponse(response),
+                             this };
+
+    return result;
+}
