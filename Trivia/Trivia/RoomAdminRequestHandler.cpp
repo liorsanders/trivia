@@ -12,10 +12,13 @@ RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo info)
 {
     switch (info.id)
     {
-    case (int)Codes::GetRoomState:
+    case (int)Codes::Start:
         return RequestResult();
 
-    case (int)Codes::LeaveRoom:
+    case (int)Codes::GetRoomState:
+        return getRoomState(info);
+
+    case (int)Codes::CloseRoom:
         return RequestResult();
 
     default:
