@@ -44,11 +44,12 @@ const RequestResult& RoomAdminRequestHandler::createErrorResponse
     return result;
 }
 
-//RequestResult RoomAdminRequestHandler::closeRoom(RequestInfo info)
-//{
-//    m_roomManager.deleteRoom(room);
-//    return RequestResult();
-//}
+RequestResult RoomAdminRequestHandler::closeRoom(RequestInfo info)
+{
+    m_roomManager.deleteRoom(m_room.getRoomData().id);
+
+    return RequestResult();
+}
 
 
 RequestResult RoomAdminRequestHandler::getRoomState(RequestInfo)

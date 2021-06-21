@@ -4,6 +4,7 @@
 #include <map>
 #include <stdexcept>
 #include <string>
+#include <WinSock2.h>
 
 #include "Room.h"
 #include "RoomData.h"
