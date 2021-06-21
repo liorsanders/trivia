@@ -18,7 +18,7 @@ RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info)
     switch (info.id)
     {
     case (int)Codes::GetRoomState:
-        return RequestResult();
+        return getRoomState(info);
 
     case (int)Codes::LeaveRoom:
         return leaveRoom(info);
