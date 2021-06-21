@@ -4,11 +4,14 @@
 #include "JsonResponsePacketSerializer.h"
 #include "InvalidLoginException.h"
 #include "MenuRequestHandler.h"
+#include <WinSock2.h>
 
 LoginRequestHandler::LoginRequestHandler(LoginManager& loginManager,
-    RequestHandlerFactory& handlerFactory):
+
+    RequestHandlerFactory& handlerFactory, SOCKET& sock):
     m_loginManager(loginManager), m_handlerFactory(handlerFactory) 
 {
+    this->m_sock = sock;
 }
 
 bool LoginRequestHandler::isRequestRelevant(const RequestInfo& request) const
@@ -55,6 +58,8 @@ RequestResult LoginRequestHandler::login(RequestInfo info)
 
     result.response = JsonResponsePacketSerializer::serializeResponse(response);
     result.newHandler = new MenuRequestHandler();
+    
+    result.newHandler->m_sock = this->m_sock;
 
     return result;
 }
@@ -80,6 +85,8 @@ RequestResult LoginRequestHandler::signup(RequestInfo info)
 
     result.response = JsonResponsePacketSerializer::serializeResponse(response);
     result.newHandler = new MenuRequestHandler();
+
+    result.newHandler->m_sock = this->m_sock;
 
     return result;
 }
