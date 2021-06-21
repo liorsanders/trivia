@@ -10,9 +10,8 @@ class RoomAdminRequestHandler :
     public IRequestHandler
 {
 public: 
-	bool isRequestRelevant(RequestInfo);
+	bool isRequestRelevant(RequestInfo info);
 	RequestResult handleRequest(RequestInfo);
-
 
 private: 
 	Room m_room;
