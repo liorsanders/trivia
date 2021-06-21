@@ -9,6 +9,7 @@
       Title="PersonalStatistics">
 
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="26*"/>
