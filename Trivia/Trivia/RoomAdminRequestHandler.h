@@ -19,6 +19,8 @@ private:
 	RoomManager& m_roomManager;
 	RequestHandlerFactory& m_handlerFactory;
 
+	const RequestResult& createErrorResponse
+		(const std::string& error, RequestResult& result);
 	RequestResult closeRoom(RequestInfo);
 	RequestResult startGame(RequestInfo);
 	RequestResult getRoomState(RequestInfo);
