@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <mutex>
+#include "Communicator.h"
+#include "JsonResponsePacketSerializer.h"
 
 std::mutex roomLock;
 
@@ -28,6 +30,20 @@ void RoomManager::deleteRoom(const int id)
 	std::lock_guard<std::mutex> lock(roomLock);
 
 	m_rooms.erase(id);
+}
+
+std::vector<LoggedUser> RoomManager::getLoggedUser(const int id)
+{
+	bool isIdInvalid = m_rooms.find(id) == m_rooms.end();
+
+	if (isIdInvalid)
+	{
+		throw invalidId();
+	}
+
+	std::lock_guard<std::mutex> lock(roomLock);
+
+	return m_rooms[id].getLoggedUsers();
 }
 
 unsigned int RoomManager::getRoomState(const int id)
