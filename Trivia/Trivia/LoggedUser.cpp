@@ -1,7 +1,7 @@
 #include "LoggedUser.h"
 
-LoggedUser::LoggedUser( const std::string& username) :
-    m_username(username)
+LoggedUser::LoggedUser(const std::string& username, SOCKET& sock) :
+    m_username(username), m_sock(sock)
 { 
 }
 

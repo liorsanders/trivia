@@ -1,12 +1,13 @@
 #pragma once
 
 #include <string>
+#include <WinSock2.h>
 
 class LoggedUser
 {
 public: 
 	// ctors
-	LoggedUser(const std::string& username);
+	LoggedUser(const std::string& username, SOCKET& sock);
 
 	// dtor
 	~LoggedUser() = default;
@@ -18,6 +19,7 @@ public:
 
 private:
 	std::string m_username;
+	SOCKET m_sock;
 
 };
 
