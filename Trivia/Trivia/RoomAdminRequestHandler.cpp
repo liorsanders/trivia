@@ -25,7 +25,7 @@ RequestResult RoomAdminRequestHandler::handleRequest(const RequestInfo& info)
         return getRoomState(info);
 
     case (int)Codes::CloseRoom:
-        return RequestResult();
+        return closeRoom(info);
 
     default:
         std::string error = "inavlid message code";
@@ -52,9 +52,18 @@ const RequestResult& RoomAdminRequestHandler::createErrorResponse
 
 RequestResult RoomAdminRequestHandler::closeRoom(RequestInfo info)
 {
-    m_roomManager.deleteRoom(m_room.getRoomData().id);
+    int id = m_room.getRoomData().id;
+    m_roomManager.deleteRoom(id);
+    
+    LeaveRoomRequest request = { };
 
-    return RequestResult();
+    StatisticsManager stats;
+
+    RequestResult result = { JsonResponsePacketSerializer::serializeResponse(request),
+                             new MenuRequestHandler(m_user, m_roomManager, stats, m_handlerFactory) };
+
+
+    return result;
 }
 
 

@@ -119,6 +119,3 @@ const RequestResult& LoginRequestHandler::createErrorResponse
 
     return result;
 }
-
-
-

@@ -20,6 +20,5 @@ public:
 private:
 	std::string m_username;
 	SOCKET m_sock;
-
 };
 
