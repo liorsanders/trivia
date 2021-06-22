@@ -18,6 +18,7 @@
 #include "StartGameResponse.h"
 #include "GetRoomStateResponse.h"
 #include "LeaveRoomResponse.h"
+#include "LeaveRoomRequest.h"
 
 using std::string; 
 using std::vector;
@@ -52,6 +53,7 @@ public:
 
 	static vector<unsigned char> serializeResponse(GetRoomStateResponse& response);
 
+	static vector<unsigned char> serializeResponse(LeaveRoomRequest& request);
 
 private:
 	/*
