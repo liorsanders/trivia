@@ -47,6 +47,13 @@ std::vector<std::string> Room::getAllUsers() const
 	return allUsers;
 }
 
+std::vector<LoggedUser> Room::getAllLoggedUsers() const
+{
+	return m_users;
+}
+
+
+
 const RoomData& Room::getRoomData() const
 {
 	return m_metadata;
