@@ -2,8 +2,6 @@
 
 #include <algorithm>
 #include <mutex>
-#include "Communicator.h"
-#include "JsonResponsePacketSerializer.h"
 
 std::mutex roomLock;
 

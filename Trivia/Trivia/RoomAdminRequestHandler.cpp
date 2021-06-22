@@ -1,5 +1,6 @@
 #include "RoomAdminRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
+#include "Communicator.h"
 
 RoomAdminRequestHandler::RoomAdminRequestHandler(Room room, LoggedUser user,
     RoomManager& roomManager, RequestHandlerFactory& handlerFactory) :
@@ -62,9 +63,22 @@ RequestResult RoomAdminRequestHandler::closeRoom(RequestInfo info)
     RequestResult result = { JsonResponsePacketSerializer::serializeResponse(request),
                              new MenuRequestHandler(m_user, m_roomManager, stats, m_handlerFactory) };
 
+    auto users = m_roomManager.getLoggedUser(id);
+
+    for (auto& user : users)
+    {
+        SOCKET sock = user.getSocket();
+
+        LeaveRoomRequest request = { };
+
+        auto message = JsonResponsePacketSerializer::serializeResponse(request);
+
+        Communicator::sendMessage(sock, message);
+    }
 
     return result;
 }
+
 
 
 RequestResult RoomAdminRequestHandler::getRoomState(RequestInfo)
