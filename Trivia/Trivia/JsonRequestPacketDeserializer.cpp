@@ -29,7 +29,7 @@ SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest
 (const std::vector<unsigned char>& buffer)
 {
     SignupRequest request = SignupRequest();
-
+    
     // json can accept string as a paramter so we convert the vector to string
     nlohmann::json data = nlohmann::json::parse(
         std::string(buffer.begin(), buffer.end()));
@@ -65,6 +65,55 @@ RequestInfo JsonRequestPacketDeserializer::
 
 
     return info;
+}
+
+GetPlayersInRoomRequest JsonRequestPacketDeserializer::deserializeGetPlayersRequest(const std::vector<unsigned char>& message)
+{
+    auto res = GetPlayersInRoomRequest();
+
+    // json can accept string as a paramter so we convert the vector to string
+    nlohmann::json data = nlohmann::json::parse(
+        std::string(message.begin(), message.end()));
+
+    try {
+        res.roomId = data["id"];
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+
+    return res;
+}
+
+JoinRoomRequest JsonRequestPacketDeserializer::deserializeJoinRoomRequest(const std::vector<unsigned char>& message)
+{
+    auto res = JoinRoomRequest();
+    nlohmann::json data = nlohmann::json::parse(
+        std::string(message.begin(), message.end()));
+    try {
+        res.roomId = data["id"];
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what();
+    }
+    return res;
+}
+
+CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(const std::vector<unsigned char>& message)
+{
+    auto res = CreateRoomRequest();
+    nlohmann::json data = nlohmann::json::parse(
+        std::string(message.begin(), message.end()));
+    try {
+        res.answerTimeout = data["answerTimeOut"];
+        res.maxUsers = data["maxUsers"];
+        res.questionCount = data["questionCount"];
+        res.roomName = data["roomName"];
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    return res;
 }
 
 int JsonRequestPacketDeserializer::extractMessageLength

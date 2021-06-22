@@ -16,32 +16,25 @@ using System.Windows.Shapes;
 namespace Client
 {
     /// <summary>
-    /// Interaction logic for MainMenu.xaml
+    /// Interaction logic for HighScores.xaml
     /// </summary>
-    public partial class MainMenu : Page
+    public partial class HighScores : Page
     {
         private readonly Frame _main;
         private readonly string _username;
-
-        public MainMenu(Frame main, string username)
+        public HighScores(Frame main, string username)
         {
             InitializeComponent();
-
             _main = main;
             _username = username;
+            usernameBlock.Text = username;
+            initializeHighScores();
         }
 
-        private void BT_CreateRoom_Click(object sender, RoutedEventArgs e)
+        private void initializeHighScores()
         {
-            _main.Content = new CreateRoom(_main, _username);
+            //initialize top scores here when connecting to backend
         }
-
-        private void BT_Statistics_Click(object sender, RoutedEventArgs e)
-        {
-            // move to statistics
-            _main.Content = new Statistics(_main, _username);
-        }
-
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is MainWindow main)
@@ -50,9 +43,9 @@ namespace Client
             }
         }
 
-        private void BT_JoinRoom_Click(object sender, RoutedEventArgs e)
+        private void BT_Menu_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new JoinRoom(_main, _username);
+            _main.Content = new MainMenu(_main, _username);
         }
     }
 }

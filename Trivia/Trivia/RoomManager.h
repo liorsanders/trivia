@@ -13,6 +13,7 @@
 class RoomManager
 {
 public: 
+	RoomManager() {}
 	void createRoom(const LoggedUser user, const RoomData roomData);
 	void deleteRoom(const int id);
 

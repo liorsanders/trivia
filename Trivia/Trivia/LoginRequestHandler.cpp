@@ -55,8 +55,11 @@ RequestResult LoginRequestHandler::login(RequestInfo info)
     LoginResponse response = { (int)Codes::Login };
 
     result.response = JsonResponsePacketSerializer::serializeResponse(response);
-    result.newHandler = new MenuRequestHandler();
-    
+    RoomManager room;
+    StatisticsManager stats;
+    LoginManager manager;
+    RequestHandlerFactory factory(manager);
+    result.newHandler = new MenuRequestHandler("", room, stats, factory);
     return result;
 }
 
@@ -80,7 +83,11 @@ RequestResult LoginRequestHandler::signup(RequestInfo info)
     SignupResponse response = { int(Codes::Signup) };
 
     result.response = JsonResponsePacketSerializer::serializeResponse(response);
-    result.newHandler = new MenuRequestHandler();
+    RoomManager room;
+    StatisticsManager stats;
+    LoginManager manager;
+    RequestHandlerFactory factory(manager);
+    result.newHandler = new MenuRequestHandler("", room, stats, factory);
 
     return result;
 }

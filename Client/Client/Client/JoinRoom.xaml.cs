@@ -16,32 +16,24 @@ using System.Windows.Shapes;
 namespace Client
 {
     /// <summary>
-    /// Interaction logic for MainMenu.xaml
+    /// Interaction logic for JoinRoom.xaml
     /// </summary>
-    public partial class MainMenu : Page
+    public partial class JoinRoom : Page
     {
         private readonly Frame _main;
         private readonly string _username;
-
-        public MainMenu(Frame main, string username)
+        public JoinRoom(Frame main, string username)
         {
             InitializeComponent();
-
             _main = main;
             _username = username;
+            usernameBlock.Text = username;
+            updateRooms();
         }
-
-        private void BT_CreateRoom_Click(object sender, RoutedEventArgs e)
+        private void updateRooms()
         {
-            _main.Content = new CreateRoom(_main, _username);
+            //this function accesses roomsGrid and adds buttons of rooms by the number of rooms
         }
-
-        private void BT_Statistics_Click(object sender, RoutedEventArgs e)
-        {
-            // move to statistics
-            _main.Content = new Statistics(_main, _username);
-        }
-
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
             if (Application.Current.MainWindow is MainWindow main)
@@ -50,9 +42,9 @@ namespace Client
             }
         }
 
-        private void BT_JoinRoom_Click(object sender, RoutedEventArgs e)
+        private void BT_Menu_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new JoinRoom(_main, _username);
+            _main.Content = new MainMenu(_main, _username);
         }
     }
 }

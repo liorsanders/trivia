@@ -49,6 +49,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="XamlAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=20a987d8023d9690, processorArchitecture=MSIL">
+      <HintPath>..\packages\XamlAnimatedGif.2.0.0\lib\net45\XamlAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -58,8 +61,17 @@
     <Compile Include="CreateRoom.xaml.cs">
       <DependentUpon>CreateRoom.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HighScores.xaml.cs">
+      <DependentUpon>HighScores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="JoinRoom.xaml.cs">
+      <DependentUpon>JoinRoom.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonalStatistics.xaml.cs">
+      <DependentUpon>PersonalStatistics.xaml</DependentUpon>
     </Compile>
     <Compile Include="Room.xaml.cs">
       <DependentUpon>Room.xaml</DependentUpon>
@@ -67,7 +79,18 @@
     <Compile Include="Signup.xaml.cs">
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Statistics.xaml.cs">
+      <DependentUpon>Statistics.xaml</DependentUpon>
+    </Compile>
     <Page Include="CreateRoom.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HighScores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="JoinRoom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -94,11 +117,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PersonalStatistics.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Room.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Signup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Statistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -121,6 +152,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -148,6 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resource\default-avatar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\statistics.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
