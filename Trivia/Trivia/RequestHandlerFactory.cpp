@@ -3,17 +3,21 @@
 RequestHandlerFactory::RequestHandlerFactory(LoginManager loginManager) :
     m_loginManager(loginManager), m_database(nullptr)
 {
+    m_statisticsManager = StatisticsManager();
 }
 
 RequestHandlerFactory::RequestHandlerFactory(IDatabase* database) :
     m_database(database), m_loginManager(database)
 {
+    m_statisticsManager = StatisticsManager();
+
 }
 
 RequestHandlerFactory::RequestHandlerFactory(LoginManager loginManager,
     IDatabase* database) :
     m_loginManager(loginManager), m_database(database) 
 {
+    m_statisticsManager = StatisticsManager();
 }
 
 LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler(SOCKET& sock)
