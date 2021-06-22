@@ -18,8 +18,8 @@ public:
 
 	RequestHandlerFactory(LoginManager loginManager, IDatabase* database);
 
-	LoginRequestHandler* createLoginRequestHandler();
-	MenuRequestHandler* createMenuRequestHandler();
+	LoginRequestHandler* createLoginRequestHandler(SOCKET& sock);
+	MenuRequestHandler* createMenuRequestHandler(LoggedUser user);
 	
 	RoomManager& getRoomManager();
 	LoginManager& getLoginManager();

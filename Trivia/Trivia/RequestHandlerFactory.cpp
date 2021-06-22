@@ -16,15 +16,15 @@ RequestHandlerFactory::RequestHandlerFactory(LoginManager loginManager,
 {
 }
 
-LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler()
+LoginRequestHandler* RequestHandlerFactory::createLoginRequestHandler(SOCKET& sock)
 {
-    LoginRequestHandler* res = new LoginRequestHandler(this->m_loginManager, *this);
+    LoginRequestHandler* res = new LoginRequestHandler(this->m_loginManager, *this, sock);
     return res;
 }
 
-MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler()
+MenuRequestHandler* RequestHandlerFactory::createMenuRequestHandler(LoggedUser user)
 {
-    return new MenuRequestHandler("", m_roomManager, m_statisticsManager, *this);
+    return new MenuRequestHandler(user, m_roomManager, m_statisticsManager, *this);
 }
 
 RoomManager& RequestHandlerFactory::getRoomManager()

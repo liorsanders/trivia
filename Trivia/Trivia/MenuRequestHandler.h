@@ -13,7 +13,7 @@ class MenuRequestHandler : public IRequestHandler
 {
 public:
 	
-	MenuRequestHandler(const std::string username, RoomManager& roomManager,
+	MenuRequestHandler(LoggedUser user, RoomManager& roomManager,
 		StatisticsManager& statisticsManager, RequestHandlerFactory& factory);
 	bool isRequestRelevant(const RequestInfo& request) const override;
 	RequestResult handleRequest(const RequestInfo& request) override;

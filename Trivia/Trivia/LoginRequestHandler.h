@@ -18,7 +18,7 @@ class LoginRequestHandler : public IRequestHandler
 
 public:
 	LoginRequestHandler(LoginManager& loginManager,
-		RequestHandlerFactory& handlerFactory);
+		RequestHandlerFactory& handlerFactory, SOCKET& sock);
 	bool isRequestRelevant(const RequestInfo& request) const override;
 
 	RequestResult handleRequest(const RequestInfo& request)override;
@@ -31,4 +31,5 @@ private:
 
 	LoginManager& m_loginManager;
 	RequestHandlerFactory& m_handlerFactory;
+	SOCKET& m_sock;
 };

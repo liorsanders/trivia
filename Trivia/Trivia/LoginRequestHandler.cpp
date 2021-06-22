@@ -5,10 +5,11 @@
 #include "InvalidLoginException.h"
 #include "MenuRequestHandler.h"
 
-LoginRequestHandler::LoginRequestHandler(LoginManager& loginManager,
+#include <WinSock2.h>
 
-    RequestHandlerFactory& handlerFactory):
-    m_loginManager(loginManager), m_handlerFactory(handlerFactory) 
+LoginRequestHandler::LoginRequestHandler(LoginManager& loginManager,
+    RequestHandlerFactory& handlerFactory, SOCKET& sock):
+    m_loginManager(loginManager), m_handlerFactory(handlerFactory), m_sock(sock)
 {
 }
 
@@ -17,7 +18,7 @@ bool LoginRequestHandler::isRequestRelevant(const RequestInfo& request) const
     return request.id == (int)Codes::Login || request.id == (int)Codes::Signup;
 }
 
-RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request) 
+RequestResult LoginRequestHandler::handleRequest(const RequestInfo& request)
 {
     switch (request.id)
     {
@@ -41,11 +42,15 @@ RequestResult LoginRequestHandler::login(RequestInfo info)
 
     auto request = 
         JsonRequestPacketDeserializer::deserializeLoginRequest(info.buffer);
+ 
+    SOCKET sock = 0;
+    LoggedUser user = LoggedUser("", sock);
 
     try 
     {
-        m_loginManager.login(request.username,
-            request.password);
+        user = m_loginManager.login(request.username,
+            request.password, 
+            m_sock);
     }
     catch (const InvalidLoginException& e) 
     {
@@ -55,11 +60,14 @@ RequestResult LoginRequestHandler::login(RequestInfo info)
     LoginResponse response = { (int)Codes::Login };
 
     result.response = JsonResponsePacketSerializer::serializeResponse(response);
+
     RoomManager room;
     StatisticsManager stats;
     LoginManager manager;
     RequestHandlerFactory factory(manager);
-    result.newHandler = new MenuRequestHandler("", room, stats, factory);
+    
+    result.newHandler = new MenuRequestHandler(user, room, stats, factory);
+    
     return result;
 }
 
@@ -68,12 +76,16 @@ RequestResult LoginRequestHandler::signup(RequestInfo info)
     RequestResult result;
     auto signupRequest =
         JsonRequestPacketDeserializer::deserializeSignupRequest(info.buffer);
+    
+    SOCKET sock = 0;
+    LoggedUser user = LoggedUser("", sock);
 
     try
     {
-        m_loginManager.signup(signupRequest.username,
-            signupRequest.password,
-            signupRequest.email);
+        user = m_loginManager.signup(signupRequest.username,
+                signupRequest.password,
+                signupRequest.email,
+                m_sock);
     }
     catch (const InvalidLoginException& e)
     {
@@ -87,7 +99,8 @@ RequestResult LoginRequestHandler::signup(RequestInfo info)
     StatisticsManager stats;
     LoginManager manager;
     RequestHandlerFactory factory(manager);
-    result.newHandler = new MenuRequestHandler("", room, stats, factory);
+
+    result.newHandler = new MenuRequestHandler(user, room, stats, factory);
 
     return result;
 }

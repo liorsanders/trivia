@@ -65,7 +65,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(RequestInfo info)
 
     StatisticsManager stats = StatisticsManager();
     RequestResult result = { JsonResponsePacketSerializer::serializeResponse(response),
-                             new MenuRequestHandler(m_user.getUsername(),
+                             new MenuRequestHandler(m_user,
                                  m_roomManager,
                                  stats,
                                  m_handlerFactory) };
