@@ -1,6 +1,7 @@
 #include "RoomMemberRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include "MenuRequestHandler.h"
+#include "StatisticsManager.h"
 #include <iostream>
 
 RoomMemberRequestHandler::RoomMemberRequestHandler(Room room, LoggedUser user,
@@ -62,8 +63,12 @@ RequestResult RoomMemberRequestHandler::leaveRoom(RequestInfo info)
 
     LeaveRoomResponse response = { 1 };
 
+    StatisticsManager stats = StatisticsManager();
     RequestResult result = { JsonResponsePacketSerializer::serializeResponse(response),
-                             new MenuRequestHandler() };
+                             new MenuRequestHandler(m_user.getUsername(),
+                                 m_roomManager,
+                                 stats,
+                                 m_handlerFactory) };
 
     return result;
 }
