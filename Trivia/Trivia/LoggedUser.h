@@ -14,6 +14,7 @@ public:
 
 	// getters
 	std::string getUsername() const;	
+	SOCKET getSocket() const;	
 	
 	bool operator==(LoggedUser const& other);
 

@@ -10,6 +10,11 @@ std::string LoggedUser::getUsername() const
     return m_username;
 }
 
+SOCKET LoggedUser::getSocket() const
+{
+    return m_sock;
+}
+
 bool LoggedUser::operator==(LoggedUser const& other)
 {
     return this->m_username == other.m_username;
