@@ -80,6 +80,10 @@ RequestResult RoomAdminRequestHandler::closeRoom(RequestInfo info)
 }
 
 
+RequestResult RoomAdminRequestHandler::startGame(RequestInfo)
+{
+    return RequestResult();
+}
 
 RequestResult RoomAdminRequestHandler::getRoomState(RequestInfo)
 {
