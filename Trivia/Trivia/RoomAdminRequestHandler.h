@@ -21,7 +21,7 @@ private:
 	LoggedUser m_user;
 	RoomManager& m_roomManager;
 	RequestHandlerFactory& m_handlerFactory;
-
+		
 	const RequestResult& createErrorResponse
 		(const std::string& error, RequestResult& result);
 	RequestResult closeRoom(RequestInfo);

@@ -161,6 +161,7 @@
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonRequestPacketDeserializer.h" />
     <ClInclude Include="JsonResponsePacketSerializer.h" />
+    <ClInclude Include="LeaveRoomRequest.h" />
     <ClInclude Include="LeaveRoomResponse.h" />
     <ClInclude Include="LoggedUser.h" />
     <ClInclude Include="LoginManager.h" />
