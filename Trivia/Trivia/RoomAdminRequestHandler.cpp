@@ -56,24 +56,18 @@ RequestResult RoomAdminRequestHandler::closeRoom(RequestInfo info)
     int id = m_room.getRoomData().id;
     m_roomManager.deleteRoom(id);
     
-    LeaveRoomRequest request = { };
-
     StatisticsManager stats;
 
-    RequestResult result = { JsonResponsePacketSerializer::serializeResponse(request),
+    RequestResult result = { JsonResponsePacketSerializer::serializeLeaveRoomRequest(),
                              new MenuRequestHandler(m_user, m_roomManager, stats, m_handlerFactory) };
 
     auto users = m_roomManager.getLoggedUser(id);
 
     for (auto& user : users)
     {
-        SOCKET sock = user.getSocket();
+        auto message = JsonResponsePacketSerializer::serializeLeaveRoomRequest();
 
-        LeaveRoomRequest request = { };
-
-        auto message = JsonResponsePacketSerializer::serializeResponse(request);
-
-        Communicator::sendMessage(sock, message);
+        Communicator::sendMessage(user.getSocket(), message);
     }
 
     return result;

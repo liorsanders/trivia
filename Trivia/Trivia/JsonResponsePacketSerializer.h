@@ -53,7 +53,7 @@ public:
 
 	static vector<unsigned char> serializeResponse(GetRoomStateResponse& response);
 
-	static vector<unsigned char> serializeResponse(LeaveRoomRequest& request);
+	static vector<unsigned char> serializeLeaveRoomRequest();
 
 private:
 	/*

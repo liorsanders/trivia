@@ -124,7 +124,7 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(GetRoomSta
 		(int)Codes::GetRoom);
 }
 
-vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(LeaveRoomRequest& request)
+vector<unsigned char> JsonResponsePacketSerializer::serializeLeaveRoomRequest()
 {
 	return buildMessage(
 		"",
