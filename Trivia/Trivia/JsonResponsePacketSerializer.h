@@ -55,6 +55,8 @@ public:
 
 	static vector<unsigned char> serializeLeaveRoomRequest();
 
+	static vector<unsigned char> serializeStartGameRequest();
+
 private:
 	/*
 	* The function receive a template json value to follow the dry convetion.

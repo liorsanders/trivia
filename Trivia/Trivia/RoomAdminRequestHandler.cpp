@@ -76,7 +76,21 @@ RequestResult RoomAdminRequestHandler::closeRoom(RequestInfo info)
 
 RequestResult RoomAdminRequestHandler::startGame(RequestInfo)
 {
-    return RequestResult();
+    int id = m_room.getRoomData().id;
+
+    RequestResult result = { JsonResponsePacketSerializer::serializeStartGameRequest(),
+                             this };
+
+    auto users = m_roomManager.getLoggedUser(id);
+
+    for (auto& user : users)
+    {
+        auto message = JsonResponsePacketSerializer::serializeStartGameRequest();
+
+        Communicator::sendMessage(user.getSocket(), message);
+    }
+
+    return result;
 }
 
 RequestResult RoomAdminRequestHandler::getRoomState(RequestInfo)
