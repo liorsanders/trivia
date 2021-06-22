@@ -1,14 +1,20 @@
 #include "RoomAdminRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 
-bool RoomAdminRequestHandler::isRequestRelevant(RequestInfo info)
+RoomAdminRequestHandler::RoomAdminRequestHandler(Room room, LoggedUser user,
+    RoomManager& roomManager, RequestHandlerFactory& handlerFactory) :
+    m_room(room), m_user(user), m_roomManager(roomManager), m_handlerFactory(handlerFactory)
+{
+}
+
+bool RoomAdminRequestHandler::isRequestRelevant(const RequestInfo& info) const
 {
 	return (int)Codes::CloseRoom == info.id ||
 		(int)Codes::Start == info.id ||
 		(int)Codes::GetRoomState == info.id;
 }
 
-RequestResult RoomAdminRequestHandler::handleRequest(RequestInfo info)
+RequestResult RoomAdminRequestHandler::handleRequest(const RequestInfo& info)
 {
     switch (info.id)
     {

@@ -10,8 +10,11 @@ class RoomAdminRequestHandler :
     public IRequestHandler
 {
 public: 
-	bool isRequestRelevant(RequestInfo info);
-	RequestResult handleRequest(RequestInfo);
+	RoomAdminRequestHandler(Room room, LoggedUser user,
+		RoomManager& roomManager, RequestHandlerFactory& handlerFactory);
+	~RoomAdminRequestHandler() = default;
+	bool isRequestRelevant(const RequestInfo& request) const override;
+	RequestResult handleRequest(const RequestInfo& request) override;
 
 private: 
 	Room m_room;

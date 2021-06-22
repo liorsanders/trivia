@@ -3,17 +3,20 @@
 #include "MenuRequestHandler.h"
 #include <iostream>
 
-RoomMemberRequestHandler::~RoomMemberRequestHandler()
+RoomMemberRequestHandler::RoomMemberRequestHandler(Room room, LoggedUser user,
+    RoomManager& roomManager, RequestHandlerFactory& handlerFactory) :
+    m_room(room), m_user(user), m_roomManager(roomManager), m_handlerFactory(handlerFactory)
 {
 }
 
-bool RoomMemberRequestHandler::isRequestRelevant(RequestInfo info)
+
+bool RoomMemberRequestHandler::isRequestRelevant(const RequestInfo& info) const
 {
     return (int)Codes::GetRoomState == info.id ||
         (int)Codes::LeaveRoom == info.id;
 }
 
-RequestResult RoomMemberRequestHandler::handleRequest(RequestInfo info)
+RequestResult RoomMemberRequestHandler::handleRequest(const RequestInfo& info) 
 {
     switch (info.id)
     {
@@ -60,7 +63,7 @@ RequestResult RoomMemberRequestHandler::leaveRoom(RequestInfo info)
     LeaveRoomResponse response = { 1 };
 
     RequestResult result = { JsonResponsePacketSerializer::serializeResponse(response),
-                             new MenuRequestHandler };
+                             new MenuRequestHandler() };
 
     return result;
 }
