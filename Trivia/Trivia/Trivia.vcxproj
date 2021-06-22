@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9666d77b-5854-4267-87b3-0d5f1351105e}</ProjectGuid>
+    <ProjectGuid>{7ceb07c0-e6f0-4a6d-a1f8-cda8d5883231}</ProjectGuid>
     <RootNamespace>Trivia</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -143,20 +143,21 @@
     <ClInclude Include="CloseRoomResponse.h" />
     <ClInclude Include="Codes.h" />
     <ClInclude Include="Communicator.h" />
+    <ClInclude Include="CreateRoomRequest.h" />
     <ClInclude Include="CreateRoomResponse.h" />
     <ClInclude Include="ErrorResponse.h" />
     <ClInclude Include="getHighScoreResponse.h" />
     <ClInclude Include="getPersonalStatsResponse.h" />
-    <ClInclude Include="GetPlayersInRoomResponse.h" />
-    <ClInclude Include="CreateRoomRequest.h" />
     <ClInclude Include="GetPlayersInRoomRequest.h" />
+    <ClInclude Include="GetPlayersInRoomResponse.h" />
+    <ClInclude Include="GetRoomsResponse.h" />
     <ClInclude Include="GetRoomStateResponse.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="IDatabase.h" />
     <ClInclude Include="InvalidLoginException.h" />
     <ClInclude Include="IRequestHandler.h" />
-    <ClInclude Include="JoinRoomResponse.h" />
     <ClInclude Include="JoinRoomRequest.h" />
+    <ClInclude Include="JoinRoomResponse.h" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonRequestPacketDeserializer.h" />
     <ClInclude Include="JsonResponsePacketSerializer.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="LoginRequest.h" />
     <ClInclude Include="LoginRequestHandler.h" />
     <ClInclude Include="LoginResponse.h" />
+    <ClInclude Include="LogoutResponse.h" />
     <ClInclude Include="MenuRequestHandler.h" />
     <ClInclude Include="RequestHandlerFactory.h" />
     <ClInclude Include="RequestInfo.h" />
@@ -178,9 +180,9 @@
     <ClInclude Include="SignupResponse.h" />
     <ClInclude Include="sqlite3.h" />
     <ClInclude Include="SqliteDatabase.h" />
+    <ClInclude Include="StartGameResponse.h" />
     <ClInclude Include="StatisticsInfo.h" />
     <ClInclude Include="StatisticsManager.h" />
-    <ClInclude Include="StartGameResponse.h" />
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <ItemGroup>
