@@ -2,7 +2,7 @@
 
 #include "RequestInfo.h"
 #include "RequestResult.h"
-
+#include <WinSock2.h>
 struct RequestResult;
 
 class IRequestHandler 

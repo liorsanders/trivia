@@ -43,7 +43,7 @@ void Communicator::acceptClients()
 		std::cout << "someone has arrived:)\n" << std::endl;
 		
 
-		auto loginHandler = m_handlerFactory.createLoginRequestHandler();
+		auto loginHandler = m_handlerFactory.createLoginRequestHandler(clientSocket);
 		//TODO add lock support here
 		std::unique_lock <std::mutex> lock(this->m_mapMutex);
 		m_clients.insert({ clientSocket, loginHandler });
@@ -86,7 +86,7 @@ void Communicator::handleNewClient(SOCKET socket)
 	LoginManager manager = m_handlerFactory.getLoginManager();
 
 	IRequestHandler* requestManager = 
-		new LoginRequestHandler(manager, m_handlerFactory);
+		new LoginRequestHandler(manager, m_handlerFactory, socket);
 	std::unique_lock<std::mutex> lock(m_mapMutex);
 	m_clients.emplace(socket, requestManager);
 	lock.unlock();

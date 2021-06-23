@@ -2,8 +2,8 @@
 #include "JsonResponsePacketSerializer.h"
 #include <iostream>
 
-MenuRequestHandler::MenuRequestHandler(const std::string username, RoomManager& roomManager,
-    StatisticsManager& statisticsManager, RequestHandlerFactory& factory) : m_user(LoggedUser(username)),
+MenuRequestHandler::MenuRequestHandler(LoggedUser user, RoomManager& roomManager,
+    StatisticsManager& statisticsManager, RequestHandlerFactory& factory) : m_user(user),
     m_statisticsManager(statisticsManager), m_handlerFactory(factory), m_roomManager(roomManager) {}
 
 bool MenuRequestHandler::isRequestRelevant(const RequestInfo& request) const

@@ -124,6 +124,20 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(GetRoomSta
 		(int)Codes::GetRoom);
 }
 
+vector<unsigned char> JsonResponsePacketSerializer::serializeLeaveRoomRequest()
+{
+	return buildMessage(
+		"",
+		(int)Codes::LeaveRoom);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::serializeStartGameRequest()
+{
+	return buildMessage(
+		"",
+		(int)Codes::Start);
+}
+
 void to_json(nlohmann::json& j, const GetRoomStateResponse& room)
 {
 	j = {

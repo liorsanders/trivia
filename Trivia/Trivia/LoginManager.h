@@ -19,9 +19,9 @@ public:
 
 	// db methods
 	void logout(const std::string& username);
-	void login(const std::string& username, const std::string& password);
-	void signup(const std::string username, 
-		const std::string password, const std::string mail);
+	LoggedUser login(const std::string& username, const std::string& password, SOCKET& sock);
+	LoggedUser signup(const std::string username,
+		const std::string password, const std::string mail, SOCKET& sock);
 
 private:
 	IDatabase* m_database;

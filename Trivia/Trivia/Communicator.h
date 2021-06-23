@@ -19,13 +19,14 @@ public:
 
 	void acceptClients();
 
+	static void sendMessage(const SOCKET& sc, const std::vector<unsigned char>& message);
+
 private:
 	void bindAndListen();
 	void handleNewClient(SOCKET);
 
 	RequestResult receiveMessage(const SOCKET& socket);
 
-	void sendMessage(const SOCKET& sc, const std::vector<unsigned char>& message);
 
 	std::mutex m_mapMutex;
 	SOCKET m_serverSocket;
