@@ -185,6 +185,7 @@
     <ClInclude Include="StartGameResponse.h" />
     <ClInclude Include="StatisticsInfo.h" />
     <ClInclude Include="StatisticsManager.h" />
+    <ClInclude Include="SubmitAnswerRequest.h" />
     <ClInclude Include="WSAInitializer.h" />
   </ItemGroup>
   <ItemGroup>
