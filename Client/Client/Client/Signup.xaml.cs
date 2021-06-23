@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Client
 {
@@ -21,7 +23,7 @@ namespace Client
     /// </summary>
     public partial class Signup : Page
     {
-
+        private NetworkStream sock;
         private readonly Frame _main;
 
         public Signup(Frame main)
@@ -194,7 +196,18 @@ namespace Client
 
 	        return bytes;
         }
-    private void Bt_Login_Click(object sender, RoutedEventArgs e)
+        
+        private void connectToServer()
+        {
+            ConfigDetails details = new ConfigDetails();
+            details.importDetailsFromConfig("config.txt");
+            TcpClient client = new TcpClient();
+            IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(details.ip), details.port);
+            client.Connect(serverEndPoint);
+            sock = client.GetStream();
+        }
+
+        private void Bt_Login_Click(object sender, RoutedEventArgs e)
         {
             Button bt = sender as Button;
 
