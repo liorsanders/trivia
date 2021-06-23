@@ -31,7 +31,7 @@ namespace Client
             InitializeComponent();
             _main = main;
             sock = socket;
-            if(sock != null)
+            if(sock == null)
             {
                 connectToServer();
             }
@@ -174,7 +174,7 @@ namespace Client
         private void connectToServer()
         {
             ConfigDetails details = new ConfigDetails();
-            details.importDetailsFromConfig("config.txt");
+            details.importDetailsFromConfig("./config.txt");
             TcpClient client = new TcpClient();
             IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(details.ip), details.port);
             client.Connect(serverEndPoint);
