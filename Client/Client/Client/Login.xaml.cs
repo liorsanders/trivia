@@ -26,11 +26,15 @@ namespace Client
         private readonly Frame _main;
         private NetworkStream sock;
 
-        public Login(Frame main)
+        public Login(Frame main, NetworkStream socket)
         {
             InitializeComponent();
             _main = main;
-            connectToServer();
+            sock = socket;
+            if(sock != null)
+            {
+                connectToServer();
+            }
         }
 
         public void TB_Username_GotFocus(object sender, RoutedEventArgs e)
@@ -183,7 +187,7 @@ namespace Client
             bytes.Add((byte)(length >> 24));
             bytes.Add((byte)(length >> 16));
             bytes.Add((byte)(length >> 8));
-            bytes.Add((byte)(length >> 8));
+            bytes.Add((byte)length);
 
             return bytes;
         }
@@ -192,7 +196,6 @@ namespace Client
             Account account = new Account();
             account.username = TB_Username.Text;
             account.password = TB_Password.Text;
-
 
             string json = JsonConvert.SerializeObject(account, Formatting.Indented);
 

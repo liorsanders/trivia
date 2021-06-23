@@ -208,7 +208,7 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
 
-            
+            _main.Content = new Login(_main, sock);
 
         }
 
@@ -223,7 +223,35 @@ namespace Client
 
         private void BT_Signup_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main, TB_Username.Text, sock);
+            string json = "{'Mail': '" + TB_Email.Text + "', 'Username': '" + TB_Username.Text +
+                "', 'Password': '" + TB_Password + "'}";
+
+            byte[] msgToServer = new byte[1024];
+            byte CodeByte = BitConverter.GetBytes((int)Codes.Signup)[0];
+            var len = intToBytes(json.Length);
+            msgToServer[0] = CodeByte;
+            for (int i = 0; i < 4; i++)
+            {
+                msgToServer[i + 1] = len[i];
+            }
+            for (int i = 0; i < json.Length; i++)
+            {
+                msgToServer[i + 5] = (byte)(json[0]);
+            }
+            sock.Write(msgToServer, 0, msgToServer.Length);
+            sock.Flush();
+
+            var msgFromServer = new byte[4096];
+            int byteRead = sock.Read(msgFromServer, 0, msgFromServer.Length);
+            sock.Flush();
+
+            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
+            int status = int.Parse(response.Substring(15, 3));
+
+            if (status == 1)
+            {
+                _main.Content = new MainMenu(_main, TB_Username.Text, sock);
+            }
         }
     }
 }
