@@ -14,5 +14,9 @@ enum class Codes
 	CloseRoom = 67,
 	Start = 4,
 	GetRoomState = 16,
-	LeaveRoom = 49
+	LeaveRoom = 49,
+	GetQuestionRequest = 52,
+	GetGameResultRequest = 54,
+	LeaveGameRequest = 63,
+	SubmitAnswerRequest = 37 
 };
