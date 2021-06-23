@@ -18,7 +18,6 @@
 #include "StartGameResponse.h"
 #include "GetRoomStateResponse.h"
 #include "LeaveRoomResponse.h"
-#include "LeaveRoomRequest.h"
 
 using std::string; 
 using std::vector;
