@@ -37,8 +37,10 @@ namespace Client
         private void updateRooms()
         {
             //this function accesses roomsGrid and adds buttons of rooms by the number of rooms
-            
-            Thread.Sleep(3000);
+            while(true)
+            {
+                Thread.Sleep(3000);
+            }
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
