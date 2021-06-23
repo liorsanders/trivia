@@ -6,135 +6,153 @@
 LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest
 (const std::vector<unsigned char>& buffer)
 {
-    LoginRequest request = LoginRequest();
+	LoginRequest request = LoginRequest();
 
-    // json can accept string as a paramter so we convert the vector to string
-    nlohmann::json data = nlohmann::json::parse(
-        std::string(buffer.begin(), buffer.end()));
+	// json can accept string as a paramter so we convert the vector to string
+	nlohmann::json data = nlohmann::json::parse(
+		std::string(buffer.begin(), buffer.end()));
 
-    // in case some one try to trick us and there is no user name
-    try
-    {
-        request.username = data["Username"];
-        request.password = data["Password"];
-    }
-    catch (std::exception& e)
-    {
-        std::cerr << e.what();
-    }
-    return request;
+	// in case some one try to trick us and there is no user name
+	try
+	{
+		request.username = data["Username"];
+		request.password = data["Password"];
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << e.what();
+	}
+	return request;
 }
 
 SignupRequest JsonRequestPacketDeserializer::deserializeSignupRequest
 (const std::vector<unsigned char>& buffer)
 {
-    SignupRequest request = SignupRequest();
-    
-    // json can accept string as a paramter so we convert the vector to string
-    nlohmann::json data = nlohmann::json::parse(
-        std::string(buffer.begin(), buffer.end()));
+	SignupRequest request = SignupRequest();
 
-    // in case some one try to trick us and there is no user name
-    try
-    {
-        request.username = data["Username"];
-        request.password = data["Password"];
-        request.email = data["Mail"];
-    }
-    catch (std::exception& e)
-    {
-        std::cerr << e.what();
-    }
+	// json can accept string as a paramter so we convert the vector to string
+	nlohmann::json data = nlohmann::json::parse(
+		std::string(buffer.begin(), buffer.end()));
 
-    return request;
+	// in case some one try to trick us and there is no user name
+	try
+	{
+		request.username = data["Username"];
+		request.password = data["Password"];
+		request.email = data["Mail"];
+	}
+	catch (std::exception& e)
+	{
+		std::cerr << e.what();
+	}
+
+	return request;
 }
 
 RequestInfo JsonRequestPacketDeserializer::
-    createRequestInfo(const std::vector<unsigned char>& message)
+createRequestInfo(const std::vector<unsigned char>& message)
 {
-    RequestInfo info = RequestInfo();
+	RequestInfo info = RequestInfo();
 
-    info.id = (int)message[0];
+	info.id = (int)message[0];
 
-    info.receivalTime = time(nullptr);
+	info.receivalTime = time(nullptr);
 
-    int length = extractMessageLength(message);
+	int length = extractMessageLength(message);
 
-    auto beginIt = message.begin() + (int)BytesLength::Data;
-    info.buffer = std::vector<unsigned char>(beginIt, beginIt + length);
+	auto beginIt = message.begin() + (int)BytesLength::Data;
+	info.buffer = std::vector<unsigned char>(beginIt, beginIt + length);
 
 
-    return info;
+	return info;
 }
 
 GetPlayersInRoomRequest JsonRequestPacketDeserializer::deserializeGetPlayersRequest(const std::vector<unsigned char>& message)
 {
-    auto res = GetPlayersInRoomRequest();
+	auto res = GetPlayersInRoomRequest();
 
-    // json can accept string as a paramter so we convert the vector to string
-    nlohmann::json data = nlohmann::json::parse(
-        std::string(message.begin(), message.end()));
+	// json can accept string as a paramter so we convert the vector to string
+	nlohmann::json data = nlohmann::json::parse(
+		std::string(message.begin(), message.end()));
 
-    try {
-        res.roomId = data["id"];
-    }
-    catch (const std::exception& e) {
-        std::cerr << e.what() << std::endl;
-    }
+	try {
+		res.roomId = data["id"];
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
 
-    return res;
+	return res;
 }
 
 JoinRoomRequest JsonRequestPacketDeserializer::deserializeJoinRoomRequest(const std::vector<unsigned char>& message)
 {
-    auto res = JoinRoomRequest();
-    nlohmann::json data = nlohmann::json::parse(
-        std::string(message.begin(), message.end()));
-    try {
-        res.roomId = data["id"];
-    }
-    catch (const std::exception& e) {
-        std::cerr << e.what();
-    }
-    return res;
+	auto res = JoinRoomRequest();
+	nlohmann::json data = nlohmann::json::parse(
+		std::string(message.begin(), message.end()));
+	try {
+		res.roomId = data["id"];
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what();
+	}
+	return res;
 }
 
 CreateRoomRequest JsonRequestPacketDeserializer::deserializeCreateRoomRequest(const std::vector<unsigned char>& message)
 {
-    auto res = CreateRoomRequest();
-    nlohmann::json data = nlohmann::json::parse(
-        std::string(message.begin(), message.end()));
-    try {
-        res.answerTimeout = data["answerTimeOut"];
-        res.maxUsers = data["maxUsers"];
-        res.questionCount = data["questionCount"];
-        res.roomName = data["roomName"];
-    }
-    catch (const std::exception& e) {
-        std::cerr << e.what() << std::endl;
-    }
-    return res;
+	auto res = CreateRoomRequest();
+	nlohmann::json data = nlohmann::json::parse(
+		std::string(message.begin(), message.end()));
+
+	try {
+		res.answerTimeout = data["answerTimeOut"];
+		res.maxUsers = data["maxUsers"];
+		res.questionCount = data["questionCount"];
+		res.roomName = data["roomName"];
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+	return res;
+}
+
+SubmitAnswerRequest JsonRequestPacketDeserializer::deserializerSubmitAnswerRequest(const std::vector<unsigned char>& message)
+{
+
+	auto res = SubmitAnswerRequest();
+	nlohmann::json data = nlohmann::json::parse(
+		std::string(message.begin(), message.end()));
+
+	try {
+		res.answerId = data["answerId"];
+	}
+	catch (const std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+
+	return res;
 }
 
 int JsonRequestPacketDeserializer::extractMessageLength
 (const std::vector<unsigned char>& message)
 {
-    std::array<unsigned char, sizeof(int)> bytesLength = { 0 };
+	std::array<unsigned char, sizeof(int)> bytesLength = { 0 };
 
-    std::copy_n(message.begin() + (int)BytesLength::Code,
-        (int)BytesLength::Length,
-        bytesLength.begin());
+	std::copy_n(message.begin() + (int)BytesLength::Code,
+		(int)BytesLength::Length,
+		bytesLength.begin());
 
-    return JsonRequestPacketDeserializer::fourBytesToInt(bytesLength);
+	return JsonRequestPacketDeserializer::fourBytesToInt(bytesLength);
 }
 
 int JsonRequestPacketDeserializer::fourBytesToInt
 (const std::array<unsigned char, sizeof(int)>& bytes)
 {
-    int length = int((unsigned char)(bytes[0]) << 24 |
-        (unsigned char)(bytes[1]) << 16 |
-        (unsigned char)(bytes[2]) << 8 |
-        (unsigned char)(bytes[3]));
-    
-    return length;
+	int length = int((unsigned char)(bytes[0]) << 24 |
+		(unsigned char)(bytes[1]) << 16 |
+		(unsigned char)(bytes[2]) << 8 |
+		(unsigned char)(bytes[3]));
+
+	return length;
 }

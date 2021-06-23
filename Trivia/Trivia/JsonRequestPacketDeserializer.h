@@ -8,6 +8,7 @@
 #include "GetPlayersInRoomRequest.h"
 #include "JoinRoomRequest.h"
 #include "CreateRoomRequest.h"
+#include "SubmitAnswerRequest.h"
 
 class JsonRequestPacketDeserializer 
 {
@@ -23,6 +24,7 @@ public:
 	static GetPlayersInRoomRequest deserializeGetPlayersRequest(const std::vector<unsigned char>& message);
 	static JoinRoomRequest deserializeJoinRoomRequest(const std::vector<unsigned char>& message);
 	static CreateRoomRequest deserializeCreateRoomRequest(const std::vector<unsigned char>& message);
+	static SubmitAnswerRequest deserializerSubmitAnswerRequest(const std::vector<unsigned char>& message);
 
 
 private:
