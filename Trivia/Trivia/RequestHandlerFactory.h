@@ -10,10 +10,6 @@ class LoginManager;
 class LoginRequestHandler;
 class MenuRequestHandler;
 class RoomAdminRequestHandler;
-<<<<<<< HEAD
-
-=======
->>>>>>> feat_deserialization_5.0.0
 
 class RequestHandlerFactory
 {
