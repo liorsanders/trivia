@@ -5,9 +5,12 @@
 #include "IDatabase.h"
 #include "MenuRequestHandler.h"
 #include "RoomAdminRequestHandler.h"
+
 class LoginManager;
 class LoginRequestHandler;
 class MenuRequestHandler;
+class RoomAdminRequestHandler;
+
 
 class RequestHandlerFactory
 {
