@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Client
 {
@@ -22,11 +24,13 @@ namespace Client
     {
         private readonly Frame _main;
         private readonly string _username;
-        public PersonalStatistics(Frame main, string username)
+        private NetworkStream sock;
+        public PersonalStatistics(Frame main, string username, NetworkStream socket)
         {
             InitializeComponent();
             _main = main;
             _username = username;
+            sock = socket;
             usernameBlock.Text = username;
             initializePersonalStats();
         }
@@ -60,7 +64,7 @@ namespace Client
 
         private void BT_Menu_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main, _username);
+            _main.Content = new MainMenu(_main, _username, sock);
         }
     }
 }

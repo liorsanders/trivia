@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.Net.Sockets;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -21,11 +24,13 @@ namespace Client
     public partial class Login : Page
     {
         private readonly Frame _main;
+        private NetworkStream sock;
 
         public Login(Frame main)
         {
             InitializeComponent();
             _main = main;
+            connectToServer();
         }
 
         public void TB_Username_GotFocus(object sender, RoutedEventArgs e)
@@ -151,7 +156,7 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
 
-            _main.Content = new Signup(_main);
+            _main.Content = new Signup(_main ,sock);
         }
 
         private void Bt_Signup_LostMouseCapture(object sender, MouseEventArgs e)
@@ -162,10 +167,61 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
         }
+        private void connectToServer()
+        {
+            ConfigDetails details = new ConfigDetails();
+            details.importDetailsFromConfig("config.txt");
+            TcpClient client = new TcpClient();
+            IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(details.ip), details.port);
+            client.Connect(serverEndPoint);
+            sock = client.GetStream();
+        }
+        private List<byte> intToBytes(int length)
+        {
+            List<byte> bytes = new List<byte>();
 
+            bytes.Add((byte)(length >> 24));
+            bytes.Add((byte)(length >> 16));
+            bytes.Add((byte)(length >> 8));
+            bytes.Add((byte)(length >> 8));
+
+            return bytes;
+        }
         private void BT_Login_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main, TB_Username.Text);
+            Account account = new Account();
+            account.username = TB_Username.Text;
+            account.password = TB_Password.Text;
+
+
+            string json = JsonConvert.SerializeObject(account, Formatting.Indented);
+
+            byte[] msgToServer = new byte[1024];
+            byte CodeByte = BitConverter.GetBytes((int)Codes.Login)[0];
+            var len = intToBytes(json.Length);
+            msgToServer[0] = CodeByte;
+            for (int i = 0; i < 4; i++)
+            {
+                msgToServer[i + 1] = len[i];
+            }
+            for (int i = 0; i < json.Length; i++)
+            {
+                msgToServer[i + 5] = (byte)(json[0]);
+            }
+            sock.Write(msgToServer, 0, msgToServer.Length);
+            sock.Flush();
+
+            var msgFromServer = new byte[4096];
+            int byteRead = sock.Read(msgFromServer, 0, msgFromServer.Length);
+            sock.Flush();
+
+            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
+            int status = int.Parse(response.Substring(15, 3));
+
+            if (status == 1)
+            {
+                _main.Content = new MainMenu(_main, TB_Username.Text, sock);
+            }
         }
     }
 }

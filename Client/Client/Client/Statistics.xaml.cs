@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Client
 {
@@ -22,21 +24,24 @@ namespace Client
     {
         private readonly Frame _main;
         private readonly string _username;
-        public Statistics(Frame main, string username)
+        private NetworkStream sock;
+
+        public Statistics(Frame main, string username, NetworkStream socket)
         {
             InitializeComponent();
             _main = main;
             _username = username;
+            sock = socket;
             BT_Personal_Statistics.Content = username + "'s statistics";
         }
 
         private void BT_Personal_Statistics_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new PersonalStatistics(_main, _username);
+            _main.Content = new PersonalStatistics(_main, _username, sock);
         }
         private void BT_High_Scores_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new HighScores(_main, _username);
+            _main.Content = new HighScores(_main, _username, sock);
         }
     }
 }

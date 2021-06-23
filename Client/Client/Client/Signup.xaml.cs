@@ -26,10 +26,11 @@ namespace Client
         private NetworkStream sock;
         private readonly Frame _main;
 
-        public Signup(Frame main)
+        public Signup(Frame main, NetworkStream socket)
         {
             InitializeComponent();
             _main = main;
+            sock = socket;
         }
 
         private void TB_Email_GotFocus(object sender, RoutedEventArgs e)
@@ -197,15 +198,7 @@ namespace Client
 	        return bytes;
         }
         
-        private void connectToServer()
-        {
-            ConfigDetails details = new ConfigDetails();
-            details.importDetailsFromConfig("config.txt");
-            TcpClient client = new TcpClient();
-            IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(details.ip), details.port);
-            client.Connect(serverEndPoint);
-            sock = client.GetStream();
-        }
+        
 
         private void Bt_Login_Click(object sender, RoutedEventArgs e)
         {
@@ -215,26 +208,8 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
 
-            Account account = new Account();
-            account.username = TB_Username.Text;
-            account.password = TB_Password.Text;
+            
 
-            string json = JsonConvert.SerializeObject(account, Formatting.Indented);
-
-            byte[] msgToServer = new byte[1024];
-            byte CodeByte = BitConverter.GetBytes((int)Codes.Login)[0];
-            var len = intToBytes(json.Length);
-            msgToServer[0] = CodeByte;
-            for(int i=0;i<4;i++)
-            {
-                msgToServer[i + 1] = len[i];
-            }
-            for(int i=0;i<json.Length;i++)
-            {
-                msgToServer[i + 5] = (byte)(json[0]);
-            }
-            //next send through the messgae through socket
-            _main.Content = new Login(_main);
         }
 
         private void Bt_Login_LostMouseCapture(object sender, MouseEventArgs e)
@@ -248,7 +223,7 @@ namespace Client
 
         private void BT_Signup_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main, TB_Username.Text);
+            _main.Content = new MainMenu(_main, TB_Username.Text, sock);
         }
     }
 }

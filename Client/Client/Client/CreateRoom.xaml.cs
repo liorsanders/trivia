@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Client
 {
@@ -22,15 +24,16 @@ namespace Client
     {
         private readonly Frame _main;
         private readonly string _username;
+        private NetworkStream sock;
 
-        public CreateRoom(Frame main, string username)
+        public CreateRoom(Frame main, string username, NetworkStream socket)
         {
             InitializeComponent();
 
             _main = main;
             _username = username;
-
             this.username.Text = _username;
+            sock = socket;
         }
 
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
@@ -43,7 +46,7 @@ namespace Client
 
         private void BT_Menu_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main, _username);
+            _main.Content = new MainMenu(_main, _username, sock);
         }
 
         public void TB_RoomName_GotFocus(object sender, RoutedEventArgs e)
