@@ -25,7 +25,7 @@ namespace Client
     {
         static void serializeLoginRequest(string username, string password)
         {
-
+			
         }
     }
 }

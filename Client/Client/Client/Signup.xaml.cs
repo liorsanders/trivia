@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -182,8 +183,18 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
         }
+        private List<byte> intToBytes(int length)
+        {
+            List<byte> bytes = new List<byte>();
 
-        private void Bt_Login_Click(object sender, RoutedEventArgs e)
+            bytes.Add((byte)(length >> 24));
+	        bytes.Add((byte)(length >> 16));
+            bytes.Add((byte)(length >> 8));
+            bytes.Add((byte)(length >> 8));
+
+	        return bytes;
+        }
+    private void Bt_Login_Click(object sender, RoutedEventArgs e)
         {
             Button bt = sender as Button;
 
@@ -191,6 +202,25 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
 
+            Account account = new Account();
+            account.username = TB_Username.Text;
+            account.password = TB_Password.Text;
+
+            string json = JsonConvert.SerializeObject(account, Formatting.Indented);
+
+            byte[] msgToServer = new byte[1024];
+            byte CodeByte = BitConverter.GetBytes((int)Codes.Login)[0];
+            var len = intToBytes(json.Length);
+            msgToServer[0] = CodeByte;
+            for(int i=0;i<4;i++)
+            {
+                msgToServer[i + 1] = len[i];
+            }
+            for(int i=0;i<json.Length;i++)
+            {
+                msgToServer[i + 5] = (byte)(json[0]);
+            }
+            //next send through the messgae through socket
             _main.Content = new Login(_main);
         }
 
