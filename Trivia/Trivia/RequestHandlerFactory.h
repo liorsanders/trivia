@@ -11,7 +11,6 @@ class LoginRequestHandler;
 class MenuRequestHandler;
 class RoomAdminRequestHandler;
 
-
 class RequestHandlerFactory
 {
 public:
