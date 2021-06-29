@@ -92,5 +92,11 @@ namespace Client
 
             return bytes;
         }
+        private void BT_Back_Click(object sender, RoutedEventArgs e)
+        {
+            _main.Content = new JoinRoom(_main, _username, sock);
+        }
+
+        
     }
 }

@@ -72,6 +72,14 @@
 			</Border.Effect>
 
 			<StackPanel>
+                <Button x:Name="BT_Back"
+							HorizontalAlignment="Left"
+							Width="150"
+							Content="Back"
+							Click="BT_Back_Click"
+							ClickMode="Press"
+							Style="{DynamicResource BottomMenuBT}">
+                </Button>
 				<TextBlock x:Name="TB_Admin"
 						   Margin="0,30,0,0"
 						   FontFamily="Arial Rounded MT Bold"
@@ -85,7 +93,8 @@
 						   FontSize="50"
 						   Foreground="#2a2e47"
 						   HorizontalAlignment="Center"/>
-			</StackPanel>
+                
+            </StackPanel>
 		</Border>
 	</Grid>
 </Page>
