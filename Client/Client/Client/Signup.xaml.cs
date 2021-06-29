@@ -223,8 +223,12 @@ namespace Client
 
         private void BT_Signup_Click(object sender, RoutedEventArgs e)
         {
-            string json = "{'Mail': '" + TB_Email.Text + "', 'Username': '" + TB_Username.Text +
-                "', 'Password': '" + TB_Password + "'}";
+            SignupAccount account = new SignupAccount();
+            account.Mail = TB_Email.Text;
+            account.Username = TB_Username.Text;
+            account.Password = TB_Password.Text;
+
+            string json = JsonConvert.SerializeObject(account, Formatting.Indented);
 
             byte[] msgToServer = new byte[1024];
             byte CodeByte = BitConverter.GetBytes((int)Codes.Signup)[0];
@@ -236,7 +240,7 @@ namespace Client
             }
             for (int i = 0; i < json.Length; i++)
             {
-                msgToServer[i + 5] = (byte)(json[0]);
+                msgToServer[i + 5] = (byte)(json[i]);
             }
             sock.Write(msgToServer, 0, msgToServer.Length);
             sock.Flush();

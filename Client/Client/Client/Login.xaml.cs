@@ -209,7 +209,7 @@ namespace Client
             }
             for (int i = 0; i < json.Length; i++)
             {
-                msgToServer[i + 5] = (byte)(json[0]);
+                msgToServer[i + 5] = (byte)(json[i]);
             }
             sock.Write(msgToServer, 0, msgToServer.Length);
             sock.Flush();

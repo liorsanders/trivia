@@ -12,4 +12,10 @@ namespace Client
         public string password;
         
     }
+    class SignupAccount
+    {
+        public string Username;
+        public string Mail;
+        public string Password;
+    }
 }
