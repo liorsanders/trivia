@@ -94,7 +94,8 @@ namespace Client
         }
         private void BT_Back_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new JoinRoom(_main, _username, sock);
+            roomUpdaterThread.Suspend();
+            _main.Content = new MainMenu(_main, _username, sock);
         }
 
         
