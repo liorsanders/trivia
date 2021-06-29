@@ -123,7 +123,7 @@ namespace Client
 
         private void BT_CreateRoom_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new Room(_username);
+            _main.Content = new Room(_main, _username, sock);
         }
     }
 }

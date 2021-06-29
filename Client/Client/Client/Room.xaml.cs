@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Client
 {
@@ -20,11 +22,17 @@ namespace Client
     /// </summary>
     public partial class Room : Page
     {
-        public Room(string username)
+        private readonly Frame _main;
+        private readonly string _username;
+        private NetworkStream sock;
+        public Room(Frame main, string username, NetworkStream socket)
         {
             InitializeComponent();
 
             this.TB_Admin.Text = "Admin: " + username;
+            sock = socket;
+            _username = username;
+            _main = main; 
         }
     }
 }
