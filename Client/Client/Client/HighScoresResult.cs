@@ -8,9 +8,7 @@ namespace Client
 {
     public class HighScoresResult
     {
-        //assume the order is ascending and usernames[i]
-        // and scores[i] are same person
-        public List<string> usernames;
         public List<double> scores;
+        public List<string> usernames;
     }
 }

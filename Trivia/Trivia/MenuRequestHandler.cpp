@@ -1,4 +1,5 @@
 #include "MenuRequestHandler.h"
+#include "RoomMemberRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include <iostream>
 
@@ -42,7 +43,7 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& request)
         return joinRoom(request);
     case (int)Codes::Logout:
         return signout(request);
-    case (int)Codes::Statistics:
+    case (int)Codes::HighScores:
         return getHighScore(request);
     case (int)Codes::PersonalStats:
         return getPersonalStats(request);
@@ -118,11 +119,15 @@ RequestResult MenuRequestHandler::getHighScore(RequestInfo info)
 
 RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 {
-    //implement in v3
     RequestResult requestResult;
     auto request = JsonRequestPacketDeserializer::deserializeJoinRoomRequest(info.buffer);
-    requestResult.newHandler = this;
+    if (requestResult.newHandler != nullptr) {
+        delete requestResult.newHandler;
+    }
+    Room room;
+    requestResult.newHandler = new RoomMemberRequestHandler(room, m_user, m_roomManager, m_handlerFactory);
     JoinRoomResponse response;
+    response.status = 1;
     requestResult.response = JsonResponsePacketSerializer::serializeResponse(response);
     return requestResult;
 }
