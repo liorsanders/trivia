@@ -22,7 +22,7 @@ public:
 		(const std::vector<unsigned char>& message);	
 	
 	static RequestInfo createRequestInfo(const std::vector<unsigned char>& message);
-
+	
 	static GetPlayersInRoomRequest deserializeGetPlayersRequest(const std::vector<unsigned char>& message);
 	static JoinRoomRequest deserializeJoinRoomRequest(const std::vector<unsigned char>& message);
 	static CreateRoomRequest deserializeCreateRoomRequest(const std::vector<unsigned char>& message);

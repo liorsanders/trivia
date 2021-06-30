@@ -121,9 +121,6 @@ RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 {
     RequestResult requestResult;
     auto request = JsonRequestPacketDeserializer::deserializeJoinRoomRequest(info.buffer);
-    if (requestResult.newHandler != nullptr) {
-        delete requestResult.newHandler;
-    }
     Room room;
     requestResult.newHandler = new RoomMemberRequestHandler(room, m_user, m_roomManager, m_handlerFactory);
     JoinRoomResponse response;
@@ -136,8 +133,8 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 {
     RequestResult requestResult;
     auto deserialized = JsonRequestPacketDeserializer::deserializeCreateRoomRequest(info.buffer);
+    RoomData data;
     try {
-        RoomData data;
         data.isActive = true;
         data.name = deserialized.roomName;
         m_roomManager.createRoom(m_user, data);
@@ -146,7 +143,8 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
         std::cout << e.what() << std::endl;
     }
     CreateRoomResponse response;
+    Room room;
     requestResult.response = JsonResponsePacketSerializer::serializeResponse(response);
-    requestResult.newHandler = this;
+    requestResult.newHandler = new RoomAdminRequestHandler(room, m_user, m_roomManager, m_handlerFactory);
     return requestResult;
 }

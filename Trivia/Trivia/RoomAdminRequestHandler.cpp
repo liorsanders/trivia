@@ -93,10 +93,10 @@ RequestResult RoomAdminRequestHandler::startGame(RequestInfo)
     return result;
 }
 
-RequestResult RoomAdminRequestHandler::getRoomState(RequestInfo)
+RequestResult RoomAdminRequestHandler::getRoomState(RequestInfo info)
 {
     GetRoomsResponse response = { 1, m_roomManager.getRooms() };
-
+    
     RequestResult result = { JsonResponsePacketSerializer::serializeResponse(response),
                              this };
 
