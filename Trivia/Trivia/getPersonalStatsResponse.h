@@ -5,6 +5,5 @@
 
 struct getPersonalStatsResponse
 {
-	unsigned int status;
 	std::vector<std::string> statistics;
 };

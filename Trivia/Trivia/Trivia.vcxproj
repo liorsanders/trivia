@@ -147,6 +147,7 @@
     <ClInclude Include="CreateRoomResponse.h" />
     <ClInclude Include="ErrorResponse.h" />
     <ClInclude Include="getHighScoreResponse.h" />
+    <ClInclude Include="GetPersonalStatsRequest.h" />
     <ClInclude Include="getPersonalStatsResponse.h" />
     <ClInclude Include="GetPlayersInRoomRequest.h" />
     <ClInclude Include="GetPlayersInRoomResponse.h" />

@@ -96,6 +96,14 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 		(int)Codes::Statistics);
 }
 
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(getPersonalStatsResponse& statsResponse)
+{
+	return buildMessage(
+		std::string("{'gamesPlayed': ") + statsResponse.statistics[1] + ", 'answeredRight': " + statsResponse.statistics[2] + ", 'answeredWrong': " + std::to_string(std::stoi(statsResponse.statistics[3]) - std::stoi(statsResponse.statistics[2])) + ", 'averageTime': " + statsResponse.statistics[0] + "}",
+		(int)Codes::PersonalStats
+	);
+}
+
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(CloseRoomResponse& response)
 {
 	return buildMessage(

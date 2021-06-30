@@ -63,18 +63,17 @@ namespace Client
             List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.PersonalStatistics));
             communicator.sendMessage(msgToServer);
             var msgFromServer = communicator.getMessage();
-
-            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
-            int status = int.Parse(response.Substring(15, 3));
-
-            string jsonResponse = msgFromServer.ToString();
-            jsonResponse = jsonResponse.Substring(16, jsonResponse.Length - 16);
-
-            var statistics = JsonConvert.DeserializeObject<PersonalStatisticsResult>(jsonResponse);
-            initializeAverageTime(statistics.averageTime);
-            Personal_gamesPlayed.Text = statistics.gamesPlayed.ToString();
-            Personal_rightQuestions.Text = statistics.answeredRight.ToString();
-            Personal_wrongQuestions.Text = statistics.answeredWrong.ToString();
+            ResponseDetails details = new ResponseDetails();
+            details.getDetails(msgFromServer);
+            if(!JsonResponsetPacketDeserializer.checkForError(details))
+            {
+                var statistics = JsonConvert.DeserializeObject<PersonalStatisticsResult>(details.json);
+                initializeAverageTime(statistics.averageTime);
+                Personal_gamesPlayed.Text = statistics.gamesPlayed.ToString();
+                Personal_rightQuestions.Text = statistics.answeredRight.ToString();
+                Personal_wrongQuestions.Text = statistics.answeredWrong.ToString();
+            }
+            
 
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)

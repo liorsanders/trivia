@@ -3,6 +3,21 @@
 #include <iostream>
 #include "Bytes.h"
 
+GetPersonalStatsRequest JsonRequestPacketDeserializer::deserializePersonalStatsRequest(const std::vector<unsigned char>& buffer)
+{
+    GetPersonalStatsRequest request = GetPersonalStatsRequest();
+    nlohmann::json data = nlohmann::json::parse(
+        std::string(buffer.begin(), buffer.end())
+    );
+    try {
+        request.username = data["username"];
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    return request;
+}
+
 LoginRequest JsonRequestPacketDeserializer::deserializeLoginRequest
 (const std::vector<unsigned char>& buffer)
 {

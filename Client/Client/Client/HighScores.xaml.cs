@@ -43,27 +43,26 @@ namespace Client
             msgToServer.Add((byte)(Codes.HighScores));
             communicator.sendMessage(msgToServer);
             var msgFromServer = communicator.getMessage();
-
-            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
-            int status = int.Parse(response.Substring(15, 3));
-
-            string jsonResponse = msgFromServer.ToString();
-            jsonResponse = jsonResponse.Substring(16, jsonResponse.Length - 16);
-
-            var scores = JsonConvert.DeserializeObject<HighScoresResult>(jsonResponse);
-            
-            for(int i=0;i<scores.scores.Count;i++)
+            ResponseDetails details = new ResponseDetails();
+            details.getDetails(msgFromServer);
+            if(!JsonResponsetPacketDeserializer.checkForError(details))
             {
-                TableCell rank = new TableCell();
-                rank.Blocks.Add(new Paragraph(new Run(i.ToString())));
-                this.highScoresRankRow.Cells.Add(rank);
-                TableCell score = new TableCell();
-                score.Blocks.Add(new Paragraph(new Run(scores.scores[i].ToString())));
-                this.highScoreScoreRow.Cells.Add(score);
-                TableCell name = new TableCell();
-                name.Blocks.Add(new Paragraph(new Run(scores.usernames[i])));
-                this.highScoresNameRow.Cells.Add(name);
+                var scores = JsonConvert.DeserializeObject<HighScoresResult>(details.json);
+
+                for (int i = 0; i < scores.scores.Count; i++)
+                {
+                    TableCell rank = new TableCell();
+                    rank.Blocks.Add(new Paragraph(new Run(i.ToString())));
+                    this.highScoresRankRow.Cells.Add(rank);
+                    TableCell score = new TableCell();
+                    score.Blocks.Add(new Paragraph(new Run(scores.scores[i].ToString())));
+                    this.highScoreScoreRow.Cells.Add(score);
+                    TableCell name = new TableCell();
+                    name.Blocks.Add(new Paragraph(new Run(scores.usernames[i])));
+                    this.highScoresNameRow.Cells.Add(name);
+                }
             }
+            
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {

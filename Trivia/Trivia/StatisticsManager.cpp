@@ -25,5 +25,5 @@ std::vector<std::string> StatisticsManager::getUserStatistics(const std::string&
 	std::string averageAnswerTime = std::to_string(m_database->getPlayersAverageAnswerTime(username));
 	std::string numOfCorrect = std::to_string(m_database->getNumOfCorrectAnswers(username));
 	std::string totalNumOfAnswers = std::to_string(m_database->getNumOfTotalAnswers(username));
-	return { numOfCorrect, numOfGames, numOfCorrect, totalNumOfAnswers };
+	return { averageAnswerTime, numOfGames, numOfCorrect, totalNumOfAnswers };
 }

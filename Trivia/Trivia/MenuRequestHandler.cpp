@@ -44,6 +44,8 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& request)
         return signout(request);
     case (int)Codes::Statistics:
         return getHighScore(request);
+    case (int)Codes::PersonalStats:
+        return getPersonalStats(request);
     }
     return createError(this);
 }
@@ -78,8 +80,19 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
 
 RequestResult MenuRequestHandler::getPersonalStats(RequestInfo info)
 {
-    //implement in v3
-    return RequestResult();
+    RequestResult requestResult;
+    
+    auto deserialized = JsonRequestPacketDeserializer::deserializePersonalStatsRequest(info.buffer);
+    try {
+        getPersonalStatsResponse response;
+        response.statistics = m_statisticsManager.getUserStatistics(deserialized.username);
+        requestResult.response = JsonResponsePacketSerializer::serializeResponse(response);
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+
+    return requestResult;
 }
 
 RequestResult MenuRequestHandler::getHighScore(RequestInfo info)
