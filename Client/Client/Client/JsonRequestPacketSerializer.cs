@@ -22,6 +22,7 @@ enum Codes
     HighScores = 35,
     GetRooms = 71
 };
+
 namespace Client
 {
     public static class JsonRequestPacketSerializer
@@ -31,14 +32,14 @@ namespace Client
             List<byte> msgToServer = new List<byte>();
             byte CodeByte = BitConverter.GetBytes(code)[0];
             var len = JsonResponsetPacketDeserializer.intToBytes(json.Length);
-            msgToServer[0] = CodeByte;
+            msgToServer.Add(CodeByte);
             for (int i = 0; i < 4; i++)
             {
-                msgToServer[i + 1] = len[i];
+                msgToServer.Add(len[i]);
             }
             for (int i = 0; i < json.Length; i++)
             {
-                msgToServer[i + 5] = (byte)(json[i]);
+                msgToServer.Add((byte)(json[i]));
             }
             return msgToServer;
         }

@@ -183,7 +183,6 @@ namespace Client
         private void BT_Login_Click(object sender, RoutedEventArgs e)
         {
             Communicator communicator = new Communicator(sock);
-
             Account account = new Account();
             account.username = TB_Username.Text;
             account.password = TB_Password.Text;
@@ -191,19 +190,16 @@ namespace Client
             string json = JsonConvert.SerializeObject(account, Formatting.Indented);
 
             List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.Login));
+
             communicator.sendMessage(msgToServer);
             var msgFromServer = communicator.getMessage();
-            
-            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
-            int status = int.Parse(response.Substring(15, 3));
+            ResponseDetails details = new ResponseDetails();
+            details.getDetails(msgFromServer);
 
-            if (status == 1)
+            if (!JsonResponsetPacketDeserializer.checkForError(details))
             {
+                var jsonFromServer = JsonConvert.DeserializeObject<StatusResponse>(details.json);
                 _main.Content = new MainMenu(_main, TB_Username.Text, sock);
-            }
-            else
-            {
-                MessageBox.Show("invalid login details!");
             }
         }
     }

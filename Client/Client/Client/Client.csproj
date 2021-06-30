@@ -69,6 +69,7 @@
     </Compile>
     <Compile Include="CreateRoomRequest.cs" />
     <Compile Include="CreateRoomResponse.cs" />
+    <Compile Include="ErrorMessage.cs" />
     <Compile Include="GetPersonalStatistics.cs" />
     <Compile Include="HighScores.xaml.cs">
       <DependentUpon>HighScores.xaml</DependentUpon>
@@ -88,6 +89,7 @@
     <Compile Include="PersonalStatisticsResult.cs" />
     <Compile Include="PlayersInRoom.cs" />
     <Compile Include="PlayersInRoomRequest.cs" />
+    <Compile Include="ResponseDetails.cs" />
     <Compile Include="Room.xaml.cs">
       <DependentUpon>Room.xaml</DependentUpon>
     </Compile>
@@ -98,6 +100,7 @@
     <Compile Include="Statistics.xaml.cs">
       <DependentUpon>Statistics.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StatusResponse.cs" />
     <Page Include="CreateRoom.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

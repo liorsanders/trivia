@@ -222,18 +222,14 @@ namespace Client
 
             communicator.sendMessage(msgToServer);
             var msgFromServer = communicator.getMessage();
-
-            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
-            int status = int.Parse(response.Substring(15, 3));
-
-            if (status == 1)
-            {
+            ResponseDetails details = new ResponseDetails();
+            details.getDetails(msgFromServer);
+            
+            if(!JsonResponsetPacketDeserializer.checkForError(details)) {
+                var jsonFromServer = JsonConvert.DeserializeObject<StatusResponse>(details.json);
                 _main.Content = new MainMenu(_main, TB_Username.Text, sock);
             }
-            else
-            {
-                MessageBox.Show("invalid signup!");
-            }
+            
         }
     }
 }
