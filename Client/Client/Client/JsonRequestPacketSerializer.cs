@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 enum Codes
 {
+	PersonalStatistics = 80,
 	Signup = 73,
 	Login = 25,
 	Error = 8,
@@ -21,11 +22,23 @@ enum Codes
 };
 namespace Client
 {
-    static class JsonRequestPacketSerializer
+    public static class JsonRequestPacketSerializer
     {
-        static void serializeLoginRequest(string username, string password)
+        public static List<byte> serializeJson(string json, int code)
         {
-			
+            List<byte> msgToServer = new List<byte>();
+            byte CodeByte = BitConverter.GetBytes(code)[0];
+            var len = JsonResponsetPacketDeserializer.intToBytes(json.Length);
+            msgToServer[0] = CodeByte;
+            for (int i = 0; i < 4; i++)
+            {
+                msgToServer[i + 1] = len[i];
+            }
+            for (int i = 0; i < json.Length; i++)
+            {
+                msgToServer[i + 5] = (byte)(json[i]);
+            }
+            return msgToServer;
         }
     }
 }

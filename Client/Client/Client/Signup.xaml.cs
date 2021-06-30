@@ -231,18 +231,7 @@ namespace Client
 
             string json = JsonConvert.SerializeObject(account, Formatting.Indented);
 
-            List<byte> msgToServer = new List<byte>();
-            byte CodeByte = BitConverter.GetBytes((int)Codes.Signup)[0];
-            var len = intToBytes(json.Length);
-            msgToServer.Add(CodeByte);
-            for (int i = 0; i < 4; i++)
-            {
-                msgToServer.Add(len[i]);
-            }
-            for (int i = 0; i < json.Length; i++)
-            {
-                msgToServer.Add((byte)(json[i]));
-            }
+            List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.Signup));
 
             communicator.sendMessage(msgToServer);
             var msgFromServer = communicator.getMessage();
