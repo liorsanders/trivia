@@ -60,18 +60,21 @@ namespace Client
             details.getDetails(msgFromServer);
             if (!JsonResponsetPacketDeserializer.checkForError(details))
             {
-                var roomState = JsonConvert.DeserializeObject<RoomStateResponse>(details.json);
-                string textToShow = "ROOM STATE:" + Environment.NewLine;
-                textToShow = textToShow + "has game begun: " + roomState.ToString();
-                textToShow = textToShow + Environment.NewLine + "question count: " + roomState.questionCount.ToString();
-                textToShow = textToShow + Environment.NewLine + "answer timeout: " + roomState.answerTimeout.ToString();
-                textToShow = textToShow + Environment.NewLine + "status: " + roomState.status.ToString();
-                textToShow = textToShow + Environment.NewLine + "players:" + Environment.NewLine;
-                for(int i=0;i<roomState.players.Count;i++)
+                try
                 {
-                    textToShow = textToShow + roomState.players[i] + Environment.NewLine;
+                    var roomState = JsonConvert.DeserializeObject<RoomStateResponse>(details.json);
+                    string textToShow = "ROOM STATE:" + Environment.NewLine;
+                    textToShow = textToShow + "has game begun: " + roomState.ToString();
+                    textToShow = textToShow + Environment.NewLine + "question count: " + roomState.questionCount.ToString();
+                    textToShow = textToShow + Environment.NewLine + "answer timeout: " + roomState.answerTimeout.ToString();
+                    textToShow = textToShow + Environment.NewLine + "status: " + roomState.status.ToString();
+                    textToShow = textToShow + Environment.NewLine + "players:" + Environment.NewLine;
+                    for (int i = 0; i < roomState.players.Count; i++)
+                    {
+                        textToShow = textToShow + roomState.players[i] + Environment.NewLine;
+                    }
                 }
-                
+                catch { }
             }
         }
 
