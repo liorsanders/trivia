@@ -47,19 +47,7 @@ namespace Client
             {
                 try
                 {
-                    //server should write rooms data into RoomsData.txt
-                    StreamReader rd = new StreamReader("C:\\Users\\משתמש\\Documents\\cpp\\repos\\trivia\\Client\\Client\\RoomsData.txt");
-                    string line;
-                    while ((line = rd.ReadLine()) != null)
-                    {
-                        Button btn = new Button();
-                        btn.Name = "join_room_button";
-                        btn.Content = line;
-                        btn.VerticalAlignment = VerticalAlignment.Center;
-                        btn.HorizontalAlignment = HorizontalAlignment.Center;
-                        this.roomsPanel.Children.Add(btn);
-                    }
-                    rd.Close();
+                    
                     if(this.roomsPanel.Children.Count == 0)
                     {
                         this.noRoomsBlock.Visibility = Visibility.Visible;

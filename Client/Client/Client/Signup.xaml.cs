@@ -223,6 +223,7 @@ namespace Client
 
         private void BT_Signup_Click(object sender, RoutedEventArgs e)
         {
+            Communicator communicator = new Communicator(sock);
             SignupAccount account = new SignupAccount();
             account.Mail = TB_Email.Text;
             account.Username = TB_Username.Text;
@@ -230,24 +231,21 @@ namespace Client
 
             string json = JsonConvert.SerializeObject(account, Formatting.Indented);
 
-            byte[] msgToServer = new byte[1024];
+            List<byte> msgToServer = new List<byte>();
             byte CodeByte = BitConverter.GetBytes((int)Codes.Signup)[0];
             var len = intToBytes(json.Length);
-            msgToServer[0] = CodeByte;
+            msgToServer.Add(CodeByte);
             for (int i = 0; i < 4; i++)
             {
-                msgToServer[i + 1] = len[i];
+                msgToServer.Add(len[i]);
             }
             for (int i = 0; i < json.Length; i++)
             {
-                msgToServer[i + 5] = (byte)(json[i]);
+                msgToServer.Add((byte)(json[i]));
             }
-            sock.Write(msgToServer, 0, msgToServer.Length);
-            sock.Flush();
 
-            var msgFromServer = new byte[4096];
-            int byteRead = sock.Read(msgFromServer, 0, msgFromServer.Length);
-            sock.Flush();
+            communicator.sendMessage(msgToServer);
+            var msgFromServer = communicator.getMessage();
 
             string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
             int status = int.Parse(response.Substring(15, 3));
@@ -255,6 +253,10 @@ namespace Client
             if (status == 1)
             {
                 _main.Content = new MainMenu(_main, TB_Username.Text, sock);
+            }
+            else
+            {
+                MessageBox.Show("invalid signup!");
             }
         }
     }
