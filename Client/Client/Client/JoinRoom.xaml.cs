@@ -64,6 +64,9 @@ namespace Client
                         Button roomButton = new Button();
                         roomButton.FontFamily = new FontFamily("Comic Sans MS");
                         roomButton.FontSize = 30;
+                        TextBlock text = new TextBlock();
+                        text.Text = rooms.roomNames[i] + "(" + rooms.roomIds[i].ToString() + ")";
+                        roomButton.Content = text;
                         room.Content = roomButton;
                         this.roomButtons.Items.Add(room);
                     }
@@ -95,36 +98,12 @@ namespace Client
         }
         private void join_room_button(object sender, RoutedEventArgs e)
         {
-            int defaultId = 0;
+            
             roomUpdaterThread.Suspend();
-            string json = "{'id': " + defaultId.ToString() + "}";
-
-            byte[] msgToServer = new byte[1024];
-            byte CodeByte = BitConverter.GetBytes((int)Codes.JoinRoom)[0];
-            var len = intToBytes(json.Length);
-            msgToServer[0] = CodeByte;
-            for (int i = 0; i < 4; i++)
-            {
-                msgToServer[i + 1] = len[i];
-            }
-            for (int i = 0; i < json.Length; i++)
-            {
-                msgToServer[i + 5] = (byte)(json[i]);
-            }
-            sock.Write(msgToServer, 0, msgToServer.Length);
-            sock.Flush();
-
-            var msgFromServer = new byte[4096];
-            int byteRead = sock.Read(msgFromServer, 0, msgFromServer.Length);
-            sock.Flush();
-
-            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
-            int status = int.Parse(response.Substring(15, 3));
-
-            if (status == 1)
-            {
-                _main.Content = new Room(_main, _username, sock);
-            }
+            string roomInformation = ((Button)sender).Content.ToString();
+            int roomId = int.Parse(roomInformation[roomInformation.Length - 2].ToString());
+            string roomName = roomInformation.Substring(0, roomInformation.IndexOf('('));
+            _main.Content = new Room(_main, _username, sock, roomId, roomName);
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {

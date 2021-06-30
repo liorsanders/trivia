@@ -68,6 +68,7 @@
       <DependentUpon>CreateRoom.xaml</DependentUpon>
     </Compile>
     <Compile Include="CreateRoomRequest.cs" />
+    <Compile Include="CreateRoomResponse.cs" />
     <Compile Include="GetPersonalStatistics.cs" />
     <Compile Include="HighScores.xaml.cs">
       <DependentUpon>HighScores.xaml</DependentUpon>

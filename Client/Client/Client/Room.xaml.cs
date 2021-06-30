@@ -25,12 +25,13 @@ namespace Client
     public partial class Room : Page
     {
         private int roomId;
+        private string roomName;
         private readonly Frame _main;
         private readonly string _username;
         private NetworkStream sock;
         private Thread roomUpdaterThread;
 
-        public Room(Frame main, string username, NetworkStream socket)
+        public Room(Frame main, string username, NetworkStream socket, int id, string name)
         {
             InitializeComponent();
 
@@ -40,10 +41,8 @@ namespace Client
             _main = main;
             roomUpdaterThread = new Thread(new ThreadStart(updateRoom));
             roomUpdaterThread.Start();
-            if(roomId == null)
-            {
-                roomId = 0; // assign default value
-            }
+            roomId = id;
+            roomName = name;
         }
         private void updateRoom()
         {

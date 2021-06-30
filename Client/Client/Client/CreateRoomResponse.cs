@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Client
 {
-    class RoomsResult
+    public class CreateRoomResponse
     {
-        public List<string> roomNames;
-        public List<int> roomIds;
+        public int id;
     }
 }
