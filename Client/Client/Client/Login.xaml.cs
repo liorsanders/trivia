@@ -193,7 +193,7 @@ namespace Client
             List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.Login));
             communicator.sendMessage(msgToServer);
             var msgFromServer = communicator.getMessage();
-
+            
             string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
             int status = int.Parse(response.Substring(15, 3));
 

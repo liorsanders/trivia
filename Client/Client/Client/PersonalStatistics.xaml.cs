@@ -35,25 +35,24 @@ namespace Client
             usernameBlock.Text = username;
             initializePersonalStats();
         }
+        private void initializeAverageTime(double time)
+        {
+            Personal_averageAnsweringTime.Text = time.ToString();
+            if (time < 5)
+            {
+                Personal_averageAnsweringTime.Foreground = new SolidColorBrush(Colors.Green);
+            }
+            else if (time < 10)
+            {
+                Personal_averageAnsweringTime.Foreground = new SolidColorBrush(Colors.Blue);
+            }
+            else
+            {
+                Personal_averageAnsweringTime.Foreground = new SolidColorBrush(Colors.Red);
+            }
+        }
         private void initializePersonalStats()
         {
-            //get stats from backend, for now use default values
-            //use colors for red: bad score, green: good score, blue: medium score
-            //string defaultAnsweringTime = "00:00";
-            //int defaultGamesPlayed = 0;
-            //int defaultRightQuestions = 0;
-            //int defaultWrongQuestions = 0;
-
-            //Personal_averageAnsweringTime.Text = defaultAnsweringTime;
-            //Personal_averageAnsweringTime.Foreground = new SolidColorBrush(Colors.Red);
-
-            //Personal_gamesPlayed.Text = defaultGamesPlayed.ToString();
-
-            //Personal_rightQuestions.Text = defaultRightQuestions.ToString();
-            //Personal_rightQuestions.Foreground = new SolidColorBrush(Colors.Red);
-
-            //Personal_wrongQuestions.Text = defaultWrongQuestions.ToString();
-            //Personal_wrongQuestions.Foreground = new SolidColorBrush(Colors.Green);
             Communicator communicator = new Communicator(sock);
 
             GetPersonalStatistics personalStatistics = new GetPersonalStatistics();
@@ -67,6 +66,15 @@ namespace Client
 
             string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
             int status = int.Parse(response.Substring(15, 3));
+
+            string jsonResponse = msgFromServer.ToString();
+            jsonResponse = jsonResponse.Substring(16, jsonResponse.Length - 16);
+
+            var statistics = JsonConvert.DeserializeObject<PersonalStatisticsResult>(jsonResponse);
+            initializeAverageTime(statistics.averageTime);
+            Personal_gamesPlayed.Text = statistics.gamesPlayed.ToString();
+            Personal_rightQuestions.Text = statistics.answeredRight.ToString();
+            Personal_wrongQuestions.Text = statistics.answeredWrong.ToString();
 
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)

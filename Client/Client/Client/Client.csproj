@@ -82,6 +82,7 @@
     <Compile Include="PersonalStatistics.xaml.cs">
       <DependentUpon>PersonalStatistics.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonalStatisticsResult.cs" />
     <Compile Include="Room.xaml.cs">
       <DependentUpon>Room.xaml</DependentUpon>
     </Compile>
