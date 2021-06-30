@@ -16,6 +16,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -35,62 +36,56 @@ namespace Client
         {
             InitializeComponent();
 
-            this.TB_Admin.Text = "Admin: " + username;
+            //this.TB_Admin.Text = "Admin: " + username;
             sock = socket;
             _username = username;
             _main = main;
-            roomUpdaterThread = new Thread(new ThreadStart(updateRoom));
-            roomUpdaterThread.Start();
             roomId = id;
             roomName = name;
+            roomUpdaterThread = new Thread(new ThreadStart(updateRoom));
+            roomUpdaterThread.Start();
         }
         private void updateRoom()
         {
-            while(true)
+            Communicator communicator = new Communicator(sock);
+
+            PlayersInRoomRequest request = new PlayersInRoomRequest();
+            request.roomId = this.roomId;
+            string json = JsonConvert.SerializeObject(request, Formatting.Indented);
+            List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.GetPlayers));
+
+            while (true)
             {
                 try
                 {
-                    string json = "{'id': " + roomId + "}";
-
-                    byte[] msgToServer = new byte[1024];
-                    byte CodeByte = BitConverter.GetBytes((int)Codes.GetPlayers)[0];
-                    var len = intToBytes(json.Length);
-                    msgToServer[0] = CodeByte;
-                    for (int i = 0; i < 4; i++)
-                    {
-                        msgToServer[i + 1] = len[i];
-                    }
-                    for (int i = 0; i < json.Length; i++)
-                    {
-                        msgToServer[i + 5] = (byte)(json[i]);
-                    }
-                    sock.Write(msgToServer, 0, msgToServer.Length);
-                    sock.Flush();
-
-                    var msgFromServer = new byte[4096];
-                    int byteRead = sock.Read(msgFromServer, 0, msgFromServer.Length);
-                    sock.Flush();
-
+                    communicator.sendMessage(msgToServer);
+                    var msgFromServer = communicator.getMessage();
                     string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
                     int status = int.Parse(response.Substring(15, 3));
 
+                    string jsonResponse = msgFromServer.ToString();
+                    jsonResponse = jsonResponse.Substring(16, jsonResponse.Length - 16);
+
+                    var players = JsonConvert.DeserializeObject<PlayersInRoom>(jsonResponse);
+
+                    PlayersList.Items.Clear();
+                    for(int i=0;i<players.players.Count;i++)
+                    {
+                        ListBoxItem playerItem = new ListBoxItem();
+                        TextBlock block = new TextBlock();
+                        block.FontSize = 20;
+                        block.FontFamily = new FontFamily("Comic Sans MS");
+                        block.Text = players.players[i];
+                        playerItem.Content = block;
+                        this.PlayersList.Items.Add(playerItem);
+                    }
                 }
                 catch { }
 
                 Thread.Sleep(3000);
             }
         }
-        private List<byte> intToBytes(int length)
-        {
-            List<byte> bytes = new List<byte>();
-
-            bytes.Add((byte)(length >> 24));
-            bytes.Add((byte)(length >> 16));
-            bytes.Add((byte)(length >> 8));
-            bytes.Add((byte)length);
-
-            return bytes;
-        }
+        
         private void BT_Back_Click(object sender, RoutedEventArgs e)
         {
             roomUpdaterThread.Suspend();

@@ -8,41 +8,41 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Room">
 
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="2*"/>
-			<ColumnDefinition Width="26*"/>
-			<ColumnDefinition Width="2*"/>
-		</Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="26*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
 
-		<Grid.RowDefinitions>
-			<RowDefinition Height="2*"/>
-			<RowDefinition Height="20*"/>
-			<RowDefinition Height="2*"/>
-		</Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
 
-		<Image Source="./Resource/bg.png"
+        <Image Source="./Resource/bg.png"
 			   Grid.RowSpan="3" Grid.ColumnSpan="3"
 			   Stretch="Fill"/>
 
-		<Rectangle Fill="#cdebf9"
+        <Rectangle Fill="#cdebf9"
 				   Width="140"
 				   Grid.ColumnSpan="2" Grid.RowSpan="2"
 				   Margin="-75,-168,860,230"
 				   RenderTransformOrigin="0.5,0.5"
 				   Opacity="80">
 
-			<Rectangle.RenderTransform>
-				<TransformGroup>
-					<ScaleTransform/>
-					<SkewTransform/>
-					<RotateTransform Angle="-42"/>
-					<TranslateTransform/>
-				</TransformGroup>
-			</Rectangle.RenderTransform>
-		</Rectangle>
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-42"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
 
-		<Ellipse
+        <Ellipse
 			Fill="Transparent"
 			StrokeThickness="150"
 			Stroke="#e0c6eb"
@@ -52,49 +52,51 @@
 			RenderTransformOrigin="0.5,0.5"
 			Opacity="80">
 
-			<Ellipse.RenderTransform>
-				<TransformGroup>
-					<ScaleTransform/>
-					<SkewTransform AngleX="8.288"/>
-					<RotateTransform Angle="-66"/>
-					<TranslateTransform X="-250" Y="250"/>
-				</TransformGroup>
-			</Ellipse.RenderTransform>
-		</Ellipse>
+            <Ellipse.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="8.288"/>
+                    <RotateTransform Angle="-66"/>
+                    <TranslateTransform X="-250" Y="250"/>
+                </TransformGroup>
+            </Ellipse.RenderTransform>
+        </Ellipse>
 
-		<Border Background="White" Grid.Row="1" Grid.Column="1">
-			<Border.Effect>
-				<DropShadowEffect BlurRadius="15"
+        <Border Background="White" Grid.Row="1" Grid.Column="1">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="15"
 								  Direction="-90"
 								  RenderingBias="Quality"
 								  ShadowDepth="2"
 								  Color="#dbeafc"/>
-			</Border.Effect>
+            </Border.Effect>
 
-			<StackPanel>
+            <StackPanel>
                 <Button x:Name="BT_Back"
 							HorizontalAlignment="Left"
 							Width="150"
 							Content="Back"
 							Click="BT_Back_Click"
 							ClickMode="Press"
-							Style="{DynamicResource BottomMenuBT}">
-                </Button>
-				<TextBlock x:Name="TB_Admin"
+							Style="{DynamicResource BottomMenuBT}"/>
+                <TextBlock x:Name="TB_OnlineUsers"
+						   Text="users in room:"
+						   Margin="174,50,173,0"
+						   FontFamily="Arial Rounded MT Bold"
+						   FontSize="50"
+						   Foreground="#2a2e47"
+						   HorizontalAlignment="Center"/>
+                <!--<TextBlock x:Name="TB_Admin"
+                           
 						   Margin="0,30,0,0"
 						   FontFamily="Arial Rounded MT Bold"
 						   FontSize="50"
-						   Foreground="#2a2e47"
-						   HorizontalAlignment="Center"/>
-				<TextBlock x:Name="TB_OnlineUsers"
-						   Text="users in room:"
-						   Margin="0,50,0,0"
-						   FontFamily="Arial Rounded MT Bold"
-						   FontSize="50"
-						   Foreground="#2a2e47"
-						   HorizontalAlignment="Center"/>
-                
+						   Foreground="Orange"
+						   HorizontalAlignment="Center"/>-->
+                <ListBox HorizontalAlignment="Center" Name="PlayersList">
+                    
+                </ListBox>
             </StackPanel>
-		</Border>
-	</Grid>
+        </Border>
+    </Grid>
 </Page>

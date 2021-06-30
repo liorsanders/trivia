@@ -85,17 +85,6 @@ namespace Client
             }
 
         }
-        private List<byte> intToBytes(int length)
-        {
-            List<byte> bytes = new List<byte>();
-
-            bytes.Add((byte)(length >> 24));
-            bytes.Add((byte)(length >> 16));
-            bytes.Add((byte)(length >> 8));
-            bytes.Add((byte)length);
-
-            return bytes;
-        }
         private void join_room_button(object sender, RoutedEventArgs e)
         {
             
@@ -109,12 +98,14 @@ namespace Client
         {
             if (Application.Current.MainWindow is MainWindow main)
             {
+                roomUpdaterThread.Suspend();
                 main.Close();
             }
         }
 
         private void BT_Menu_Click(object sender, RoutedEventArgs e)
         {
+            roomUpdaterThread.Suspend();
             _main.Content = new MainMenu(_main, _username, sock);
         }
     }
