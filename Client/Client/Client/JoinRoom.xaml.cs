@@ -15,8 +15,7 @@ using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System.Windows.Data;
-
+using Newtonsoft.Json;
 using System.IO;
 
 namespace Client
@@ -42,13 +41,34 @@ namespace Client
         }
         private void updateRooms()
         {
-            //this function accesses roomsGrid and adds buttons of rooms by the number of rooms
-            while(true)
+            Communicator communicator = new Communicator(sock);
+            List<byte> msgToServer = new List<byte>();
+            msgToServer.Add((byte)Codes.GetRooms);
+            
+            while (true)
             {
                 try
                 {
-                    
-                    if(this.roomsPanel.Children.Count == 0)
+                    communicator.sendMessage(msgToServer);
+                    var msgFromServer = communicator.getMessage();
+                    string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
+                    int status = int.Parse(response.Substring(15, 3));
+                    string jsonResponse = msgFromServer.ToString();
+                    jsonResponse = jsonResponse.Substring(16, jsonResponse.Length - 16);
+                    var rooms = JsonConvert.DeserializeObject<RoomsResult>(jsonResponse);
+
+                    this.roomButtons.Items.Clear();
+                    for(int i=0;i<rooms.roomNames.Count;i++)
+                    {
+                        ListBoxItem room = new ListBoxItem();
+                        Button roomButton = new Button();
+                        roomButton.FontFamily = new FontFamily("Comic Sans MS");
+                        roomButton.FontSize = 30;
+                        room.Content = roomButton;
+                        this.roomButtons.Items.Add(room);
+                    }
+
+                    if (this.roomButtons.Items.Count == 0)
                     {
                         this.noRoomsBlock.Visibility = Visibility.Visible;
                     }

@@ -153,13 +153,12 @@
                         </TextBlock.Foreground>
                     </TextBlock>
                     
-                    <StackPanel Name="roomsPanel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="Auto">
-                        <!--<Button Grid.Column="1" Grid.Row="1" Height="60" Width="537" Margin="70" HorizontalAlignment="Center" VerticalAlignment="Center" Content="hello"/>-->
-                    </StackPanel>
-
+                    <ListBox Name="roomButtons" Grid.Row="1">
+                        
+                    </ListBox>
                 </Grid>
             </Grid>
-
+            
         </Border>
         <!--<Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Height="64" Margin="147,78,0,0" Grid.Row="1" VerticalAlignment="Top" Width="537"/>-->
     </Grid>
