@@ -44,7 +44,35 @@ namespace Client
             roomName = name;
             roomUpdaterThread = new Thread(new ThreadStart(updateRoom));
             roomUpdaterThread.Start();
+            showRoomState();
         }
+
+        private void showRoomState()
+        {
+            List<byte> msgToServer = new List<byte>();
+            msgToServer.Add((byte)Codes.GetRoomState);
+            Communicator Communicator = new Communicator(sock);
+            Communicator.sendMessage(msgToServer);
+            var msgFromServer = Communicator.getMessage();
+            ResponseDetails details = new ResponseDetails();
+            details.getDetails(msgFromServer);
+            if (!JsonResponsetPacketDeserializer.checkForError(details))
+            {
+                var roomState = JsonConvert.DeserializeObject<RoomStateResponse>(details.json);
+                string textToShow = "ROOM STATE:" + Environment.NewLine;
+                textToShow = textToShow + "has game begun: " + roomState.ToString();
+                textToShow = textToShow + Environment.NewLine + "question count: " + roomState.questionCount.ToString();
+                textToShow = textToShow + Environment.NewLine + "answer timeout: " + roomState.answerTimeout.ToString();
+                textToShow = textToShow + Environment.NewLine + "status: " + roomState.status.ToString();
+                textToShow = textToShow + Environment.NewLine + "players:" + Environment.NewLine;
+                for(int i=0;i<roomState.players.Count;i++)
+                {
+                    textToShow = textToShow + roomState.players[i] + Environment.NewLine;
+                }
+                
+            }
+        }
+
         private void updateRoom()
         {
             Communicator communicator = new Communicator(sock);
@@ -53,20 +81,15 @@ namespace Client
             request.roomId = this.roomId;
             string json = JsonConvert.SerializeObject(request, Formatting.Indented);
             List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.GetPlayers));
-
             while (true)
             {
                 try
                 {
+                    ResponseDetails details = new ResponseDetails();
                     communicator.sendMessage(msgToServer);
                     var msgFromServer = communicator.getMessage();
-                    string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
-                    int status = int.Parse(response.Substring(15, 3));
-
-                    string jsonResponse = msgFromServer.ToString();
-                    jsonResponse = jsonResponse.Substring(16, jsonResponse.Length - 16);
-
-                    var players = JsonConvert.DeserializeObject<PlayersInRoom>(jsonResponse);
+                    details.getDetails(msgFromServer);
+                    var players = JsonConvert.DeserializeObject<PlayersInRoom>(details.json);
 
                     PlayersList.Items.Clear();
                     for(int i=0;i<players.players.Count;i++)

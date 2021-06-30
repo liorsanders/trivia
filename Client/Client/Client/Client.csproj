@@ -94,6 +94,7 @@
       <DependentUpon>Room.xaml</DependentUpon>
     </Compile>
     <Compile Include="RoomsResult.cs" />
+    <Compile Include="RoomStateResponse.cs" />
     <Compile Include="Signup.xaml.cs">
       <DependentUpon>Signup.xaml</DependentUpon>
     </Compile>

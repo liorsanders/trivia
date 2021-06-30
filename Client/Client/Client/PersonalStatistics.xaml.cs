@@ -67,11 +67,15 @@ namespace Client
             details.getDetails(msgFromServer);
             if(!JsonResponsetPacketDeserializer.checkForError(details))
             {
-                var statistics = JsonConvert.DeserializeObject<PersonalStatisticsResult>(details.json);
-                initializeAverageTime(statistics.averageTime);
-                Personal_gamesPlayed.Text = statistics.gamesPlayed.ToString();
-                Personal_rightQuestions.Text = statistics.answeredRight.ToString();
-                Personal_wrongQuestions.Text = statistics.answeredWrong.ToString();
+                try
+                {
+                    var statistics = JsonConvert.DeserializeObject<PersonalStatisticsResult>(details.json);
+                    initializeAverageTime(statistics.averageTime);
+                    Personal_gamesPlayed.Text = statistics.gamesPlayed.ToString();
+                    Personal_rightQuestions.Text = statistics.answeredRight.ToString();
+                    Personal_wrongQuestions.Text = statistics.answeredWrong.ToString();
+                }
+                catch { }   
             }
             
 
