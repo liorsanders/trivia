@@ -15,5 +15,6 @@ enum class Codes
 	Start = 4,
 	GetRoomState = 16,
 	LeaveRoom = 49,
-	PersonalStats = 80
+	PersonalStats = 80,
+	HighScores = 35
 };

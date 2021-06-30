@@ -97,8 +97,23 @@ RequestResult MenuRequestHandler::getPersonalStats(RequestInfo info)
 
 RequestResult MenuRequestHandler::getHighScore(RequestInfo info)
 {
-    //implement in v3
-    return RequestResult();
+    RequestResult request;
+
+    try {
+        auto highScores = m_statisticsManager.getHighScore();
+        getHighScoreResponse response;
+        for (int i = 0; i < highScores.size(); i++) {
+            response.scores.push_back(highScores[i].second);
+            response.usernames.push_back(highScores[i].first);
+        }
+        request.newHandler = this;
+        request.response = JsonResponsePacketSerializer::serializeResponse(response);
+        return request;
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    return request;
 }
 
 RequestResult MenuRequestHandler::joinRoom(RequestInfo info)

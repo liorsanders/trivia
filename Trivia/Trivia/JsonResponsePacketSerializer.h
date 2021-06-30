@@ -46,6 +46,8 @@ public:
 	static vector<unsigned char> serializeResponse(getPersonalStatsResponse& statsResponse);
 	static vector<unsigned char> serializeResponse(CloseRoomResponse& response);
 
+	static vector<unsigned char> serializeResponse(getHighScoreResponse& response);
+
 	static vector<unsigned char> serializeResponse(StartGameResponse& response);
 
 	static vector<unsigned char> serializeResponse(LeaveRoomResponse& response);

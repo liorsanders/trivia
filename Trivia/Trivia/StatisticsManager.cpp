@@ -2,21 +2,15 @@
 #include <array>
 #include <algorithm>
 
-std::vector<std::string> StatisticsManager::getHighScore() const
+std::vector<std::pair<std::string, float>> StatisticsManager::getHighScore() const
 {
-	std::vector<std::string> res;
 	auto scores = m_database->getUsersScores();
 	std::vector<std::pair<std::string, float>> scoresVector = { scores.begin(), scores.end() };
 	std::partial_sort(scoresVector.begin(), scoresVector.end(), scoresVector.begin() + 5,
 		[](const auto& lhs, const auto& rhs) {
 			return lhs.second > rhs.second;
 		});
-	for (auto& element : scoresVector)
-	{
-		res.push_back(element.first);
-	}
-	std::reverse(res.begin(), res.end());
-	return res;
+	return scoresVector;
 }
 
 std::vector<std::string> StatisticsManager::getUserStatistics(const std::string& username) const
