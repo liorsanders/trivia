@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -123,7 +124,28 @@ namespace Client
 
         private void BT_CreateRoom_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new Room(_main, _username, sock);
+            Communicator communicator = new Communicator(sock);
+            CreateRoomRequest request = new CreateRoomRequest();
+            request.amountOfPeople = int.Parse(People.Content.ToString());
+            request.roomName = TB_RoomName.Text;
+            request.timePerQuestion = int.Parse(Time.Content.ToString());
+            string json = JsonConvert.SerializeObject(request, Formatting.Indented);
+
+            List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.CreateRoom));
+            communicator.sendMessage(msgToServer);
+            var msgFromServer = communicator.getMessage();
+
+            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
+            int status = int.Parse(response.Substring(15, 3));
+
+            if (status == 1)
+            {
+                _main.Content = new Room(_main, _username, sock);
+            }
+            else
+            {
+                MessageBox.Show("could not create room :(");
+            }
         }
     }
 }
