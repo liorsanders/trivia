@@ -52,8 +52,10 @@ namespace Client
             List<byte> msgToServer = new List<byte>();
             msgToServer.Add((byte)Codes.GetRoomState);
             Communicator Communicator = new Communicator(sock);
+            roomUpdaterThread.Suspend();
             Communicator.sendMessage(msgToServer);
             var msgFromServer = Communicator.getMessage();
+            roomUpdaterThread.Resume();
             ResponseDetails details = new ResponseDetails();
             details.getDetails(msgFromServer);
             if (!JsonResponsetPacketDeserializer.checkForError(details))
