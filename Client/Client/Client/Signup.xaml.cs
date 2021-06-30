@@ -186,20 +186,7 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
         }
-        private List<byte> intToBytes(int length)
-        {
-            List<byte> bytes = new List<byte>();
-
-            bytes.Add((byte)(length >> 24));
-	        bytes.Add((byte)(length >> 16));
-            bytes.Add((byte)(length >> 8));
-            bytes.Add((byte)(length >> 8));
-
-	        return bytes;
-        }
         
-        
-
         private void Bt_Login_Click(object sender, RoutedEventArgs e)
         {
             Button bt = sender as Button;

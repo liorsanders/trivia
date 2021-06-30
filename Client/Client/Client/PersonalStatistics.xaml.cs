@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -54,21 +55,13 @@ namespace Client
             //Personal_wrongQuestions.Text = defaultWrongQuestions.ToString();
             //Personal_wrongQuestions.Foreground = new SolidColorBrush(Colors.Green);
             Communicator communicator = new Communicator(sock);
-            string json = "{'username': '" + _username + "'}";
-            
-            List<byte> msgToServer = new List<byte>();
-            byte CodeByte = BitConverter.GetBytes((int)Codes.PersonalStatistics)[0];
-            var len = JsonResponsetPacketDeserializer.int
-            msgToServer.Add(CodeByte);
-            for (int i = 0; i < 4; i++)
-            {
-                msgToServer.Add(len[i]);
-            }
-            for (int i = 0; i < json.Length; i++)
-            {
-                msgToServer.Add((byte)(json[i]));
-            }
 
+            GetPersonalStatistics personalStatistics = new GetPersonalStatistics();
+            personalStatistics.username = _username;
+
+            string json = JsonConvert.SerializeObject(personalStatistics, Formatting.Indented);
+
+            List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.PersonalStatistics));
             communicator.sendMessage(msgToServer);
             var msgFromServer = communicator.getMessage();
 

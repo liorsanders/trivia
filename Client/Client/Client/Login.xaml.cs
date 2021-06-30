@@ -180,17 +180,6 @@ namespace Client
             client.Connect(serverEndPoint);
             sock = client.GetStream();
         }
-        private List<byte> intToBytes(int length)
-        {
-            List<byte> bytes = new List<byte>();
-
-            bytes.Add((byte)(length >> 24));
-            bytes.Add((byte)(length >> 16));
-            bytes.Add((byte)(length >> 8));
-            bytes.Add((byte)length);
-
-            return bytes;
-        }
         private void BT_Login_Click(object sender, RoutedEventArgs e)
         {
             Communicator communicator = new Communicator(sock);
