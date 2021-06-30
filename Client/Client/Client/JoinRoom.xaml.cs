@@ -47,23 +47,26 @@ namespace Client
             {
                 try
                 {
-                    StreamReader rd = new StreamReader("C:\\Users\\משתמש\\Documents\\cpp\\repos\\trivia\\Client\\Client\\RoomData.txt");
+                    //server should write rooms data into RoomsData.txt
+                    StreamReader rd = new StreamReader("C:\\Users\\משתמש\\Documents\\cpp\\repos\\trivia\\Client\\Client\\RoomsData.txt");
                     string line;
                     while ((line = rd.ReadLine()) != null)
                     {
                         Button btn = new Button();
                         btn.Name = "join_room_button";
                         btn.Content = line;
-                        roomsPanel.Children.Add(btn);
+                        btn.VerticalAlignment = VerticalAlignment.Center;
+                        btn.HorizontalAlignment = HorizontalAlignment.Center;
+                        this.roomsPanel.Children.Add(btn);
                     }
                     rd.Close();
-                    if(roomsPanel.Children.Count == 0)
+                    if(this.roomsPanel.Children.Count == 0)
                     {
-                        noRoomsBlock.Visibility = Visibility.Visible;
+                        this.noRoomsBlock.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        noRoomsBlock.Visibility = Visibility.Hidden;
+                        this.noRoomsBlock.Visibility = Visibility.Hidden;
                     }
                 }
                 catch { }
@@ -71,10 +74,49 @@ namespace Client
             }
 
         }
+        private List<byte> intToBytes(int length)
+        {
+            List<byte> bytes = new List<byte>();
+
+            bytes.Add((byte)(length >> 24));
+            bytes.Add((byte)(length >> 16));
+            bytes.Add((byte)(length >> 8));
+            bytes.Add((byte)length);
+
+            return bytes;
+        }
         private void join_room_button(object sender, RoutedEventArgs e)
         {
+            int defaultId = 0;
             roomUpdaterThread.Suspend();
-            _main.Content = new Room(_main, _username, sock);
+            string json = "{'id': " + defaultId.ToString() + "}";
+
+            byte[] msgToServer = new byte[1024];
+            byte CodeByte = BitConverter.GetBytes((int)Codes.JoinRoom)[0];
+            var len = intToBytes(json.Length);
+            msgToServer[0] = CodeByte;
+            for (int i = 0; i < 4; i++)
+            {
+                msgToServer[i + 1] = len[i];
+            }
+            for (int i = 0; i < json.Length; i++)
+            {
+                msgToServer[i + 5] = (byte)(json[i]);
+            }
+            sock.Write(msgToServer, 0, msgToServer.Length);
+            sock.Flush();
+
+            var msgFromServer = new byte[4096];
+            int byteRead = sock.Read(msgFromServer, 0, msgFromServer.Length);
+            sock.Flush();
+
+            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
+            int status = int.Parse(response.Substring(15, 3));
+
+            if (status == 1)
+            {
+                _main.Content = new Room(_main, _username, sock);
+            }
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
