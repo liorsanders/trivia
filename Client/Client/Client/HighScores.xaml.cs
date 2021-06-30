@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -37,18 +38,49 @@ namespace Client
 
         private void initializeHighScores()
         {
-            //initialize top scores here when connecting to backend
+            Communicator communicator = new Communicator(sock);
+            List<byte> msgToServer = new List<byte>();
+            msgToServer.Add((byte)(Codes.HighScores));
+            communicator.sendMessage(msgToServer);
+            var msgFromServer = communicator.getMessage();
+
+            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
+            int status = int.Parse(response.Substring(15, 3));
+
+            string jsonResponse = msgFromServer.ToString();
+            jsonResponse = jsonResponse.Substring(16, jsonResponse.Length - 16);
+
+            var scores = JsonConvert.DeserializeObject<HighScoresResult>(jsonResponse);
+            
+            for(int i=0;i<scores.scores.Count;i++)
+            {
+                TableCell rank = new TableCell();
+                rank.Blocks.Add(new Paragraph(new Run(i.ToString())));
+                this.highScoresRankRow.Cells.Add(rank);
+                TableCell score = new TableCell();
+                score.Blocks.Add(new Paragraph(new Run(scores.scores[i].ToString())));
+                this.highScoreScoreRow.Cells.Add(score);
+                TableCell name = new TableCell();
+                name.Blocks.Add(new Paragraph(new Run(scores.usernames[i])));
+                this.highScoresNameRow.Cells.Add(name);
+            }
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
-            if (Application.Current.MainWindow is MainWindow main)
-            {
+            if (Application.Current.MainWindow is MainWindow main) { 
+
+                this.highScoresNameRow.Cells.Clear();
+                this.highScoresRankRow.Cells.Clear();
+                this.highScoreScoreRow.Cells.Clear();
                 main.Close();
             }
         }
 
         private void BT_Menu_Click(object sender, RoutedEventArgs e)
         {
+            this.highScoresNameRow.Cells.Clear();
+            this.highScoresRankRow.Cells.Clear();
+            this.highScoreScoreRow.Cells.Clear();
             _main.Content = new MainMenu(_main, _username, sock);
         }
     }

@@ -18,7 +18,8 @@ enum Codes
 	CloseRoom = 67,
 	Start = 4,
 	GetRoomState = 16,
-	LeaveRoom = 49
+	LeaveRoom = 49,
+    HighScores = 35
 };
 namespace Client
 {
