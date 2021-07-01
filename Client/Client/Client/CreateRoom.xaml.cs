@@ -143,7 +143,7 @@ namespace Client
 
             if (status == 1)
             {
-                _main.Content = new Room(_main, _username, sock, roomId, request.roomName);
+                _main.Content = new Room(_main, _username, sock, roomId, request.roomName, true);
             }
             else
             {

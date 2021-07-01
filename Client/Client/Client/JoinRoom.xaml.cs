@@ -92,7 +92,7 @@ namespace Client
             string roomInformation = ((Button)sender).Content.ToString();
             int roomId = int.Parse(roomInformation[roomInformation.Length - 2].ToString());
             string roomName = roomInformation.Substring(0, roomInformation.IndexOf('('));
-            _main.Content = new Room(_main, _username, sock, roomId, roomName);
+            _main.Content = new Room(_main, _username, sock, roomId, roomName, false);
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {

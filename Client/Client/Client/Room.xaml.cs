@@ -31,8 +31,9 @@ namespace Client
         private readonly string _username;
         private NetworkStream sock;
         private Thread roomUpdaterThread;
+        private readonly bool _isAdmin;
 
-        public Room(Frame main, string username, NetworkStream socket, int id, string name)
+        public Room(Frame main, string username, NetworkStream socket, int id, string name, bool isAdmin)
         {
             InitializeComponent();
 
@@ -42,9 +43,27 @@ namespace Client
             _main = main;
             roomId = id;
             roomName = name;
+            _isAdmin = isAdmin;
             roomUpdaterThread = new Thread(new ThreadStart(updateRoom));
             roomUpdaterThread.Start();
             showRoomState();
+        }
+
+        private void checkForLeaveOrJoin(PlayersInRoom oldPlayers, PlayersInRoom newPlayers) {
+            for(int i=0;i<oldPlayers.players.Count();i++)
+            {
+                if(!newPlayers.players.Contains(oldPlayers.players[i]))
+                {
+                    MessageBox.Show(oldPlayers.players[i] + " has left the room!");
+                }
+            }
+            for(int i=0;i<newPlayers.players.Count();i++)
+            {
+                if(!oldPlayers.players.Contains(newPlayers.players[i]) && !string.Equals(newPlayers.players[i], _username))
+                {
+                    MessageBox.Show(newPlayers.players[i] + " has joined the room!");
+                }
+            }
         }
 
         private void showRoomState()
@@ -86,6 +105,8 @@ namespace Client
             request.roomId = this.roomId;
             string json = JsonConvert.SerializeObject(request, Formatting.Indented);
             List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.GetPlayers));
+            var latestPlayers = new PlayersInRoom();
+            latestPlayers.players.Clear();
             while (true)
             {
                 try
@@ -95,6 +116,8 @@ namespace Client
                     var msgFromServer = communicator.getMessage();
                     details.getDetails(msgFromServer);
                     var players = JsonConvert.DeserializeObject<PlayersInRoom>(details.json);
+
+
 
                     PlayersList.Items.Clear();
                     for(int i=0;i<players.players.Count;i++)
@@ -122,11 +145,41 @@ namespace Client
 
         private void BT_Start_Game_Click(object sender, RoutedEventArgs e)
         {
+            if(!_isAdmin)
+            {
+                MessageBox.Show("only an admin can start a game!");
+                return;
+            }
+            Communicator communicator = new Communicator(sock);
+            var msgToServer = new List<byte>();
+            msgToServer.Add((byte)Codes.Start);
+            ResponseDetails details = new ResponseDetails();
+            roomUpdaterThread.Suspend();
+            communicator.sendMessage(msgToServer);
+            var msgFromServer = communicator.getMessage();
+            roomUpdaterThread.Resume();
+            details.getDetails(msgFromServer);
+            JsonResponsetPacketDeserializer.checkForError(details);
 
         }
 
         private void BT_Close_Room_Click(object sender, RoutedEventArgs e)
         {
+
+            if(!_isAdmin)
+            {
+                MessageBox.Show("only an admin can close a room!");
+                return;
+            }
+            Communicator communicator = new Communicator(sock);
+            ResponseDetails details = new ResponseDetails();
+            var msgToServer = new List<byte>();
+            msgToServer.Add((byte)Codes.CloseRoom);
+            roomUpdaterThread.Suspend();
+            communicator.sendMessage(msgToServer);
+            details.getDetails(communicator.getMessage());
+            roomUpdaterThread.Resume();
+            JsonResponsetPacketDeserializer.checkForError(details);
 
         }
     }
