@@ -72,13 +72,27 @@
             </Border.Effect>
 
             <StackPanel>
+                <Button x:Name="BT_Start_Game"
+                        HorizontalAlignment="Center"
+                        Width="300"
+                        Content="Start Game"
+                        Click="BT_Start_Game_Click"
+                        ClickMode="Press"
+                        Style="{DynamicResource BottomMenuBT}" Margin="197,0"/>
                 <Button x:Name="BT_Back"
-							HorizontalAlignment="Left"
-							Width="150"
-							Content="Back"
+							HorizontalAlignment="Center"
+							Width="300"
+							Content="Leave Game"
 							Click="BT_Back_Click"
 							ClickMode="Press"
 							Style="{DynamicResource BottomMenuBT}"/>
+                <Button x:Name="BT_Close_Room"
+                        HorizontalAlignment="Center"
+                        Width="300"
+                        Content="Close Room"
+                        Click="BT_Close_Room_Click"
+                        ClickMode="Press"
+                        Style="{DynamicResource BottomMenuBT}"/>
                 <TextBlock x:Name="TB_OnlineUsers"
 						   Text="users in room:"
 						   Margin="174,50,173,0"
@@ -93,9 +107,7 @@
 						   FontSize="50"
 						   Foreground="Orange"
 						   HorizontalAlignment="Center"/>-->
-                <ListBox HorizontalAlignment="Center" Name="PlayersList">
-                    
-                </ListBox>
+                <ListBox HorizontalAlignment="Center" x:Name="PlayersList"/>
             </StackPanel>
         </Border>
     </Grid>

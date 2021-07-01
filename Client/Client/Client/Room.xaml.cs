@@ -120,6 +120,14 @@ namespace Client
             _main.Content = new MainMenu(_main, _username, sock);
         }
 
-        
+        private void BT_Start_Game_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BT_Close_Room_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
