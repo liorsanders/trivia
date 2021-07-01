@@ -51,11 +51,8 @@ namespace Client
                 {
                     communicator.sendMessage(msgToServer);
                     var msgFromServer = communicator.getMessage();
-                    string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
-                    int status = int.Parse(response.Substring(15, 3));
-                    string jsonResponse = msgFromServer.ToString();
-                    jsonResponse = jsonResponse.Substring(16, jsonResponse.Length - 16);
-                    var rooms = JsonConvert.DeserializeObject<RoomsResult>(jsonResponse);
+                    ResponseDetails details = new ResponseDetails();
+                    var rooms = JsonConvert.DeserializeObject<RoomsResult>(details.json);
 
                     this.roomButtons.Items.Clear();
                     for(int i=0;i<rooms.roomNames.Count;i++)

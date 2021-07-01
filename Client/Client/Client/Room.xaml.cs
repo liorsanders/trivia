@@ -107,6 +107,8 @@ namespace Client
             List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.GetPlayers));
             var latestPlayers = new PlayersInRoom();
             latestPlayers.players.Clear();
+            PlayersInRoom players = new PlayersInRoom();
+            players.players.Clear();
             while (true)
             {
                 try
@@ -115,10 +117,9 @@ namespace Client
                     communicator.sendMessage(msgToServer);
                     var msgFromServer = communicator.getMessage();
                     details.getDetails(msgFromServer);
-                    var players = JsonConvert.DeserializeObject<PlayersInRoom>(details.json);
-
-
-
+                    latestPlayers = players;
+                    players = JsonConvert.DeserializeObject<PlayersInRoom>(details.json);
+                    checkForLeaveOrJoin(latestPlayers, players);
                     PlayersList.Items.Clear();
                     for(int i=0;i<players.players.Count;i++)
                     {

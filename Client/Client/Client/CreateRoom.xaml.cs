@@ -134,21 +134,16 @@ namespace Client
             List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.CreateRoom));
             communicator.sendMessage(msgToServer);
             var msgFromServer = communicator.getMessage();
-
-            string response = System.Text.Encoding.UTF8.GetString(msgFromServer);
-            int status = int.Parse(response.Substring(15, 3));
-            string jsonResponse = msgFromServer.ToString();
-            jsonResponse = jsonResponse.Substring(16, jsonResponse.Length - 16);
-            int roomId = JsonConvert.DeserializeObject<CreateRoomResponse>(jsonResponse).id;
-
-            if (status == 1)
+            ResponseDetails details = new ResponseDetails();
+            details.getDetails(msgFromServer);
+            
+            CreateRoomResponse response = JsonConvert.DeserializeObject<CreateRoomResponse>(details.json);
+            if(!JsonResponsetPacketDeserializer.checkForError(details))
             {
-                _main.Content = new Room(_main, _username, sock, roomId, request.roomName, true);
+                _main.Content = new Room(_main, _username, sock, response.id, TB_RoomName.Text, true);
+                return;
             }
-            else
-            {
-                MessageBox.Show("could not create room :(");
-            }
+            MessageBox.Show("could not create room :(");
         }
     }
 }
