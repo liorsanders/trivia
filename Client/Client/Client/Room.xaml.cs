@@ -139,8 +139,20 @@ namespace Client
         
         private void BT_Back_Click(object sender, RoutedEventArgs e)
         {
+            Communicator communicator = new Communicator(sock);
+            var msgToServer = new List<byte>();
+            msgToServer.Add((byte)Codes.LeaveRoom);
+            ResponseDetails details = new ResponseDetails();
             roomUpdaterThread.Suspend();
-            _main.Content = new MainMenu(_main, _username, sock);
+            communicator.sendMessage(msgToServer);
+            var msgFromServer = communicator.getMessage();
+            roomUpdaterThread.Resume();
+            details.getDetails(msgFromServer);
+            if(!JsonResponsetPacketDeserializer.checkForError(details))
+            {
+                roomUpdaterThread.Suspend();
+                _main.Content = new MainMenu(_main, _username, sock);
+            }
         }
 
         private void BT_Start_Game_Click(object sender, RoutedEventArgs e)
