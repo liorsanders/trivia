@@ -80,21 +80,7 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 		(int)Codes::GetPlayers);
 }
 
-//vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
-//	(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse)
-//{
-//	string highScores = dataToJson<string>(
-//		vectorToString(scoreResponse.statistics),
-//		"HighScores");
-//
-//	string statistics = dataToJson<string>(
-//		vectorToString(statsResponse.statistics),
-//		"UserStatistics");
-//
-//	return buildMessage(
-//		statistics + highScores,
-//		(int)Codes::Statistics);
-//}
+
 
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(getPersonalStatsResponse& statsResponse)
 {

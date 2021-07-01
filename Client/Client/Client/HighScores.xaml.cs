@@ -48,19 +48,22 @@ namespace Client
             if(!JsonResponsetPacketDeserializer.checkForError(details))
             {
                 var scores = JsonConvert.DeserializeObject<HighScoresResult>(details.json);
-            
-                for(int i=0;i<scores.scores.Count;i++)
+                try
                 {
-                    TableCell rank = new TableCell();
-                    rank.Blocks.Add(new Paragraph(new Run(i.ToString())));
-                    this.highScoresRankRow.Cells.Add(rank);
-                    TableCell score = new TableCell();
-                    score.Blocks.Add(new Paragraph(new Run(scores.scores[i].ToString())));
-                    this.highScoreScoreRow.Cells.Add(score);
-                    TableCell name = new TableCell();
-                    name.Blocks.Add(new Paragraph(new Run(scores.usernames[i])));
-                    this.highScoresNameRow.Cells.Add(name);
+                    for (int i = 0; i < scores.scores.Count; i++)
+                    {
+                        TableCell rank = new TableCell();
+                        rank.Blocks.Add(new Paragraph(new Run(i.ToString())));
+                        this.highScoresRankRow.Cells.Add(rank);
+                        TableCell score = new TableCell();
+                        score.Blocks.Add(new Paragraph(new Run(scores.scores[i].ToString())));
+                        this.highScoreScoreRow.Cells.Add(score);
+                        TableCell name = new TableCell();
+                        name.Blocks.Add(new Paragraph(new Run(scores.usernames[i])));
+                        this.highScoresNameRow.Cells.Add(name);
+                    }
                 }
+                catch { }
             }
             
         }

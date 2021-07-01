@@ -74,6 +74,10 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
     int state = m_roomManager.getRoomState(request.roomId);
     RequestResult requestResult;
     GetPlayersInRoomResponse response;
+    auto users = m_roomManager.getLoggedUser(request.roomId);
+    for (auto user : users) {
+        response.players.push_back(user.getUsername());
+    }
     requestResult.response = JsonResponsePacketSerializer::serializeResponse(response);
     requestResult.newHandler = this;
     return requestResult;

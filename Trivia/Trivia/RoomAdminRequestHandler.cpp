@@ -74,10 +74,9 @@ RequestResult RoomAdminRequestHandler::closeRoom(RequestInfo info)
 }
 
 
-RequestResult RoomAdminRequestHandler::startGame(RequestInfo)
+RequestResult RoomAdminRequestHandler::startGame(RequestInfo info)
 {
     int id = m_room.getRoomData().id;
-
     RequestResult result = { JsonResponsePacketSerializer::serializeStartGameRequest(),
                              this };
 
