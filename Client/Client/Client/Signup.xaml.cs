@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Client
 {
@@ -20,13 +23,14 @@ namespace Client
     /// </summary>
     public partial class Signup : Page
     {
-
+        private NetworkStream sock;
         private readonly Frame _main;
 
-        public Signup(Frame main)
+        public Signup(Frame main, NetworkStream socket)
         {
             InitializeComponent();
             _main = main;
+            sock = socket;
         }
 
         private void TB_Email_GotFocus(object sender, RoutedEventArgs e)
@@ -182,7 +186,7 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
         }
-
+        
         private void Bt_Login_Click(object sender, RoutedEventArgs e)
         {
             Button bt = sender as Button;
@@ -191,7 +195,8 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
 
-            _main.Content = new Login(_main);
+            _main.Content = new Login(_main, sock);
+
         }
 
         private void Bt_Login_LostMouseCapture(object sender, MouseEventArgs e)
@@ -205,7 +210,26 @@ namespace Client
 
         private void BT_Signup_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main, TB_Username.Text);
+            Communicator communicator = new Communicator(sock);
+            SignupAccount account = new SignupAccount();
+            account.Mail = TB_Email.Text;
+            account.Username = TB_Username.Text;
+            account.Password = TB_Password.Text;
+
+            string json = JsonConvert.SerializeObject(account, Formatting.Indented);
+
+            List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.Signup));
+
+            communicator.sendMessage(msgToServer);
+            var msgFromServer = communicator.getMessage();
+            ResponseDetails details = new ResponseDetails();
+            details.getDetails(msgFromServer);
+            
+            if(!JsonResponsetPacketDeserializer.checkForError(details)) {
+                var jsonFromServer = JsonConvert.DeserializeObject<StatusResponse>(details.json);
+                _main.Content = new MainMenu(_main, TB_Username.Text, sock);
+            }
+            
         }
     }
 }

@@ -1,4 +1,5 @@
 #include "MenuRequestHandler.h"
+#include "RoomMemberRequestHandler.h"
 #include "JsonResponsePacketSerializer.h"
 #include <iostream>
 
@@ -42,8 +43,10 @@ RequestResult MenuRequestHandler::handleRequest(const RequestInfo& request)
         return joinRoom(request);
     case (int)Codes::Logout:
         return signout(request);
-    case (int)Codes::Statistics:
+    case (int)Codes::HighScores:
         return getHighScore(request);
+    case (int)Codes::PersonalStats:
+        return getPersonalStats(request);
     }
     return createError(this);
 }
@@ -71,6 +74,10 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
     int state = m_roomManager.getRoomState(request.roomId);
     RequestResult requestResult;
     GetPlayersInRoomResponse response;
+    auto users = m_roomManager.getLoggedUser(request.roomId);
+    for (auto user : users) {
+        response.players.push_back(user.getUsername());
+    }
     requestResult.response = JsonResponsePacketSerializer::serializeResponse(response);
     requestResult.newHandler = this;
     return requestResult;
@@ -78,23 +85,50 @@ RequestResult MenuRequestHandler::getPlayersInRoom(RequestInfo info)
 
 RequestResult MenuRequestHandler::getPersonalStats(RequestInfo info)
 {
-    //implement in v3
-    return RequestResult();
+    RequestResult requestResult;
+    
+    auto deserialized = JsonRequestPacketDeserializer::deserializePersonalStatsRequest(info.buffer);
+    try {
+        getPersonalStatsResponse response;
+        response.statistics = m_statisticsManager.getUserStatistics(deserialized.username);
+        requestResult.response = JsonResponsePacketSerializer::serializeResponse(response);
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+
+    return requestResult;
 }
 
 RequestResult MenuRequestHandler::getHighScore(RequestInfo info)
 {
-    //implement in v3
-    return RequestResult();
+    RequestResult request;
+
+    try {
+        auto highScores = m_statisticsManager.getHighScore();
+        getHighScoreResponse response;
+        for (int i = 0; i < highScores.size(); i++) {
+            response.scores.push_back(highScores[i].second);
+            response.usernames.push_back(highScores[i].first);
+        }
+        request.newHandler = this;
+        request.response = JsonResponsePacketSerializer::serializeResponse(response);
+        return request;
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
+    return request;
 }
 
 RequestResult MenuRequestHandler::joinRoom(RequestInfo info)
 {
-    //implement in v3
     RequestResult requestResult;
     auto request = JsonRequestPacketDeserializer::deserializeJoinRoomRequest(info.buffer);
-    requestResult.newHandler = this;
+    Room room;
+    requestResult.newHandler = new RoomMemberRequestHandler(room, m_user, m_roomManager, m_handlerFactory);
     JoinRoomResponse response;
+    response.status = 1;
     requestResult.response = JsonResponsePacketSerializer::serializeResponse(response);
     return requestResult;
 }
@@ -103,8 +137,8 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
 {
     RequestResult requestResult;
     auto deserialized = JsonRequestPacketDeserializer::deserializeCreateRoomRequest(info.buffer);
+    RoomData data;
     try {
-        RoomData data;
         data.isActive = true;
         data.name = deserialized.roomName;
         m_roomManager.createRoom(m_user, data);
@@ -113,7 +147,8 @@ RequestResult MenuRequestHandler::createRoom(RequestInfo info)
         std::cout << e.what() << std::endl;
     }
     CreateRoomResponse response;
+    Room room;
     requestResult.response = JsonResponsePacketSerializer::serializeResponse(response);
-    requestResult.newHandler = this;
+    requestResult.newHandler = new RoomAdminRequestHandler(room, m_user, m_roomManager, m_handlerFactory);
     return requestResult;
 }

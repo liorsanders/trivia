@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Client
 {
@@ -24,7 +26,7 @@ namespace Client
         {
             InitializeComponent();
 
-            Main.Content = new Login(Main);
+            Main.Content = new Login(Main, null);
         }
     }
 }

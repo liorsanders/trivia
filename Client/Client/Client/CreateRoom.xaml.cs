@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.Net.Sockets;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -22,15 +25,16 @@ namespace Client
     {
         private readonly Frame _main;
         private readonly string _username;
+        private NetworkStream sock;
 
-        public CreateRoom(Frame main, string username)
+        public CreateRoom(Frame main, string username, NetworkStream socket)
         {
             InitializeComponent();
 
             _main = main;
             _username = username;
-
             this.username.Text = _username;
+            sock = socket;
         }
 
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
@@ -43,7 +47,7 @@ namespace Client
 
         private void BT_Menu_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main, _username);
+            _main.Content = new MainMenu(_main, _username, sock);
         }
 
         public void TB_RoomName_GotFocus(object sender, RoutedEventArgs e)
@@ -120,7 +124,26 @@ namespace Client
 
         private void BT_CreateRoom_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new Room(_username);
+            Communicator communicator = new Communicator(sock);
+            CreateRoomRequest request = new CreateRoomRequest();
+            request.amountOfPeople = int.Parse(People.Content.ToString());
+            request.roomName = TB_RoomName.Text;
+            request.timePerQuestion = int.Parse(Time.Content.ToString());
+            string json = JsonConvert.SerializeObject(request, Formatting.Indented);
+
+            List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.CreateRoom));
+            communicator.sendMessage(msgToServer);
+            var msgFromServer = communicator.getMessage();
+            ResponseDetails details = new ResponseDetails();
+            details.getDetails(msgFromServer);
+            
+            CreateRoomResponse response = JsonConvert.DeserializeObject<CreateRoomResponse>(details.json);
+            if(!JsonResponsetPacketDeserializer.checkForError(details))
+            {
+                _main.Content = new Room(_main, _username, sock, response.id, TB_RoomName.Text, true);
+                return;
+            }
+            MessageBox.Show("could not create room :(");
         }
     }
 }

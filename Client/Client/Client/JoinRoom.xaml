@@ -140,7 +140,7 @@
                             </LinearGradientBrush>
                         </TextBlock.Foreground>
                     </TextBlock>
-                    <TextBlock Grid.Row="1" Text="No rooms so far!" HorizontalAlignment="Center"
+                    <TextBlock Name="noRoomsBlock" Grid.Row="1" Text="No rooms so far!" HorizontalAlignment="Center"
                                FontFamily="Comic Sans MS" FontSize="65" TextWrapping="Wrap" VerticalAlignment="Center">
                         <TextBlock.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -152,10 +152,15 @@
                             <SolidColorBrush Color="Yellow"/>
                         </TextBlock.Foreground>
                     </TextBlock>
+                    
+                    <ListBox Name="roomButtons" Grid.Row="1">
+                        
+                    </ListBox>
                 </Grid>
             </Grid>
-
+            
         </Border>
+        <!--<Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Height="64" Margin="147,78,0,0" Grid.Row="1" VerticalAlignment="Top" Width="537"/>-->
     </Grid>
 
 </Page>

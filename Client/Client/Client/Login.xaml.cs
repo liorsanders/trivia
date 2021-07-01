@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.Net.Sockets;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -21,11 +24,17 @@ namespace Client
     public partial class Login : Page
     {
         private readonly Frame _main;
+        private NetworkStream sock;
 
-        public Login(Frame main)
+        public Login(Frame main, NetworkStream socket)
         {
             InitializeComponent();
             _main = main;
+            sock = socket;
+            if(sock == null)
+            {
+                connectToServer();
+            }
         }
 
         public void TB_Username_GotFocus(object sender, RoutedEventArgs e)
@@ -151,7 +160,7 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
 
-            _main.Content = new Signup(_main);
+            _main.Content = new Signup(_main ,sock);
         }
 
         private void Bt_Signup_LostMouseCapture(object sender, MouseEventArgs e)
@@ -162,10 +171,36 @@ namespace Client
 
             bt.Foreground = new SolidColorBrush(color);
         }
-
+        private void connectToServer()
+        {
+            ConfigDetails details = new ConfigDetails();
+            details.importDetailsFromConfig("./config.txt");
+            TcpClient client = new TcpClient();
+            IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(details.ip), details.port);
+            client.Connect(serverEndPoint);
+            sock = client.GetStream();
+        }
         private void BT_Login_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main, TB_Username.Text);
+            Communicator communicator = new Communicator(sock);
+            Account account = new Account();
+            account.username = TB_Username.Text;
+            account.password = TB_Password.Text;
+
+            string json = JsonConvert.SerializeObject(account, Formatting.Indented);
+
+            List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.Login));
+
+            communicator.sendMessage(msgToServer);
+            var msgFromServer = communicator.getMessage();
+            ResponseDetails details = new ResponseDetails();
+            details.getDetails(msgFromServer);
+
+            if (!JsonResponsetPacketDeserializer.checkForError(details))
+            {
+                var jsonFromServer = JsonConvert.DeserializeObject<StatusResponse>(details.json);
+                _main.Content = new MainMenu(_main, TB_Username.Text, sock);
+            }
         }
     }
 }

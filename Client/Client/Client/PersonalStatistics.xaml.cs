@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Net;
+using System.Net.Sockets;
+using Newtonsoft.Json;
 
 namespace Client
 {
@@ -22,33 +25,60 @@ namespace Client
     {
         private readonly Frame _main;
         private readonly string _username;
-        public PersonalStatistics(Frame main, string username)
+        private NetworkStream sock;
+        public PersonalStatistics(Frame main, string username, NetworkStream socket)
         {
             InitializeComponent();
             _main = main;
             _username = username;
+            sock = socket;
             usernameBlock.Text = username;
             initializePersonalStats();
         }
+        private void initializeAverageTime(double time)
+        {
+            Personal_averageAnsweringTime.Text = time.ToString();
+            if (time < 5)
+            {
+                Personal_averageAnsweringTime.Foreground = new SolidColorBrush(Colors.Green);
+            }
+            else if (time < 10)
+            {
+                Personal_averageAnsweringTime.Foreground = new SolidColorBrush(Colors.Blue);
+            }
+            else
+            {
+                Personal_averageAnsweringTime.Foreground = new SolidColorBrush(Colors.Red);
+            }
+        }
         private void initializePersonalStats()
         {
-            //get stats from backend, for now use default values
-            //use colors for red: bad score, green: good score, blue: medium score
-            string defaultAnsweringTime = "00:00";
-            int defaultGamesPlayed = 0;
-            int defaultRightQuestions = 0;
-            int defaultWrongQuestions = 0;
+            Communicator communicator = new Communicator(sock);
 
-            Personal_averageAnsweringTime.Text = defaultAnsweringTime;
-            Personal_averageAnsweringTime.Foreground = new SolidColorBrush(Colors.Red);
+            GetPersonalStatistics personalStatistics = new GetPersonalStatistics();
+            personalStatistics.username = _username;
 
-            Personal_gamesPlayed.Text = defaultGamesPlayed.ToString();
+            string json = JsonConvert.SerializeObject(personalStatistics, Formatting.Indented);
 
-            Personal_rightQuestions.Text = defaultRightQuestions.ToString();
-            Personal_rightQuestions.Foreground = new SolidColorBrush(Colors.Red);
+            List<byte> msgToServer = JsonRequestPacketSerializer.serializeJson(json, (int)(Codes.PersonalStatistics));
+            communicator.sendMessage(msgToServer);
+            var msgFromServer = communicator.getMessage();
+            ResponseDetails details = new ResponseDetails();
+            details.getDetails(msgFromServer);
+            if(!JsonResponsetPacketDeserializer.checkForError(details))
+            {
+                try
+                {
+                    var statistics = JsonConvert.DeserializeObject<PersonalStatisticsResult>(details.json);
+                    initializeAverageTime(statistics.averageTime);
+                    Personal_gamesPlayed.Text = statistics.gamesPlayed.ToString();
+                    Personal_rightQuestions.Text = statistics.answeredRight.ToString();
+                    Personal_wrongQuestions.Text = statistics.answeredWrong.ToString();
+                }
+                catch { }   
+            }
+            
 
-            Personal_wrongQuestions.Text = defaultWrongQuestions.ToString();
-            Personal_wrongQuestions.Foreground = new SolidColorBrush(Colors.Green);
         }
         private void BT_Exit_Click(object sender, RoutedEventArgs e)
         {
@@ -60,7 +90,7 @@ namespace Client
 
         private void BT_Menu_Click(object sender, RoutedEventArgs e)
         {
-            _main.Content = new MainMenu(_main, _username);
+            _main.Content = new MainMenu(_main, _username, sock);
         }
     }
 }

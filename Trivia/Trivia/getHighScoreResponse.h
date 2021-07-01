@@ -5,6 +5,6 @@
 
 struct getHighScoreResponse
 {
-	unsigned int status;
-	std::vector<std::string> statistics;
+	std::vector<std::string> usernames;
+	std::vector<float> scores;
 };

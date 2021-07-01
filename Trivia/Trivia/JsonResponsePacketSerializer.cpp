@@ -80,20 +80,14 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
 		(int)Codes::GetPlayers);
 }
 
-vector<unsigned char> JsonResponsePacketSerializer::serializeResponse
-	(getHighScoreResponse& scoreResponse, getPersonalStatsResponse& statsResponse)
+
+
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(getPersonalStatsResponse& statsResponse)
 {
-	string highScores = dataToJson<string>(
-		vectorToString(scoreResponse.statistics),
-		"HighScores");
-
-	string statistics = dataToJson<string>(
-		vectorToString(statsResponse.statistics),
-		"UserStatistics");
-
 	return buildMessage(
-		statistics + highScores,
-		(int)Codes::Statistics);
+		std::string("{'gamesPlayed': ") + statsResponse.statistics[1] + ", 'answeredRight': " + statsResponse.statistics[2] + ", 'answeredWrong': " + std::to_string(std::stoi(statsResponse.statistics[3]) - std::stoi(statsResponse.statistics[2])) + ", 'averageTime': " + statsResponse.statistics[0] + "}",
+		(int)Codes::PersonalStats
+	);
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(CloseRoomResponse& response)
@@ -101,6 +95,21 @@ vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(CloseRoomR
 	return buildMessage(
 		dataToJson<unsigned int>(response.status, "status"),
 		(int)Codes::CloseRoom);
+}
+
+vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(getHighScoreResponse& response)
+{
+	std::string json;
+	std::string usernames = "['";
+	std::string scores = "[";
+	for (int i = 0; i < response.usernames.size(); i++) {
+		usernames = usernames + response.usernames[i] + "','";
+		scores = scores + std::to_string(response.scores[i]) + ",";
+	}
+	usernames[usernames.size() - 2] = ']';
+	scores[scores.size() - 1] = ']';
+	json = std::string("{'usernames': ") + usernames.substr(0, usernames.size() - 1) + ", 'scores': " + scores + "}";
+	return buildMessage(json, (int)Codes::HighScores);
 }
 
 vector<unsigned char> JsonResponsePacketSerializer::serializeResponse(StartGameResponse& response)
