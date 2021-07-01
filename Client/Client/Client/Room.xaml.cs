@@ -65,7 +65,18 @@ namespace Client
                 }
             }
         }
-
+        private void checkCloseOrStart(ResponseDetails responseDeatails)
+        {
+            if(responseDeatails.code == (int)Codes.LeaveRoom)
+            {
+                MessageBox.Show("admin has closed the room!");
+                _main.Content = new MainMenu(_main, _username, sock);
+            }
+            else if(responseDeatails.code == (int)Codes.Start)
+            {
+                MessageBox.Show("the game is going to start!");
+            }
+        }
         private void showRoomState()
         {
             List<byte> msgToServer = new List<byte>();
@@ -77,6 +88,7 @@ namespace Client
             roomUpdaterThread.Resume();
             ResponseDetails details = new ResponseDetails();
             details.getDetails(msgFromServer);
+            checkCloseOrStart(details);
             if (!JsonResponsetPacketDeserializer.checkForError(details))
             {
                 try
@@ -117,6 +129,7 @@ namespace Client
                     communicator.sendMessage(msgToServer);
                     var msgFromServer = communicator.getMessage();
                     details.getDetails(msgFromServer);
+                    checkCloseOrStart(details);
                     latestPlayers = players;
                     players = JsonConvert.DeserializeObject<PlayersInRoom>(details.json);
                     checkForLeaveOrJoin(latestPlayers, players);
@@ -149,6 +162,7 @@ namespace Client
             var msgFromServer = communicator.getMessage();
             roomUpdaterThread.Resume();
             details.getDetails(msgFromServer);
+            checkCloseOrStart(details);
             if(!JsonResponsetPacketDeserializer.checkForError(details))
             {
                 roomUpdaterThread.Suspend();
@@ -172,6 +186,7 @@ namespace Client
             var msgFromServer = communicator.getMessage();
             roomUpdaterThread.Resume();
             details.getDetails(msgFromServer);
+            checkCloseOrStart(details);
             JsonResponsetPacketDeserializer.checkForError(details);
 
         }
@@ -192,6 +207,7 @@ namespace Client
             communicator.sendMessage(msgToServer);
             details.getDetails(communicator.getMessage());
             roomUpdaterThread.Resume();
+            checkCloseOrStart(details);
             JsonResponsetPacketDeserializer.checkForError(details);
 
         }
